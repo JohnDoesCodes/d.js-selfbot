@@ -11,7 +11,7 @@ To clone the repository, run `git clone https://github.com/EPICZEUS1/d.js-selfbo
 
 Install [node](https://nodejs.org/en/download/current/) v7.6 or greater, then run `npm i` to download required packages.
 
-If you do not have a custom search engine to use, remove the file `google.js` and set properites of the config value `customsearch` to empty strings.
+If you do not have a custom search engine to use, remove the file `google.js` and the config value `customsearch`.
 
 ### Creating a New Command
 

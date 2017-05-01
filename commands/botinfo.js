@@ -13,12 +13,12 @@ exports.run = (bot, message) => {
 		.addField("Node Version", process.version, true)
 		.addField("Discord.js Version", Discord.version, true)
 		.addField("Owner", bot.user.tag, true)
-		.addField("Process Uptime", moment.duration(uptime).format("D [days], H [hrs], m [mins], s [secs]"))
+		.addField("Process Uptime", moment.duration(uptime).format("D [days], H [hrs], m [mins], s [secs]"), true)
 		.addField("Memory Use", `${memUsed.toFixed(2)}/${memTotal.toFixed(2)}MB`, true)
 		.addField("Heartbeat Ping", `${bot.ping}ms`, true)
 		.setColor(0x2d8244);
 
-	message.channel.send({embed}).catch(console.error);
+	message.edit({embed}).catch(console.error);
 };
 
 exports.info = {
