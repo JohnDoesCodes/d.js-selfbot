@@ -25,6 +25,7 @@ exports.info = {
 	use: "google [search query]",
 	aliases: [
 		"search",
-		"lmgtfy"
+		"lmgtfy",
+		"g"
 	]
 };
