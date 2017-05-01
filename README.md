@@ -5,6 +5,8 @@ This selfbot was a project I made mainly for myself.
 
 It uses [discord.js](https://discord.js.org/#/docs/main/master/general/welcome).
 
+Want to contact me? I'm EPICZEUS#2700 on Discord!
+
 ### Initializing
 
 To clone the repository, run `git clone https://github.com/EPICZEUS1/d.js-selfbot.git`, or download directly.
