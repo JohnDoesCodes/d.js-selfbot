@@ -7,7 +7,7 @@ module.exports = (bot, message) => {
 
 	const [, slashCMD] = regex.exec(message.content);
 
-	if (slash[slashCMD]]) return slash[slashCMD](bot, message);
+	if (slash[slashCMD]) return slash[slashCMD](bot, message);
 
 	if (!message.content.startsWith(bot.config.prefix)) return;
 	
