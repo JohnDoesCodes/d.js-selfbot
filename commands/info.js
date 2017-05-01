@@ -34,7 +34,6 @@ exports.info = {
 	description: "Displays info about the specified command.",
 	use: "info [command or alias]",
 	aliases: [
-		"help",
-		"details"
+		"help"
 	]
 };
