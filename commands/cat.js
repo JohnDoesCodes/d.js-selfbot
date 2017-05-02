@@ -1,8 +1,8 @@
-const {cat} = require("random-animal");
+const request = require("snekfetch");
 
 exports.run = (bot, message) => {
-	cat().then(url => {
-		message.channel.send(url);
+	request.get("http://random.cat/meow").then(response => {
+		message.channel.send(response.body.file);
 	});
 };
 
