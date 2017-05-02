@@ -1,10 +1,8 @@
 const {RichEmbed} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-	const embed = new RichEmbed();
-	let msg = bot.deleted.get(message.mentions.users.first().id);
-
-	if (!msg) msg = bot.deleted.get(args[0]);
+	const embed = new RichEmbed(), id = message.mentions.users.size ? message.mentions.users.first().id : args[0];
+	const msg = bot.deleted.get(id);
 	
 	if (!msg) return console.log("No recently deleted message!");
 
