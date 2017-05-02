@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
 	
 	if (!msg) return console.log("No recently deleted message!");
 
-	bot.deleted.delete(message.mentions.users.first().id);
+	bot.deleted.delete(id);
 
 	embed.setAuthor(msg.author.username, msg.author.displayAvatarURL)
 		.setDescription(msg.content)
