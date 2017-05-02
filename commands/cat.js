@@ -1,7 +1,7 @@
 const request = require("snekfetch");
 
 exports.run = (bot, message) => {
-	request.get("http://random.cat/meow").then(response => {
+	request.get("https://random.cat/meow").then(response => {
 		message.channel.send(response.body.file);
 	});
 };
