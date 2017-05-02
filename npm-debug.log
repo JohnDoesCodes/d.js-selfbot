@@ -1,0 +1,56 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\EPICZEUS\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'repo' ]
+2 info using npm@4.0.5
+3 info using node@v7.9.0
+4 silly fetchPackageMetaData .
+5 silly fetchDirectoryPackageData .
+6 silly fetchPackageMetaData Error: Failed to parse json
+6 silly fetchPackageMetaData Trailing comma in object at 9:3
+6 silly fetchPackageMetaData   },
+6 silly fetchPackageMetaData   ^
+6 silly fetchPackageMetaData     at parseError (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:390:11)
+6 silly fetchPackageMetaData     at parseJson (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:79:23)
+6 silly fetchPackageMetaData     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:48:5
+6 silly fetchPackageMetaData     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16
+6 silly fetchPackageMetaData     at tryToString (fs.js:449:3)
+6 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:436:12)
+6 silly fetchPackageMetaData  error for . { Error: Failed to parse json
+6 silly fetchPackageMetaData Trailing comma in object at 9:3
+6 silly fetchPackageMetaData   },
+6 silly fetchPackageMetaData   ^
+6 silly fetchPackageMetaData     at parseError (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:390:11)
+6 silly fetchPackageMetaData     at parseJson (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:79:23)
+6 silly fetchPackageMetaData     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:48:5
+6 silly fetchPackageMetaData     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16
+6 silly fetchPackageMetaData     at tryToString (fs.js:449:3)
+6 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:436:12) code: 'EJSONPARSE', file: 'E:\\d.js-selfbot\\package.json' }
+7 verbose stack Error: Failed to parse json
+7 verbose stack Trailing comma in object at 9:3
+7 verbose stack   },
+7 verbose stack   ^
+7 verbose stack     at parseError (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:390:11)
+7 verbose stack     at parseJson (C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:79:23)
+7 verbose stack     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\read-package-json\read-json.js:48:5
+7 verbose stack     at C:\Users\EPICZEUS\AppData\Roaming\npm\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16
+7 verbose stack     at tryToString (fs.js:449:3)
+7 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:436:12)
+8 verbose cwd E:\d.js-selfbot
+9 error Windows_NT 10.0.14393
+10 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\EPICZEUS\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "repo"
+11 error node v7.9.0
+12 error npm  v4.0.5
+13 error file E:\d.js-selfbot\package.json
+14 error code EJSONPARSE
+15 error Failed to parse json
+15 error Trailing comma in object at 9:3
+15 error   },
+15 error   ^
+16 error File: E:\d.js-selfbot\package.json
+17 error Failed to parse package.json data.
+17 error package.json must be actual JSON, not just JavaScript.
+17 error
+17 error This is not a bug in npm.
+17 error Tell the package author to fix their package.json file. JSON.parse
+18 verbose exit [ 1, true ]
