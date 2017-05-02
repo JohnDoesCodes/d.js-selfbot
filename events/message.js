@@ -5,7 +5,7 @@ module.exports = (bot, message) => {
 	
 	if (message.author !== bot.user) return;
 
-	const [, slashCMD] = regex.exec(message.content);
+	const [, slashCMD = ""] = regex.exec(message.content);
 
 	if (slash[slashCMD]) return slash[slashCMD](bot, message);
 
