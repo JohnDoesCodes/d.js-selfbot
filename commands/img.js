@@ -17,7 +17,7 @@ exports.run = (bot, message, args) => {
 
 		if (!toUse) return console.log("File not found.");
 
-		message.channel.send({file})
+		message.channel.send({files:[file]})
 			.then(() => message.delete())
 			.catch(console.error);
 	});

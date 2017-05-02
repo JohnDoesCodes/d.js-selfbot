@@ -19,7 +19,7 @@ exports.run = (bot, message, args) => {
 		
 		const file = `./images/${files[~~(Math.random() * files.length)]}`;
 
-		message.channel.send({file})
+		message.channel.send({files:[file]})
 			.then(() => message.delete())
 			.catch(console.error);
 	});
