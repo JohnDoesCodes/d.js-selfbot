@@ -17,9 +17,7 @@ module.exports = (bot, close) => {
 	if (dcCounter >= 10) {
 		console.error("There is an issue with the connection to Discord.");
 		bot.user.setGame(null).then(() => {
-			exec("pm2 stop selfbot", null, () => {
-				process.exit(1);
-			});
+			exec("pm2 stop selfbot", null, () => process.exit(1));
 		});
 	}
 };
