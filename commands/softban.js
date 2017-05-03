@@ -1,13 +1,13 @@
 exports.run = (bot, message, args) => {
 	const num = parseInt(args[1]), removeLength = args[1] && num < 8 && num > 1 ? num : 1;
-	let member = message.mentions.members.first();
 
-	if (!message.mentions.members.size) {
-		member = message.guild.member(args[0]);
+	if (!message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
+	
+	const member = message.mentions.members.first() || message.guild.member(args[0]);
 
-		if (!member) return console.log(`${args[0]} is not a mention or a valid user id.`);
-	}
-	if (!member.bannable || !message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log(`User ${member.user.username}#${member.user.discriminator} is not bannable.`);
+	if (!member) return console.log("User to ban not specified or member not found.");
+	if (!member.bannable) return console.log(`${member.user.tag} is not bannable.`);
+
 	member.ban(removeLength)
 		.then(user => message.guild.unban(user))
 		.catch(console.error);

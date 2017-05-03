@@ -3,11 +3,12 @@ const {User, GuildMember} = require("discord.js");
 exports.run = (bot, message, args) => {
 	const num = parseInt(args[1]), removeLength = num && num < 8 && num > 0 ? num : 0;
 
+	if (!message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
 	if (!message.mentions.members.size) return console.log("User to ban not defined.");
 	
 	const member = message.mentions.members.first();
 
-	if (!member.bannable || !message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log(`User ${member.user.username}#${member.user.discriminator} is not bannable.`);
+	if (!member.bannable) return console.log(`User ${member.user.tag} is not bannable.`);
 
 	member.ban(removeLength).then(user => {
 		let banMSG;
