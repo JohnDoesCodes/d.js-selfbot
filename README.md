@@ -15,6 +15,8 @@ Install [node](https://nodejs.org/en/download/current/) v7.6 or greater, then ru
 
 If you do not have a custom search engine to use, remove the file `google.js` and the config value `customsearch`.
 
+To start the bot, simply run `node .`
+
 ### Creating a New Command
 
 Create a new JavaScript file in the commands directory. Commands follow this template:
