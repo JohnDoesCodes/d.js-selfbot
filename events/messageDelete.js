@@ -1,7 +1,7 @@
 const {RichEmbed} = require("discord.js");
 
 module.exports = (bot, message) => {
-	if (message.author.bot || bot.config.ignoreList.includes(message.guild.id)) return;
+	if (message.author.bot || bot.config.ignoreList.includes(message.guild.id) || message.channel.id === bot.config.logChannel) return;
 
 	const channel = bot.channels.get(bot.config.logChannel);
 	
