@@ -1,7 +1,7 @@
 const {RichEmbed} = require("discord.js");
 
 module.exports = (bot, message) => {
-	if (message.author.bot) return;
+	if (message.author.bot || bot.config.ignoreList.includes(message.guild.id)) return;
 
 	const channel = bot.channels.get(bot.config.logChannel);
 	
@@ -10,7 +10,7 @@ module.exports = (bot, message) => {
 			.setAuthor(message.author.tag, message.author.displayAvatarURL)
 			.setDescription(message.content)
 			.setColor(message.member ? message.member.displayColor : 0x17900C)
-			.setFooter(message.guild ? `Guild: ${message.guild.name}, Channel: ${message.channel.name}` : `In DM`)
+			.setFooter(message.guild ? `Guild: ${message.guild.name}, Channel: ${message.channel.name}` : `In DM`, message.guild ? (message.guild.iconURL || bot.user.displayAvatarURL) : bot.user.displayAvatarURL)
 			.setTimestamp(message.createdAt)
 		});
 	} else {

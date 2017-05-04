@@ -6,5 +6,8 @@
 		"id": "Your custom search engine id"
 	},
 	"startGame": "The initial game to set, null if one is not desired",
-	"logChannel": "The channel to log message deletes to, null if not desired."
+	"logChannel": "The channel to log message deletes to, null if not desired.",
+	"ignoreList": [
+		"Array of guild ids to ignore for deletion logging."
+	]
 }
