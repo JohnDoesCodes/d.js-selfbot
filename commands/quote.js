@@ -23,20 +23,21 @@ exports.run = (bot, message, args) => {
 	channel.fetchMessages({around:id, limit:1}).then(messages => {
 		const msg = messages.first();
 
-		const embed = new RichEmbed().setAuthor(msg.member ? msg.member.displayName : msg.author.username, msg.author.displayAvatarURL)
+		const embed = new RichEmbed()
+			.setAuthor(msg.member ? msg.member.displayName : msg.author.username, msg.author.displayAvatarURL)
 			.setDescription(msg.content)
 			.setTimestamp(msg.createdAt)
 			.setFooter(`In ${channel.type === "text" ? `#${channel.name}` : `DM with ${channel.recipient.tag}`}`)
-			.setColor(msg.member ? (msg.member.displayColor || 0x50a0ce) : 0x50a0ce);
+			.setColor(msg.member && msg.member.displayColor ? msg.member.displayColor : 0x50a0ce);
 
 		message.edit(message.content.split(" ").slice(2 + pos).join(" "), {embed}).catch(console.error);
-	}).catch(() => console.error(`${id} is an invalid id!`));
+	}).catch(() => console.error(`${id} is an invalid message id!`));
 };
 
 exports.info = {
 	name: "quote",
 	type: "general",
 	description: "Quotes a specified message.",
-	use: "quote <channel or channel id or user mention> [message id]",
+	use: "quote <channel id or channel mention or user mention> [message id]",
 	aliases: []
 };

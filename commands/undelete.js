@@ -10,7 +10,7 @@ exports.run = (bot, message, args) => {
 
 	embed.setAuthor(msg.author.username, msg.author.displayAvatarURL)
 		.setDescription(msg.content)
-		.setColor(msg.member ? msg.member.displayColor : 0x50a0ce)
+		.setColor(msg.member  && msg.member.displayColor ? msg.member.displayColor : 0x50a0ce)
 		.setFooter(`From: ${msg.guild ? msg.guild.name : "DM"}${msg.channel.name ? `, #${msg.channel.name}` : ""}`)
 		.setTimestamp(msg.createdAt);
 

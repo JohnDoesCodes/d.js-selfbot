@@ -9,7 +9,7 @@ module.exports = (bot, message) => {
 		channel.send({embed: new RichEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL)
 			.setDescription(message.content)
-			.setColor(message.member ? message.member.displayColor : 0x17900C)
+			.setColor(message.member && message.member.displayColor ? message.member.displayColor : 0x17900C)
 			.setFooter(message.guild ? `Guild: ${message.guild.name}, Channel: ${message.channel.name}` : `In DM`, message.guild ? (message.guild.iconURL || bot.user.displayAvatarURL) : bot.user.displayAvatarURL)
 			.setTimestamp(message.createdAt)
 		});

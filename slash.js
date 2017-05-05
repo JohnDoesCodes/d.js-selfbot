@@ -50,7 +50,7 @@ const slash = {
 		message.channel.send({
 			embed: {
 				description: content,
-				color: message.member ? (message.member.displayColor || 25555) : 25555
+				color: message.member && message.member.displayColor ? message.member.displayColor : 25555
 			}
 		})
 		.then(() => message.delete());
