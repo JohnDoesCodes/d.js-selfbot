@@ -1,7 +1,7 @@
 const {RichEmbed} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-	let channel = message.mentions.channels.first(), id, pos = 1;
+	let channel = message.mentions.channels.first(), pos = 1;
 
 	if (!channel) {
 		if (bot.channels.has(args[0])) {
@@ -18,7 +18,8 @@ exports.run = (bot, message, args) => {
 	if (!channel) return console.log("No valid channel provided!");
 
 	if (!args[pos]) return console.log("No message ID provided!");
-	else id = args[pos];
+	
+	const id = args[pos];
 
 	channel.fetchMessages({around:id, limit:1}).then(messages => {
 		const msg = messages.first();

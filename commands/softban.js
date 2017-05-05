@@ -1,5 +1,5 @@
 exports.run = (bot, message, args) => {
-	const num = parseInt(args[1]), removeLength = args[1] && num < 8 && num > 1 ? num : 1;
+	const num = parseInt(args[1]), removeLength = args[1] && num < 8 && num > 0 ? num : 1;
 
 	if (!message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
 	

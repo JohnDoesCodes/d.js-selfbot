@@ -1,9 +1,9 @@
 const fs = require("fs");
 
 exports.run = (bot, message, args) => {
-	const game = args.join(" ");
+	let game = args.join(" ");
 	
-	if (!game) return console.log("No game defined!");
+	if (!game) game = null;
 	bot.config.startGame = game;
 	bot.user.setGame(game).catch(console.error);
 	fs.writeFile("./config.json", JSON.stringify(bot.config, null, "\t"), err => err ? console.error(err) : console.log("Updated config successfully!"));
