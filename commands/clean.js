@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
 		
 		msgArray = msgArray.filter(m => m.author.id == bot.user.id);
 		msgArray.length = maxMessage + 1;
-		msgArray.map(m => m.delete().catch(console.error));
+		for (let i = 0, len = msgArray.length; i < len; i++) msgArray[i].delete().catch(console.error);
 	});
 };
 
