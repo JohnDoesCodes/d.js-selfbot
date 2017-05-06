@@ -14,17 +14,17 @@ bot.fudge     = new Map();
 
 /* eslint-enable no-multi-spaces */
 
-bot.once('ready', () => {
-	console.log(`Logged in as ${bot.user.tag}`);
-	bot.user.setGame(bot.config.startGame).then(() => console.log("Initial game set."));
-});
-
 console.log("Loading event listeners...");
 
 fs.readdir("./events", (err, files) => {
 	if (err) return console.error(err);
 
-	for (let i = files.length; i--;) bot.on(files[i].split(".")[0], require(`./events/${files[i]}`).bind(null, bot));
+	for (let i = files.length; i--;) {
+		const listener = require(`./events/${files[i]}`);
+
+		bot[listener.event == "ready" ? "once" : "on"](listener.event, listener.run.bind(null, bot));
+		console.log(`Loaded ${listener.event} listener!`);
+	}
 	console.log("Listeners loaded!");
 });
 
@@ -36,10 +36,10 @@ fs.readdir("./commands", (err, files) => {
 	if (err) return console.error(err);
 
 	for (let i = files.length; i--;) {
-		const file = files[i];
-		const data = require(`./commands/${file}`);
+		const data = require(`./commands/${files[i]}`);
 		
 		bot.commands.set(data.info.name, data);
+
 		for (let i = data.info.aliases.length; i--;) bot.aliases.set(data.info.aliases[i], data.info.name);
 	}
 	bot.loadFinalized = (mTime.nowDouble() - loadStart) * 1000;

@@ -1,6 +1,6 @@
 const {RichEmbed} = require("discord.js");
 
-module.exports = (bot, message) => {
+exports.run = (bot, message) => {
 	if (message.author.bot || (message.guild && bot.config.ignoreList.includes(message.guild.id)) || message.channel.id === bot.config.logChannel) return;
 
 	const channel = bot.channels.get(bot.config.logChannel);
@@ -21,3 +21,5 @@ module.exports = (bot, message) => {
 	}
 	bot.deleted.set(message.author.id, message);
 };
+
+exports.event = "messageDelete";

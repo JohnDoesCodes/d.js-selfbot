@@ -1,7 +1,7 @@
 const {exec} = require("child_process");
 let dcCounter = 0, timeoutID;
 
-module.exports = (bot, close) => {
+exports.run = (bot, close) => {
 	console.log(`Connection closed with code: ${close.code}`);
 	if (close.code == 1000) process.exit();
 	if (close.code == 1006) {
@@ -21,3 +21,5 @@ module.exports = (bot, close) => {
 		});
 	}
 };
+
+exports.event = "disconnect";

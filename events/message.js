@@ -1,6 +1,6 @@
 const slash = require("../slash.js");
 
-module.exports = (bot, message) => {
+exports.run = (bot, message) => {
 	const regex = /^\/([^ ]+) ?/;
 	
 	if (message.author !== bot.user) return;
@@ -18,3 +18,5 @@ module.exports = (bot, message) => {
 
 	if (cmdFile) cmdFile.run(bot, message, args);
 };
+
+exports.event = "message";
