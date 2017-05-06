@@ -50,7 +50,7 @@ fs.readdir("./commands", (err, files) => {
 bot.login(bot.config.token).catch(err => {
 	console.error(err);
 	console.log("Error on login.\nCheck that your token is correct.");
-	exec("pm2 stop selfbot", null, () => {
+	exec(`pm2 stop ${bot.shard ? bot.shard.id : "selfbot"}`, null, () => {
 		process.exit(1);
 	});
 });
