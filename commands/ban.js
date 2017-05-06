@@ -13,8 +13,8 @@ exports.run = (bot, message, args) => {
 	member.ban(removeLength).then(user => {
 		let banMSG;
 		
-		if (user instanceof GuildMember) banMSG = `${user.user.tag}`;
-		else if (user instanceof User) banMSG = `${user.tag}`;
+		if (user instanceof GuildMember) banMSG = user.user.tag;
+		else if (user instanceof User) banMSG = user.tag;
 		else banMSG = `User ID ${user}`;
 		banMSG += " was banned.";
 	

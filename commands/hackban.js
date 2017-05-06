@@ -7,8 +7,8 @@ exports.run = (bot, message, args) => {
 	message.guild.ban(args[0]).then(user => {
 		let banMSG;
 		
-		if (user instanceof GuildMember) banMSG = `${user.user.tag}`;
-		else if (user instanceof User) banMSG = `${user.tag}`;
+		if (user instanceof GuildMember) banMSG = user.user.tag;
+		else if (user instanceof User) banMSG = user.tag;
 		else banMSG = `User ID ${user}`;
 		banMSG += " was banned.";
 		
