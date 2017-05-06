@@ -22,7 +22,7 @@ fs.readdir("./events", (err, files) => {
 	for (let i = files.length; i--;) {
 		const listener = require(`./events/${files[i]}`);
 
-		bot[listener.event == "ready" ? "once" : "on"](listener.event, listener.run.bind(null, bot));
+		bot[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, bot));
 		console.log(`Loaded ${listener.event} listener!`);
 	}
 	console.log("Listeners loaded!");

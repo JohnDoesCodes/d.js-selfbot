@@ -1,6 +1,6 @@
 exports.run = (bot, message, args) => {
 	const lang = args[0] || "";
-	const code = lang == "js" ? "let x = \"hi\"; //code" : "code here";
+	const code = lang === "js" ? "let x = \"hi\"; //code" : "code here";
 
 	message.edit("Codeblocks:\n\\`\\`\\`" +
 		`${lang}\n${code}\n` +

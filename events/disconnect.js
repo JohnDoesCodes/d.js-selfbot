@@ -3,8 +3,8 @@ let dcCounter = 0, timeoutID;
 
 exports.run = (bot, close) => {
 	console.log(`Connection closed with code: ${close.code}`);
-	if (close.code == 1000) process.exit();
-	if (close.code == 1006) {
+	if (close.code === 1000) process.exit();
+	if (close.code === 1006) {
 		dcCounter++;
 		if (!timeoutID) {
 			timeoutID = setTimeout(() => {

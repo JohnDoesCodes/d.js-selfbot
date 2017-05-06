@@ -19,9 +19,9 @@ function reload(bot, name) {
 }
 
 exports.run = (bot, message, args) => {
-	if (args[0] == "all") {
+	if (args[0] === "all") {
 		bot.commands.forEach(a => {
-			reload(bot, a.name);
+			reload(bot, a.name.toLowerCase());
 		});
 	} else {
 		for (let i = args.length; i--;) {
@@ -30,10 +30,10 @@ exports.run = (bot, message, args) => {
 			if (!cmdFile) cmdFile = bot.commands.get(bot.aliases.get(args[i].toLowerCase()));
 			if (!cmdFile) continue;
 
-			reload(bot, cmdFile.name);
+			reload(bot, cmdFile.name.toLowerCase());
 		}
 	}
-	message.channel.send(`Reloaded ${success} command${success == 1 ? "" : "s"}, ${failure} failed.`);
+	message.channel.send(`Reloaded ${success} command${success === 1 ? "" : "s"}, ${failure} failed.`);
 	success = 0;
 	failure = 0;
 };

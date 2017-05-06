@@ -4,7 +4,7 @@ exports.run = (bot, message, args) => {
 	const embed = new RichEmbed();
 
 	if (!args[0]) return console.log("Must provide a type!");
-	if (args[0] == "types") {
+	if (args[0] === "types") {
 		const types = [];
 
 		bot.commands.forEach(a => a.type && !types.includes(a.type) ? types.push(a.type) : undefined);
@@ -15,7 +15,7 @@ exports.run = (bot, message, args) => {
 
 		return message.edit({embed}).catch(console.error);
 	}
-	const list = bot.commands.filter(a => a.info.type == args[0]);
+	const list = bot.commands.filter(a => a.type === args[0]);
 
 	if (!list) return console.log(`${args[0]} is not a valid type!`);
 	embed.setTitle(args[0].replace(/^(.)/, l => l.toString().toUpperCase()))

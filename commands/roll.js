@@ -19,7 +19,7 @@ exports.run = (bot, message, args) => {
 			return `${dice[0]}: <${fudge}>`;
 		}
 
-		const [diceCount, faceCount, math, bonus] = [dice[1] ? parseInt(dice[1]) : 1, dice[2] == "%" ? 100 : parseInt(dice[2]), dice[3], parseInt(dice[4])];
+		const [diceCount, faceCount, math, bonus] = [dice[1] ? parseInt(dice[1]) : 1, dice[2] === "%" ? 100 : parseInt(dice[2]), dice[3], parseInt(dice[4])];
 
 		for (let i = 0; i < diceCount; i++) nums.push(~~(Math.random() * 100 * faceCount) % faceCount + 1);
 
