@@ -3,7 +3,7 @@ exports.run = (bot, message) => {
 	
 	const member = message.mentions.members.first();
 	
-	if (!member || !member.kickable || !message.member(bot.user).hasPermission("KICK_MEMBERS")) return console.log(`User ${member.user.username}#${member.user.discriminator} is not kickable.`);
+	if (!member || !member.kickable || !message.guild.me.hasPermission("KICK_MEMBERS")) return console.log(`User ${member.user.username}#${member.user.discriminator} is not kickable.`);
 	
 	member.kick().then(user => {
 		console.log(`${user.tag} was kicked.`);

@@ -2,7 +2,7 @@ const {User, GuildMember} = require("discord.js");
 
 exports.run = (bot, message, args) => {
 	if (!args[0]) return console.log("User ID to unban not provided.");
-	if (!message.member(bot.user).hasPermission("BAN_MEMBERS")) return console.log("You don't have ban permission.");
+	if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You don't have ban permission.");
 	
 	message.guild.fetchBans().then(users => {
 		const userToUnban = users.get(args[0]);
