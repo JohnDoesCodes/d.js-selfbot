@@ -23,12 +23,10 @@ exports.run = (bot, message, args) => {
 	});
 };
 
-exports.info = {
-	name: "img",
-	description: "Sends a specified image.",
-	type: "meme",
-	use: "img [image name]",
-	aliases: [
-		"image"
-	]
-};
+exports.name = "img";
+exports.description = "Sends a specified image.";
+exports.type = "meme";
+exports.use = "img [image name]";
+exports.aliases = [
+	"image"
+];

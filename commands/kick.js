@@ -11,12 +11,10 @@ exports.run = (bot, message) => {
 	}).catch(console.error);
 };
 
-exports.info = {
-	name: "kick",
-	type: "admin",
-	description: "Kicks a member from a guild.",
-	use: "kick [mention]",
-	aliases: [
-		"boot"
-	]
-};
+exports.name = "kick";
+exports.type = "admin";
+exports.description = "Kicks a member from a guild.";
+exports.use = "kick [mention]";
+exports.aliases = [
+	"boot"
+];

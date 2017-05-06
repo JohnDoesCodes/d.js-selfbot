@@ -25,10 +25,8 @@ exports.run = (bot, message, args) => {
 	});
 };
 
-exports.info = {
-	name: "randimg",
-	type: "meme",
-	description: "Sends a random image with a possible prefix.",
-	use: "randimg <tag>",
-	aliases: []
-};
+exports.name = "randimg";
+exports.type = "meme";
+exports.description = "Sends a random image with a possible prefix.";
+exports.use = "randimg <tag>";
+exports.aliases = [];

@@ -38,9 +38,9 @@ fs.readdir("./commands", (err, files) => {
 	for (let i = files.length; i--;) {
 		const data = require(`./commands/${files[i]}`);
 		
-		bot.commands.set(data.info.name, data);
+		bot.commands.set(data.name, data);
 
-		for (let i = data.info.aliases.length; i--;) bot.aliases.set(data.info.aliases[i], data.info.name);
+		for (let i = data.aliases.length; i--;) bot.aliases.set(data.aliases[i], data.name);
 	}
 	bot.loadFinalized = (mTime.nowDouble() - loadStart) * 1000;
 	console.log(`Took ${bot.loadFinalized.toFixed(3)}ms to load commands.`);

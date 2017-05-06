@@ -1,13 +1,15 @@
 exports.run = (bot, message, args) => {
-	bot.user.setGame(args.join(" "))
+	const game = args.length ? args.join(" ") : null;
+
+	bot.user.setGame(game)
 		.then(() => console.log(`New game set to ${args.join(" ")}.`))
 		.catch(console.error);
 };
 
-exports.info = {
-	name: "setGame",
-	type: "utility",
-	description: "Sets the game currently being played.",
-	use: "setGame [game name]",
-	aliases: []
-};
+exports.name = "setgame";
+exports.type = "utility";
+exports.description = "Sets the game currently being played.";
+exports.use = "setGame [game name]";
+exports.aliases = [
+	"playing"
+];

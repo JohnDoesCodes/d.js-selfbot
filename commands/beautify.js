@@ -10,10 +10,8 @@ exports.run = (bot, message) => {
 	}).catch(console.error);
 };
 
-exports.info = {
-	name: "beautify",
-	type: "utility",
-	use: "beautify",
-	description: "Beautifies poorly formatted JavaScript.",
-	aliases: []
-};
+exports.name = "beautify";
+exports.type = "utility";
+exports.use = "beautify";
+exports.description = "Beautifies poorly formatted JavaScript.";
+exports.aliases = [];

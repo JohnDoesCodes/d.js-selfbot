@@ -10,14 +10,12 @@ exports.run = (bot, message, args) => {
 	});
 };
 
-exports.info = {
-	name: "clean",
-	type: "utility",
-	description: "Clears previously sent messages quickly.",
-	use: "clean <delete count>",
-	aliases: [
-		"purge",
-		"prune",
-		"selfprune"
-	]
-};
+exports.name = "clean";
+exports.type = "utility";
+exports.description = "Clears previously sent messages quickly.";
+exports.use = "clean <delete count>";
+exports.aliases = [
+	"purge",
+	"prune",
+	"selfprune"
+];

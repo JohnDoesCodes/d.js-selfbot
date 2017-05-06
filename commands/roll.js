@@ -31,10 +31,8 @@ exports.run = (bot, message, args) => {
 	out.length ? message.channel.send(out.join("\n"), {code:"html"}).catch(console.error) : console.log("No valid rolls!");
 };
 
-exports.info = {
-	name: "roll",
-	type: "general",
-	description: "Rolls dice.",
-	use: "roll [dice {format: <#>[d#]<+|-#>}]",
-	aliases: []
-};
+exports.name = "roll";
+exports.type = "general";
+exports.description = "Rolls dice.";
+exports.use = "roll [dice {format: <#>[d#]<+|-#>}]";
+exports.aliases = [];

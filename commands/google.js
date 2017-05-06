@@ -18,14 +18,12 @@ exports.run = (bot, message, args) => {
 	});
 };
 
-exports.info = {
-	name: "google",
-	type: "utility",
-	description: "Googles using the Google API.",
-	use: "google [search query]",
-	aliases: [
-		"search",
-		"lmgtfy",
-		"g"
-	]
-};
+exports.name = "google";
+exports.type = "utility";
+exports.description = "Googles using the Google API.";
+exports.use = "google [search query]";
+exports.aliases = [
+	"search",
+	"lmgtfy",
+	"g"
+];

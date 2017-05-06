@@ -25,17 +25,15 @@ exports.run = (/* function arguments, typically bot, message, args */) => {
 	// function code
 }
 
-exports.info = {
-	name: "the file/command name",
-	type: "the type of command. The default four groups are general, meme, utility, and admin",
-	description: "A brief description of what the command does",
-	use: "how the command is meant to be called",
-	aliases: [
-		"An array of aliases for the command",
-		"There isn't any limit to the number of aliases you can have",
-		"Spaces are not valid"
-	]
-}
+exports.name = "the file/command name";
+exports.type = "the type of command. The default four groups are general, meme, utility, and admin";
+exports.description = "A brief description of what the command does";
+exports.use = "how the command is meant to be called";
+exports.aliases = [
+	"An array of aliases for the command",
+	"There isn't any limit to the number of aliases you can have",
+	"Spaces are not valid"
+];
 ```
 
 Once the file is saved, you can add the command by using the newcmd command while in discord.

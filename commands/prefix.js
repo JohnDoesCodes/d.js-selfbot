@@ -12,10 +12,10 @@ exports.run = (bot, message, args) => {
 	}
 };
 
-exports.info = {
-	name: "prefix",
-	type: "utility",
-	description: "Sets the prefix if a new one is provided or displays the current.",
-	use: "prefix <new prefix>",
-	aliases: []
-};
+exports.name = "prefix";
+exports.type = "utility";
+exports.description = "Sets the prefix if a new one is provided or displays the current.";
+exports.use = "prefix <new prefix>";
+exports.aliases = [
+	"trigger"
+];

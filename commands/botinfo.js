@@ -21,13 +21,11 @@ exports.run = (bot, message) => {
 	message.edit({embed}).catch(console.error);
 };
 
-exports.info = {
-	name: "botinfo",
-	description: "Displays info about the bot",
-	type: "general",
-	use: "botinfo",
-	aliases: [
-		"selfinfo",
-		"details"
-	]
-};
+exports.name = "botinfo";
+exports.description = "Displays info about the bot";
+exports.type = "general";
+exports.use = "botinfo";
+exports.aliases = [
+	"selfinfo",
+	"details"
+];

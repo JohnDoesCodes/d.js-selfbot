@@ -17,10 +17,8 @@ exports.run = (bot, message, args) => {
 	message.edit(message.content.split(/ +/).slice(2).join(" "), {embed});
 };
 
-exports.info = {
-	name: "undelete",
-	description: "Resends a deleted message",
-	type: "general",
-	use: "undelete [user mention or id]",
-	aliases: []
-};
+exports.name = "undelete";
+exports.description = "Resends a deleted message";
+exports.type = "general";
+exports.use = "undelete [user mention or id]";
+exports.aliases = [];

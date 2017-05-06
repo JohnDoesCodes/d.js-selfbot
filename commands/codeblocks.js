@@ -9,12 +9,10 @@ exports.run = (bot, message, args) => {
 		"```\n\nThe character is called a grave and is on the same key as the tilde (`~`)");
 };
 
-exports.info = {
-	name: "codeblocks",
-	type: "utility",
-	description: "Displays how to properly use code block markdown.",
-	use: "codeblocks <language>",
-	aliases: [
-		"blocks"
-	]
-};
+exports.name = "codeblocks";
+exports.type = "utility";
+exports.description = "Displays how to properly use code block markdown.";
+exports.use = "codeblocks <language>";
+exports.aliases = [
+	"blocks"
+];

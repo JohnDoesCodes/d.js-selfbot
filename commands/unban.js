@@ -23,13 +23,11 @@ exports.run = (bot, message, args) => {
 	}).catch(console.error);
 };
 
-exports.info = {
-	name: "unban",
-	type: "admin",
-	description: "Unbans a user from a guild.",
-	use: "unban [user id]",
-	aliases: [
-		"unbanne",
-		"unbend"
-	]
-};
+exports.name = "unban";
+exports.type = "admin";
+exports.description = "Unbans a user from a guild.";
+exports.use = "unban [user id]";
+exports.aliases = [
+	"unbanne",
+	"unbend"
+];

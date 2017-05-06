@@ -17,14 +17,12 @@ exports.run = (bot, message, args) => {
 	}).catch(console.error);
 };
 
-exports.info = {
-	name: "hackban",
-	type: "admin",
-	description: "Bans a user from a guild by ID.",
-	use: "hackban [user id]",
-	aliases: [
-		"idban",
-		"hackbanne",
-		"hackbean"
-	]
-};
+exports.name = "hackban";
+exports.type = "admin";
+exports.description = "Bans a user from a guild by ID.";
+exports.use = "hackban [user id]";
+exports.aliases = [
+	"idban",
+	"hackbanne",
+	"hackbean"
+];

@@ -4,10 +4,8 @@ exports.run = (bot, message) => {
 		.catch(console.error);
 };
 
-exports.info = {
-	name: "ohh",
-	type: "meme",
-	description: "Sends ohh.png",
-	use: "ohh",
-	aliases: []
-};
+exports.name = "ohh";
+exports.type = "meme";
+exports.description = "Sends ohh.png";
+exports.use = "ohh";
+exports.aliases = [];

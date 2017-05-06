@@ -11,10 +11,8 @@ exports.run = (bot, message, args) => {
 	}
 };
 
-exports.info = {
-	name: "fudge",
-	type: "general",
-	description: "Sets a value for a fudged roll.",
-	use: "fudge [roll to fudge] [value to roll]",
-	aliases: []
-};
+exports.name = "fudge";
+exports.type = "general";
+exports.description = "Sets a value for a fudged roll.";
+exports.use = "fudge [roll to fudge] [value to roll]";
+exports.aliases = [];

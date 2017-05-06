@@ -38,12 +38,10 @@ exports.run = (bot, message, args) => {
 	}
 };
 
-exports.info = {
-	name: "eval",
-	type: "utility",
-	description: "Evaluates code from a provided string.",
-	use: "eval [code]",
-	aliases: [
-		"run"
-	]
-};
+exports.name = "eval";
+exports.type = "utility";
+exports.description = "Evaluates code from a provided string.";
+exports.use = "eval [code]";
+exports.aliases = [
+	"run"
+];

@@ -35,10 +35,8 @@ exports.run = (bot, message, args) => {
 	}).catch(() => console.error(`${id} is an invalid message id!`));
 };
 
-exports.info = {
-	name: "quote",
-	type: "general",
-	description: "Quotes a specified message.",
-	use: "quote <channel id or channel mention or user mention> [message id]",
-	aliases: []
-};
+exports.name = "quote";
+exports.type = "general";
+exports.description = "Quotes a specified message.";
+exports.use = "quote <channel id or channel mention or user mention> [message id]";
+exports.aliases = [];

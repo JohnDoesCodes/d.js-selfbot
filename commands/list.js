@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
 	if (args[0] == "types") {
 		const types = [];
 
-		bot.commands.forEach(a => a.info && !types.includes(a.info.type) ? types.push(a.info.type) : undefined);
+		bot.commands.forEach(a => a.type && !types.includes(a.type) ? types.push(a.type) : undefined);
 
 		embed.setTitle("Types")
 			.setDescription(types.sort().join("\n"))
@@ -24,10 +24,8 @@ exports.run = (bot, message, args) => {
 	message.edit({embed}).catch(console.error);
 };
 
-exports.info = {
-	name: "list",
-	type: "utility",
-	description: "Lists all commands of a specified type",
-	use: "list [type or 'types']",
-	aliases: []
-};
+exports.name = "list",
+exports.type = "utility";
+exports.description = "Lists all commands of a specified type";
+exports.use = "list [type or 'types']";
+exports.aliases = [];

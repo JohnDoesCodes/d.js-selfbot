@@ -37,12 +37,10 @@ exports.run = (bot, message, args) => {
 	failure = 0;
 };
 
-exports.info = {
-	name: "reload",
-	type: "utility",
-	description: "Reloads commands.",
-	use: "reload ['all' or list of commands]",
-	aliases: [
-		"refresh"
-	]
-};
+exports.name = "reload";
+exports.type = "utility";
+exports.description = "Reloads commands.";
+exports.use = "reload ['all' or list of commands]";
+exports.aliases = [
+	"refresh"
+];

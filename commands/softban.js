@@ -13,13 +13,11 @@ exports.run = (bot, message, args) => {
 		.catch(console.error);
 };
 
-exports.info = {
-	name: "softban",
-	type: "admin",
-	description: "Softly bans a member from a guild.",
-	use: "softban [mention] <delete days>",
-	aliases: [
-		"softbanne",
-		"softbend"
-	]
-};
+exports.name = "softban";
+exports.type = "admin";
+exports.description = "Softly bans a member from a guild.";
+exports.use = "softban [mention] <delete days>";
+exports.aliases = [
+	"softbanne",
+	"softbend"
+];

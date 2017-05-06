@@ -3,10 +3,8 @@ exports.run = () => {
 	process.exit();
 };
 
-exports.info = {
-	name: "restart",
-	type: "utility",
-	description: "Exits the process gracefully and lets pm2 turn it back on.",
-	use: "restart",
-	aliases: []
-};
+exports.name = "restart";
+exports.type = "utility";
+exports.description = "Exits the process gracefully and lets pm2 turn it back on.";
+exports.use = "restart";
+exports.aliases = [];

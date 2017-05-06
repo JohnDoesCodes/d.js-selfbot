@@ -6,10 +6,8 @@ exports.run = (bot, message) => {
 	});
 };
 
-exports.info = {
-	name: "cat",
-	description: "Sends a random cat image.",
-	type: "general",
-	use: "cat",
-	aliases: []
-};
+exports.name = "cat";
+exports.description = "Sends a random cat image.";
+exports.type = "general";
+exports.use = "cat";
+exports.aliases = [];

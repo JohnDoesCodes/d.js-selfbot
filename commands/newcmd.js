@@ -14,12 +14,10 @@ exports.run = (bot, message, args) => {
 	}
 };
 
-exports.info = {
-	name: "newcmd",
-	type: "utility",
-	description: "Registers a new command.",
-	use: "newcmd [command name]",
-	aliases: [
-		"addcmd"
-	]
-};
+exports.name = "newcmd";
+exports.type = "utility";
+exports.description = "Registers a new command.";
+exports.use = "newcmd [command name]";
+exports.aliases = [
+	"addcmd"
+];

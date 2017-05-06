@@ -23,14 +23,12 @@ exports.run = (bot, message, args) => {
 	}).catch(console.error);
 };
 
-exports.info = {
-	name: "ban",
-	type: "admin",
-	description: "Bans a member from a guild",
-	use: "ban [mention]",
-	aliases: [
-		"banne",
-		"delet",
-		"bend"
-	]
-};
+exports.name = "ban";
+exports.type = "admin";
+exports.description = "Bans a member from a guild";
+exports.use = "ban [mention]";
+exports.aliases = [
+	"banne",
+	"delet",
+	"bend"
+];
