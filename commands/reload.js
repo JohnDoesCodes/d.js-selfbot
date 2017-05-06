@@ -7,7 +7,7 @@ function reload(bot, name) {
 
 		bot.commands.set(name, cmdFile);
 	
-		for (let i = cmdFile.info.aliases.length; i--;) bot.aliases.set(cmdFile.info.aliases[i], name);
+		for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], name);
 
 		console.log(`Reloaded ${name} successfully!`);
 		success++;
@@ -21,15 +21,16 @@ function reload(bot, name) {
 exports.run = (bot, message, args) => {
 	if (args[0] == "all") {
 		bot.commands.forEach(a => {
-			if (!a.info) return;
-			reload(bot, a.info.name);
+			reload(bot, a.name);
 		});
 	} else {
-		for (const command of args) {
-			const details = bot.commands.get(command);
+		for (let i = args.length; i--;) {
+			let cmdFile = bot.commands.get(args[i].toLowerCase());
 			
-			if (!details) continue;
-			reload(bot, command);
+			if (!cmdFile) cmdFile = bot.commands.get(bot.aliases.get(args[i].toLowerCase()));
+			if (!cmdFile) continue;
+
+			reload(bot, cmdFile.name);
 		}
 	}
 	message.channel.send(`Reloaded ${success} command${success == 1 ? "" : "s"}, ${failure} failed.`);

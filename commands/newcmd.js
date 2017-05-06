@@ -5,7 +5,7 @@ exports.run = (bot, message, args) => {
 
 		bot.commands.set(args[0], cmdFile);
 
-		for (let i = cmdFile.info.aliases.length; i--;) bot.aliases.set(cmdFile.info.aliases[i], args[0]);
+		for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
 
 		console.log("New command set!");
 	} catch (err) {
