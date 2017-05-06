@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
 	
 	message.channel.send({embed: {
 		title: cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
-		description: cmdFile.info.description,
+		description: cmdFile.description,
 		fields: [
 			{
 				name: "Usage",
