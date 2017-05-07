@@ -15,14 +15,13 @@ exports.run = async (bot, message, args) => {
 		const runTime = nano(process.hrtime(start));
 
 		if (typeof evaled !== "string") evaled = inspect(evaled);
-		if (evaled.length > 2036) throw new Error("Output too long, saved to console");
 
 		console.log(code);
 		console.log(evaled);
 
 		message.edit(`**INPUT:** \`${code}\``, {embed: new Discord.RichEmbed()
 			.setTitle("**OUTPUT**")
-			.setDescription("```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```")
+			.setDescription(evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "Output too long.\nSaved to console.")
 			.setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
 			.setColor(24120)
 		}).catch(console.error);
