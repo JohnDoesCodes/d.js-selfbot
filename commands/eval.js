@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const {inspect} = require("util");
-const mTime = require("microtime");
+const nano = require("nanoseconds");
 
 exports.run = (bot, message, args) => {
 	const code = args.join(" ");
@@ -8,9 +8,11 @@ exports.run = (bot, message, args) => {
 	try {
 		if (!code) return console.log("No code provided!");
 
-		const start = mTime.nowDouble();
+		const start = process.hrtime();
+		
 		let evaled = eval(code);
-		const runTime = (mTime.nowDouble() - start) * 1000;
+		
+		const runTime = nano(process.hrtime(start));
 
 		if (typeof evaled !== "string") evaled = inspect(evaled);
 
@@ -22,7 +24,7 @@ exports.run = (bot, message, args) => {
 		const embed = new Discord.RichEmbed()
 			.setTitle("**OUTPUT**")
 			.setDescription("```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```")
-			.setFooter(`Runtime: ${runTime.toFixed(3)}ms`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
+			.setFooter(`Runtime: ${runTime}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
 			.setColor(24120);
 
 		message.edit(`**INPUT:** \`${code}\``, {embed}).catch(console.error);

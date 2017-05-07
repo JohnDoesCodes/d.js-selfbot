@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs      = require("fs");
-const mTime   = require("microtime");
+const nano   = require("nanoseconds");
 const {exec}  = require("child_process");
 const bot     = new Discord.Client();
 
@@ -30,7 +30,7 @@ fs.readdir("./events", (err, files) => {
 
 console.log("Loading commands...");
 
-const loadStart = mTime.nowDouble();
+const loadStart = process.hrtime();
 
 fs.readdir("./commands", (err, files) => {
 	if (err) return console.error(err);
@@ -42,8 +42,7 @@ fs.readdir("./commands", (err, files) => {
 
 		for (let i = data.aliases.length; i--;) bot.aliases.set(data.aliases[i], data.name);
 	}
-	bot.loadFinalized = (mTime.nowDouble() - loadStart) * 1000;
-	console.log(`Took ${bot.loadFinalized.toFixed(3)}ms to load commands.`);
+	console.log(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
 	console.log(`Loaded ${bot.commands.size} commands!`);
 });
 
