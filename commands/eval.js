@@ -2,8 +2,25 @@ const Discord = require("discord.js");
 const {inspect} = require("util");
 const nano = require("nanoseconds");
 
+async function update(message, promise, embed) {
+	const start = process.hrtime();
+
+	let done = await promise;
+
+	const end = nano(process.hrtime(start));
+
+	if (typeof done !== "string") done = inspect(done);
+
+	console.log(done);
+
+	embed.addField("Awaited Promise", (done.length < 1000 ? `\`\`\`${done}\`\`\`` : "Promise return too long, logged") + `\n\nResolved in \`${end}\u03bcs\``);
+
+	message.edit(message.content, {embed});
+}
+
 exports.run = (bot, message, args) => {
 	const code = args.join(" ");
+	let promise;
 
 	try {
 		if (!code) return console.log("No code provided!");
@@ -14,7 +31,10 @@ exports.run = (bot, message, args) => {
 		
 		const runTime = nano(process.hrtime(start));
 
-		if (typeof evaled !== "string") evaled = inspect(evaled);
+		if (typeof evaled !== "string") {
+			if (evaled instanceof Promise) promise = evaled;
+			evaled = inspect(evaled);
+		}
 
 		console.log(code);
 		console.log(evaled);
@@ -27,7 +47,9 @@ exports.run = (bot, message, args) => {
 			.setFooter(`Runtime: ${runTime}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
 			.setColor(24120);
 
-		message.edit(`**INPUT:** \`${code}\``, {embed}).catch(console.error);
+		message.edit(`**INPUT:** \`${code}\``, {embed}).then(async msg => {
+			if (promise) update(msg, promise, embed);
+		}).catch(console.error);
 	} catch (err) {
 		message.edit("**INPUT:** `" + code + "`", {
 			embed: {
