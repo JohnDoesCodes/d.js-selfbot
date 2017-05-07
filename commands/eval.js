@@ -13,7 +13,7 @@ async function update(message, promise, embed) {
 
 	console.log(done);
 
-	embed.addField("Promise", (done.length < 1000 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\n\nResolved in \`${(end / 1000).toFixed(3)}\u03bcs\``);
+	embed.addField("Promise", (done.length < 1000 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in \`${(end / 1000).toFixed(3)}\u03bcs\``);
 
 	message.edit(message.content, {embed});
 }
