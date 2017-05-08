@@ -10,9 +10,9 @@ exports.run = (bot, message) => {
 
 	if (slash[slashCMD]) return slash[slashCMD](bot, message);
 
-	const [match, flags = "", time] = flagReg.test(message.content) ? flagReg.exec(message.content) : [];
+	const flags = flagReg.exec(message.content);
 
-	if (flags) return flag(bot, message, match, flags.toLowerCase(), time);
+	if (flags) return flag(bot, message, flags);
 
 	if (!message.content.startsWith(bot.config.prefix)) return;
 	
