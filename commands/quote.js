@@ -1,4 +1,5 @@
 const {RichEmbed} = require("discord.js");
+const moment = require("moment");
 
 exports.run = (bot, message, args) => {
 	let channel = message.mentions.channels.first(), pos = 1;
@@ -27,8 +28,7 @@ exports.run = (bot, message, args) => {
 		const embed = new RichEmbed()
 			.setAuthor(msg.member ? msg.member.displayName : msg.author.username, msg.author.displayAvatarURL)
 			.setDescription(msg.content)
-			.setTimestamp(msg.createdAt)
-			.setFooter(`In ${channel.type === "text" ? `#${channel.name}` : `DM with ${channel.recipient.tag}`}`)
+			.setFooter(`In ${channel.type === "text" ? `#${channel.name}` : `DM with ${channel.recipient.tag}`} | ${moment(msg.createdAt).format("dddd l [at] LTS")}`)
 			.setColor(msg.member && msg.member.displayColor ? msg.member.displayColor : 0x50a0ce);
 
 		message.edit(message.content.split(" ").slice(2 + pos).join(" "), {embed}).catch(console.error);
