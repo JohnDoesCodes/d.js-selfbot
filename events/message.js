@@ -4,7 +4,6 @@ const slashReg = /^\/([^ ]+) ?/;
 const flagReg = / -([aed]+) ?(\d+)?$/;
 
 exports.run = (bot, message) => {
-	
 	if (message.author.id !== bot.user.id) return;
 
 	const [, slashCMD] = slashReg.test(message.content) ? slashReg.exec(message.content) : [];
