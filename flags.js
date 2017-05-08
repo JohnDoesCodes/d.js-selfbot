@@ -22,8 +22,10 @@ module.exports = async (bot, message, [match, flags, time]) => {
 	}
 
 	if (flags.includes("d")) {
-		console.log("deleting!");
 		time = time ? parseInt(time) * 1000 : 5000;
+
+		if (isNaN(time)) time = 5000;
+
 		message.delete(time);
 	}
 };
