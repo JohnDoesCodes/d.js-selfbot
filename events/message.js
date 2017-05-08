@@ -1,13 +1,19 @@
 const slash = require("../slash.js");
+const flag = require("../flags.js");
+const slashReg = /^\/([^ ]+) ?/;
+const flagReg = / -([aed]+) ?(\d+)?$/;
 
 exports.run = (bot, message) => {
-	const regex = /^\/([^ ]+) ?/;
 	
 	if (message.author.id !== bot.user.id) return;
 
-	const slashCMD = regex.exec(message.content);
+	const [, slashCMD] = slashReg.test(message.content) ? slashReg.exec(message.content) : [];
 
-	if (slashCMD && slash[slashCMD[1]]) return slash[slashCMD[1]](bot, message);
+	if (slash[slashCMD]) return slash[slashCMD](bot, message);
+
+	const [match, flags = "", time] = flagReg.test(message.content) ? flagReg.exec(message.content) : [];
+
+	if (flags) return flag(bot, message, match, flags.toLowerCase().split(""), time);
 
 	if (!message.content.startsWith(bot.config.prefix)) return;
 	

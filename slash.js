@@ -43,24 +43,6 @@ const slash = {
 		.replace(/~/g, "Dancing"))
 		.catch(console.error);
 	},
-	"embed": (bot, message) => {
-		const content = message.content.split(" ").slice(1).join(" ");
-
-		if (!content) return;
-		message.channel.send({
-			embed: {
-				description: content,
-				color: message.member && message.member.displayColor ? message.member.displayColor : 25555
-			}
-		})
-		.then(() => message.delete());
-	},
-	"aesth": (bot, message) => {
-		const content = message.content.split(" ").slice(1).join(" ");
-
-		if (!content) return;
-		else message.edit(content.split("").join(" "));
-	},
 	"docs": (bot, message) => {
 		message.edit("Read the Docs\u2122");
 	},
