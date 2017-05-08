@@ -22,9 +22,7 @@ exports.run = (bot, message, args) => {
 	
 	const id = args[pos];
 
-	channel.fetchMessages({around:id, limit:1}).then(messages => {
-		const msg = messages.first();
-
+	channel.fetchMessage(id).then(msg => {
 		const embed = new RichEmbed()
 			.setAuthor(msg.member ? msg.member.displayName : msg.author.username, msg.author.displayAvatarURL)
 			.setDescription(msg.content)
