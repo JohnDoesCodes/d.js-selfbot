@@ -3,7 +3,7 @@ const slash = require("../slash.js");
 exports.run = (bot, message) => {
 	const regex = /^\/([^ ]+) ?/;
 	
-	if (message.author !== bot.user) return;
+	if (message.author.id !== bot.user.id) return;
 
 	const slashCMD = regex.exec(message.content);
 
