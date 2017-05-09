@@ -15,7 +15,7 @@ exports.run = (bot, message) => {
 		.addField("Owner", bot.user.tag, true)
 		.addField("Process Uptime", moment.duration(uptime).format("D [days], H [hrs], m [mins], s [secs]"), true)
 		.addField("Memory Use", `${memUsed.toFixed(2)}/${memTotal.toFixed(2)}MB`, true)
-		.addField("Heartbeat Ping", `${bot.ping}ms`, true)
+		.addField("Heartbeat Ping", `${Math.floor(bot.ping)}ms`, true)
 		.setColor(0x2d8244);
 
     message.edit({embed}).catch(console.error);
