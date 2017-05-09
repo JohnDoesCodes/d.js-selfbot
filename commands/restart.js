@@ -1,6 +1,6 @@
 exports.run = () => {
-	console.log("Restarting...");
-	process.exit();
+    console.log("Restarting...");
+    process.exit();
 };
 
 exports.name = "restart";

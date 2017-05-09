@@ -4,11 +4,11 @@ const moment = require("moment");
 require("moment-duration-format");
 
 exports.run = (bot, message) => {
-	const memory = process.memoryUsage();
-	const memTotal = memory.heapTotal / 1024 / 1024, memUsed = memory.heapUsed / 1024 / 1024;
-	const uptime = process.uptime() * 1000;
+    const memory = process.memoryUsage();
+    const memTotal = memory.heapTotal / 1024 / 1024, memUsed = memory.heapUsed / 1024 / 1024;
+    const uptime = process.uptime() * 1000;
 
-	const embed = new Discord.RichEmbed()
+    const embed = new Discord.RichEmbed()
 		.setTitle("Selfbot Info")
 		.addField("Node Version", process.version, true)
 		.addField("Discord.js Version", Discord.version, true)
@@ -18,7 +18,7 @@ exports.run = (bot, message) => {
 		.addField("Heartbeat Ping", `${bot.ping}ms`, true)
 		.setColor(0x2d8244);
 
-	message.edit({embed}).catch(console.error);
+    message.edit({embed}).catch(console.error);
 };
 
 exports.name = "botinfo";
@@ -26,6 +26,6 @@ exports.description = "Displays info about the bot";
 exports.type = "general";
 exports.use = "botinfo";
 exports.aliases = [
-	"selfinfo",
-	"details"
+    "selfinfo",
+    "details"
 ];

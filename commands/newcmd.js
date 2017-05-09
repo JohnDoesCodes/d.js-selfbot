@@ -1,17 +1,17 @@
 exports.run = (bot, message, args) => {
-	if (!args.length) return console.log("No command file specified!");
-	try {
-		const cmdFile = require(`./${args[0]}.js`);
+    if (!args.length) return console.log("No command file specified!");
+    try {
+        const cmdFile = require(`./${args[0]}.js`);
 
-		bot.commands.set(args[0], cmdFile);
+        bot.commands.set(args[0], cmdFile);
 
-		for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
+        for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
 
-		console.log("New command set!");
-	} catch (err) {
-		if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
-		console.error(err);
-	}
+        console.log("New command set!");
+    } catch (err) {
+        if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
+        console.error(err);
+    }
 };
 
 exports.name = "newcmd";
@@ -19,5 +19,5 @@ exports.type = "utility";
 exports.description = "Registers a new command.";
 exports.use = "newcmd [command name]";
 exports.aliases = [
-	"addcmd"
+    "addcmd"
 ];

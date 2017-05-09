@@ -1,11 +1,11 @@
 exports.run = (bot, message) => {
-	message.edit("Pinging...").then(msg => {
-		msg.edit("Calculated Ping```\n" +
+    message.edit("Pinging...").then(msg => {
+        msg.edit("Calculated Ping```\n" +
 			"Websocket:       " + Math.round(bot.ping) + "ms\n" +
 			"Response Time:   " + (msg.editedTimestamp - msg.createdTimestamp) + "ms\n" +
 			"HTTP Round Trip: " + (Date.now() - msg.createdTimestamp) + "ms\n```")
 		.catch(console.error);
-	});
+    });
 };
 
 exports.name = "ping";

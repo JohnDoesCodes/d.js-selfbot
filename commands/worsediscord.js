@@ -1,5 +1,5 @@
 exports.run = (bot, message) => {
-	message.channel.send("http://i.imgur.com/1WoE0NI.png");
+    message.channel.send("http://i.imgur.com/1WoE0NI.png");
 };
 
 exports.name = "worsediscord";
