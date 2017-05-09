@@ -22,7 +22,7 @@ To start the bot, simply run `node .`
 Create a new JavaScript file in the commands directory. Commands follow this template:
 ```js
 exports.run = (/* function arguments, typically bot, message, args */) => {
-	// function code
+    // function code
 }
 
 exports.name = "the file/command name";
@@ -30,9 +30,9 @@ exports.type = "the type of command. The default four groups are general, meme, 
 exports.description = "A brief description of what the command does";
 exports.use = "how the command is meant to be called";
 exports.aliases = [
-	"An array of aliases for the command",
-	"There isn't any limit to the number of aliases you can have",
-	"Spaces are not valid"
+    "An array of aliases for the command",
+    "There isn't any limit to the number of aliases you can have",
+    "Spaces are not valid"
 ];
 ```
 

@@ -1,13 +1,13 @@
 {
-	"prefix": "Your desired prefix",
-	"token": "Your user token",
-	"customsearch": {
-		"token": "Your custom search engine token",
-		"id": "Your custom search engine id"
-	},
-	"startGame": "The initial game to set, null if one is not desired",
-	"logChannel": "The channel to log message deletes to, null if not desired.",
-	"ignoreList": [
-		"Array of guild ids to ignore for deletion logging."
-	]
+    "prefix": "Your desired prefix",
+    "token": "Your user token",
+    "customsearch": {
+        "token": "Your custom search engine token",
+        "id": "Your custom search engine id"
+    },
+    "startGame": "The initial game to set, null if one is not desired",
+    "logChannel": "The channel to log message deletes to, null if not desired.",
+    "ignoreList": [
+        "Array of guild ids to ignore for deletion logging."
+    ]
 }
