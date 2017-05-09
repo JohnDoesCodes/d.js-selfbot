@@ -1,18 +1,12 @@
 module.exports = async (bot, message, [match, flags, time]) => {
-    const content = message.content.replace(match, "");
+    await message.edit(message.content.replace(match, ""));
 
-    if (flags.includes("a")) {
-        console.log("Attempting to aestheticify...");
-
-        if (content) message = await message.edit(content.split("").join(" "));
-    }
+    if (flags.includes("a")) if (message.content) message = await message.edit(message.content.split("").join(" "));
 
     if (flags.includes("e")) {
-        console.log("Attempting to embed...");
-
-        if (content) {
+        if (message.content) {
             const msg = await message.channel.send({embed: {
-                description: content,
+                description: message.content,
                 color: message.member && message.member.displayColor ? message.member.displayColor : 25555
             }});
 
