@@ -1,7 +1,12 @@
 const {User, GuildMember} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-    const num = parseInt(args[1]), removeLength = num && num < 8 && num > 0 ? num : 0;
+    const num = parseInt(args[1]);
+    const options = {
+        days: num < 8 && num > 0 ? num : 0
+    };
+
+    if (args.length > 2) options.reason = args.slice(2).join(" ");
 
     if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
     if (!message.mentions.members.size) return console.log("User to ban not defined.");
@@ -10,7 +15,7 @@ exports.run = (bot, message, args) => {
 
     if (!member.bannable) return console.log(`User ${member.user.tag} is not bannable.`);
 
-    member.ban(removeLength).then(user => {
+    member.ban(options).then(user => {
         let banMSG;
 		
         if (user instanceof GuildMember) banMSG = user.user.tag;
@@ -26,7 +31,7 @@ exports.run = (bot, message, args) => {
 exports.name = "ban";
 exports.type = "admin";
 exports.description = "Bans a member from a guild";
-exports.use = "ban [mention]";
+exports.use = "ban [mention] <delete days> <reason>";
 exports.aliases = [
     "banne",
     "delet",

@@ -9,7 +9,7 @@ exports.run = (bot, message, args) => {
     fs.writeFile("./config.json", JSON.stringify(bot.config, null, "\t"), err => err ? console.error(err) : console.log("Updated config successfully!"));
 };
 
-exports.name = "setstartsame";
+exports.name = "setstartgame";
 exports.type = "utility";
 exports.description = "Sets the game that is set on startup, and makes it the currently active game.";
 exports.use = "setStartGame [game]";

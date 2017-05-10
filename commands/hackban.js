@@ -1,7 +1,7 @@
 const {User, GuildMember} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-    if (!args[0]) return console.log("User ID to ban not provided.");
+    if (!args.length) return console.log("User ID to ban not provided.");
     if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You don't have ban permission.");
 	
     message.guild.ban(args[0]).then(user => {
