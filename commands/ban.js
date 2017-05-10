@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
         days: num < 8 && num > 0 ? num : 0
     };
 
-    if (args.length > 2) options.reason = args.slice(2).join(" ");
+    if (args.length >= 2) options.reason = args.slice(num ? 2 : 1).join(" ");
 
     if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
     if (!message.mentions.members.size) return console.log("User to ban not defined.");
