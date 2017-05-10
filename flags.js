@@ -6,7 +6,7 @@ module.exports = async (bot, message, [match, flags, time]) => {
     if (flags.includes("e") && message.content) {
         const msg = await message.channel.send({embed: {
             description: message.content,
-            color: message.member && message.member.displayColor ? message.member.displayColor : 25555
+            color:       message.member && message.member.displayColor ? message.member.displayColor : 25555
         }});
 
         await message.delete();
