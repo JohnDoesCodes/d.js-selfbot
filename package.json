@@ -11,7 +11,7 @@
     "node": ">=7.6.0"
   },
   "name": "discordselfbot",
-  "version": "3.0",
+  "version": "3.0.0",
   "description": "Personal selfbot",
   "main": "bot.js",
   "devDependencies": {},
