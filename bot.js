@@ -2,7 +2,6 @@ const Client  = require("./src/client.js");
 const bot     = new Client();
 
 bot.loadListeners();
-
 bot.loadCommands();
 
 bot.login();

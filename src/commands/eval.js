@@ -28,7 +28,7 @@ exports.run = (bot, message, args) => {
         const start = process.hrtime();
 		
         let evaled = eval(code);
-		
+
         const runTime = nano(process.hrtime(start));
 
         if (evaled instanceof Promise) promise = evaled;
