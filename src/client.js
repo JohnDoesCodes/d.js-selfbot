@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const fs      = require("fs");
 const nano    = require("nanoseconds");
+const {exec}  = require("child_process");
 
 class Client extends Discord.Client {
     constructor(options) {
@@ -8,7 +9,13 @@ class Client extends Discord.Client {
     }
 
     login() {
-        return super.login(this.config.token);
+        return super.login(this.config.token).catch(err => {
+            console.error(err);
+            console.log("Error on login.\nCheck that your token is correct.");
+            exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, null, () => {
+                process.exit(1);
+            });
+        });
     }
 
     loadCommands() {
