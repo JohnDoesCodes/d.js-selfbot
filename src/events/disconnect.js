@@ -14,6 +14,12 @@ exports.run = (bot, close) => {
             }, 30000);
         }
     }
+    if (close.code === 4004) {
+        console.error("Error on login.\nCheck that your token is correct.");
+        exec(`pm2 stop ${bot.shard ? bot.shard.id : "selfbot"}`, null, () => {
+            process.exit(1);
+        });
+    }
     if (dcCounter >= 10) {
         console.error("There is an issue with the connection to Discord.");
         bot.user.setGame(null).then(() => {
