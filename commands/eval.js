@@ -31,10 +31,8 @@ exports.run = (bot, message, args) => {
 		
         const runTime = nano(process.hrtime(start));
 
-        if (typeof evaled !== "string") {
-            if (evaled instanceof Promise) promise = evaled;
-            evaled = inspect(evaled);
-        }
+        if (evaled instanceof Promise) promise = evaled;
+        evaled = inspect(evaled);
 
         console.log(code);
         console.log(evaled);
