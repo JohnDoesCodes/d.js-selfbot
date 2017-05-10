@@ -26,13 +26,11 @@ exports.run = async (bot, message, args) => {
 			.setColor(24120)
         }).catch(console.error);
     } catch (err) {
-        message.edit("**INPUT:** `" + code + "`", {
-            embed: {
-                title: "<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>",
-                description: `\`\`\`xl\n${err}\n\`\`\``,
-                color: 13379110
-            }
-        }).catch(console.error);
+        message.edit("**INPUT:** `" + code + "`", {embed: {
+            title:       "<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>",
+            description: `\`\`\`xl\n${err}\n\`\`\``,
+            color:       13379110
+        }}).catch(console.error);
         console.error(err);
     }
 };

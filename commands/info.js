@@ -7,15 +7,16 @@ exports.run = (bot, message, args) => {
     }
 	
     message.channel.send({embed: {
-        title: cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
+        title:       cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
         description: cmdFile.description,
+
         fields: [
             {
-                name: "Usage",
+                name:  "Usage",
                 value: bot.config.prefix + cmdFile.use
             },
             {
-                name: "Aliases",
+                name:  "Aliases",
                 value: cmdFile.aliases.length ? cmdFile.aliases.join(", ") : "None"
             }
         ],
