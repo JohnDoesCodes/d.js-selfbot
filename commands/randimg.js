@@ -17,7 +17,7 @@ exports.run = (bot, message, args) => {
 
         if (!files.length) return console.log("Specified tag not found.");
 		
-        const file = `./images/${files[~~(Math.random() * files.length)]}`;
+        const file = `./images/rand/${files[~~(Math.random() * files.length)]}`;
 
         message.channel.send({files:[file]})
 			.then(() => message.delete())
