@@ -9,7 +9,7 @@ async function update(message, promise, embed) {
 
     const end = nano(process.hrtime(start));
 
-    if (typeof done !== "string") done = inspect(done);
+    done = inspect(done);
 
     console.log(done);
 
