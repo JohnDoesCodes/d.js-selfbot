@@ -4,9 +4,9 @@ const search = Google.customsearch("v1");
 exports.run = (bot, message, args) => {
     if (!args.length) return console.log("No search provided");
     search.cse.list({
-        cx: bot.config.customsearch.id,
+        cx:   bot.config.customsearch.id,
         auth: bot.config.customsearch.token,
-        q: args.join(" ")
+        q:    args.join(" ")
     }, (err, response) => {
         if (err) return console.error(err);
         if (response.items && response.items.length) {
