@@ -1,5 +1,5 @@
 exports.run = (bot, message, args) => {
-    if (!args.length) return console.log("No command file specified!");
+    if (!args.length) return bot.logger.log("No command file specified!");
     try {
         const cmdFile = require(`./${args[0]}.js`);
 
@@ -7,10 +7,10 @@ exports.run = (bot, message, args) => {
 
         for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
 
-        console.log("New command set!");
+        bot.logger.log("New command set!");
     } catch (err) {
         if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
-        console.error(err);
+        bot.logger.error(err);
     }
 };
 

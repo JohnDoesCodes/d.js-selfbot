@@ -1,7 +1,7 @@
 exports.run = (bot, message) => {
     message.channel.send({file:"./images/ohh.png"})
 		.then(() => message.delete())
-		.catch(console.error);
+		.catch(bot.logger.error);
 };
 
 exports.name = "ohh";

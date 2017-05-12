@@ -28,7 +28,7 @@ exports.run = (bot, message, args) => {
         return `${dice[0]}: (${nums.join(" + ")}) => ${final} ${math && bonus ? `${math} ${bonus} ` : ""}= <${maths[math] && bonus ? maths[math](final, bonus) : final}>`;
     }).filter(a => a);
 
-    out.length ? message.channel.send(out.join("\n"), {code:"html"}).catch(console.error) : console.log("No valid rolls!");
+    out.length ? message.channel.send(out.join("\n"), {code:"html"}).catch(bot.logger.error) : bot.logger.log("No valid rolls!");
 };
 
 exports.name = "roll";

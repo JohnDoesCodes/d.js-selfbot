@@ -1,8 +1,8 @@
 const {User, GuildMember} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-    if (!args.length) return console.log("User ID to ban not provided.");
-    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You don't have ban permission.");
+    if (!args.length) return bot.logger.log("User ID to ban not provided.");
+    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return bot.logger.log("You don't have ban permission.");
 	
     message.guild.ban(args[0]).then(user => {
         let banMSG;
@@ -12,9 +12,9 @@ exports.run = (bot, message, args) => {
         else banMSG = `User ID ${user}`;
         banMSG += " was banned.";
 		
-        console.log(banMSG);
+        bot.logger.log(banMSG);
         message.channel.send(banMSG, {code:true});
-    }).catch(console.error);
+    }).catch(bot.logger.error);
 };
 
 exports.name = "hackban";

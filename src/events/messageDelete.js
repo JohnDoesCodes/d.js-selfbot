@@ -14,10 +14,10 @@ exports.run = (bot, message) => {
 			.setTimestamp(message.createdAt)
         });
     } else {
-        console.log("Message from:", message.author.tag);
-        message.guild ? console.log("Guild:", message.guild.name) : console.log("In DM");
-        if (message.channel.name) console.log("Channel:", message.channel.name);
-        console.log("Content:", message.content);
+        bot.logger.log("Message from:", message.author.tag);
+        message.guild ? bot.logger.log("Guild:", message.guild.name) : bot.logger.log("In DM");
+        if (message.channel.name) bot.logger.log("Channel:", message.channel.name);
+        bot.logger.log("Content:", message.content);
     }
     bot.deleted.set(message.author.id, message);
 };

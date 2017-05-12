@@ -6,4 +6,4 @@ bot.loadCommands();
 
 bot.login();
 
-process.on('unhandledRejection', (err, p) => console.error("Unhandled Rejection at:", p));
+process.on('unhandledRejection', (err, p) => bot.logger.error("Unhandled Rejection at:", p));

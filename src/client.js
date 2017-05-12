@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const fs      = require("fs");
 const nano    = require("nanoseconds");
+const logger  = require("./util/logger.js");
 const {exec}  = require("child_process");
 
 class Client extends Discord.Client {
@@ -10,21 +11,21 @@ class Client extends Discord.Client {
 
     login() {
         return super.login(this.config.token).catch(err => {
-            console.error(err);
-            console.log("Error on login.\nCheck that your token is correct.");
-            exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, null, () => {
+            this.logger.error(err);
+            this.logger.warn("Error on login.\nCheck that your token is correct.");
+            exec(`pm2 stop ${this.shard ? this.shard.id : "selfthis"}`, null, () => {
                 process.exit(1);
             });
         });
     }
 
     loadCommands() {
-        console.log("Loading commands...");
+        this.logger.log("Loading commands...");
 
         const loadStart = process.hrtime();
 
         fs.readdir("./src/commands", (err, files) => {
-            if (err) return console.error(err);
+            if (err) return this.logger.error(err);
 
             for (let i = files.length; i--;) {
                 const data = require(`./commands/${files[i]}`);
@@ -33,35 +34,36 @@ class Client extends Discord.Client {
 
                 for (let i = data.aliases.length; i--;) this.aliases.set(data.aliases[i], data.name);
             }
-            console.log(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-            console.log(`Loaded ${this.commands.size} commands!`);
+            this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
+            this.logger.info(`Loaded ${this.commands.size} commands!`);
         });
     }
 
     loadListeners() {
-        console.log("Loading event listeners...");
+        this.logger.info("Loading event listeners...");
 
         fs.readdir("./src/events", (err, files) => {
-            if (err) return console.error(err);
+            if (err) return this.logger.error(err);
 
             for (let i = files.length; i--;) {
                 const listener = require(`./events/${files[i]}`);
 
                 this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
-                console.log(`Loaded ${listener.event} listener!`);
+                this.logger.info(`Loaded ${listener.event} listener!`);
             }
-            console.log("Listeners loaded!");
+            this.logger.info("Listeners loaded!");
         });
     }
 }
 
 /* eslint-disable no-multi-spaces */
 
-Client.prototype.config    = require("../config.json");
-Client.prototype.commands  = new Discord.Collection();
-Client.prototype.aliases   = new Discord.Collection();
-Client.prototype.deleted   = new Discord.Collection();
-Client.prototype.fudge     = new Map();
+Client.prototype.logger   = new logger();
+Client.prototype.config   = require("../config.json");
+Client.prototype.commands = new Discord.Collection();
+Client.prototype.aliases  = new Discord.Collection();
+Client.prototype.deleted  = new Discord.Collection();
+Client.prototype.fudge    = new Map();
 
 /* eslint-enable no-multi-spaces */
 

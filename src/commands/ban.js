@@ -8,12 +8,12 @@ exports.run = (bot, message, args) => {
 
     if (args.length >= 2) options.reason = args.slice(num ? 2 : 1).join(" ");
 
-    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return console.log("You can't ban in this server!");
-    if (!message.mentions.members.size) return console.log("User to ban not defined.");
+    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return bot.logger.log("You can't ban in this server!");
+    if (!message.mentions.members.size) return bot.logger.log("User to ban not defined.");
 	
     const member = message.mentions.members.first();
 
-    if (!member.bannable) return console.log(`User ${member.user.tag} is not bannable.`);
+    if (!member.bannable) return bot.logger.log(`User ${member.user.tag} is not bannable.`);
 
     member.ban(options).then(user => {
         let banMSG;
@@ -23,9 +23,9 @@ exports.run = (bot, message, args) => {
         else banMSG = `User ID ${user}`;
         banMSG += " was banned.";
 	
-        console.log(banMSG);
+        bot.logger.log(banMSG);
         message.channel.send(banMSG, {code:true});
-    }).catch(console.error);
+    }).catch(bot.logger.error);
 };
 
 exports.name = "ban";

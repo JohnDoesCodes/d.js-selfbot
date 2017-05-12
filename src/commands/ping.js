@@ -4,7 +4,7 @@ exports.run = (bot, message) => {
 			"Websocket:       " + Math.round(bot.ping) + "ms\n" +
 			"Response Time:   " + (msg.editedTimestamp - msg.createdTimestamp) + "ms\n" +
 			"HTTP Round Trip: " + (Date.now() - msg.createdTimestamp) + "ms\n```")
-		.catch(console.error);
+		.catch(bot.logger.error);
     });
 };
 

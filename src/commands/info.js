@@ -3,7 +3,7 @@ exports.run = (bot, message, args) => {
 
     if (!cmdFile) {
         cmdFile = bot.commands.get(bot.aliases.get(args[0]));
-        if (!cmdFile) return console.log(`${args[0]} is not a valid command name or alias.`);
+        if (!cmdFile) return bot.logger.log(`${args[0]} is not a valid command name or alias.`);
     }
 	
     message.channel.send({embed: {
@@ -24,7 +24,7 @@ exports.run = (bot, message, args) => {
             text: "[] - required, <> - optional"
         },
         color: 0x4d68cc
-    }}).catch(console.error);
+    }}).catch(bot.logger.error);
 };
 
 exports.name = "info";

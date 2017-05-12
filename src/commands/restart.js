@@ -1,5 +1,5 @@
-exports.run = () => {
-    console.log("Restarting...");
+exports.run = bot => {
+    bot.logger.info("Restarting...");
     process.exit();
 };
 

@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
         return message.reply("The new prefix is too long");
     } else {
         bot.config.prefix = args[0];
-        fs.writeFile('./config.json', JSON.stringify(bot.config, null, "\t"), err => err ? console.error(err) : console.log("Updated config successfully!"));
+        fs.writeFile('./config.json', JSON.stringify(bot.config, null, "\t"), err => err ? bot.logger.error(err) : bot.logger.log("Updated config successfully!"));
         message.reply("New prefix set to " + bot.config.prefix);
     }
 };

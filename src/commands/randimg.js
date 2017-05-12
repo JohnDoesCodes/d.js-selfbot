@@ -5,23 +5,23 @@ exports.run = (bot, message, args) => {
         try {
             fs.mkdirSync("./images/rand");
 
-            return console.log("The directory images/rand did not exist, so it was created.\nPut images in there to be able to send them.");
+            return bot.logger.log("The directory images/rand did not exist, so it was created.\nPut images in there to be able to send them.");
         } catch (err) {
-            console.error(err);
+            bot.logger.error(err);
         }
     }
     fs.readdir("./images/rand", (err, files) => {
-        if (err) return console.error(err);
+        if (err) return bot.logger.error(err);
 
         if (args.length) files = files.filter(a => a.startsWith(args.join("")));
 
-        if (!files.length) return console.log("Specified tag not found.");
+        if (!files.length) return bot.logger.log("Specified tag not found.");
 		
         const file = `./images/rand/${files[~~(Math.random() * files.length)]}`;
 
         message.channel.send({files:[file]})
 			.then(() => message.delete())
-			.catch(console.error);
+			.catch(bot.logger.error);
     });
 };
 

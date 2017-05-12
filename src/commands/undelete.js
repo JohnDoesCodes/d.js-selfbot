@@ -5,7 +5,7 @@ exports.run = (bot, message, args) => {
     const embed = new RichEmbed(), id = message.mentions.users.size ? message.mentions.users.first().id : args[0];
     const msg = bot.deleted.get(id);
     
-    if (!msg) return console.log("No recently deleted message!");
+    if (!msg) return bot.logger.log("No recently deleted message!");
 
     bot.deleted.delete(id);
 
