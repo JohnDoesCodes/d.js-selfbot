@@ -5,8 +5,9 @@ const logger  = require("./util/logger.js");
 const {exec}  = require("child_process");
 
 class Client extends Discord.Client {
-    constructor(options) {
+    constructor(options = {info:true}) {
         super(options);
+        this.info = !!options.info;
     }
 
     login() {
@@ -35,12 +36,12 @@ class Client extends Discord.Client {
                 for (let i = data.aliases.length; i--;) this.aliases.set(data.aliases[i], data.name);
             }
             this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-            this.logger.info(`Loaded ${this.commands.size} commands!`);
+            if (this.info) this.logger.info(`Loaded ${this.commands.size} commands!`);
         });
     }
 
     loadListeners() {
-        this.logger.info("Loading event listeners...");
+        this.logger.log("Loading event listeners...");
 
         fs.readdir("./src/events", (err, files) => {
             if (err) return this.logger.error(err);
@@ -51,7 +52,7 @@ class Client extends Discord.Client {
                 this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
                 this.logger.info(`Loaded ${listener.event} listener!`);
             }
-            this.logger.info("Listeners loaded!");
+            if (this.info) this.logger.info("Listeners loaded!");
         });
     }
 }
