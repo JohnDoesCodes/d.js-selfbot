@@ -19,7 +19,7 @@ exports.run = (bot, message, args) => {
 
     if (!list) return console.log(`${args[0]} is not a valid type!`);
     embed.setTitle(args[0].replace(/^(.)/, l => l.toString().toUpperCase()))
-		.setDescription(list.map(a => a.info.name).sort().join("\n"))
+		.setDescription(list.map(a => a.name).sort().join("\n"))
 		.setColor(24120);
     message.edit({embed}).catch(console.error);
 };
