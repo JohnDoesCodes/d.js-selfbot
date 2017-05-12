@@ -28,4 +28,6 @@ exports.name = "list",
 exports.type = "utility";
 exports.description = "Lists all commands of a specified type";
 exports.use = "list [type or 'types']";
-exports.aliases = [];
+exports.aliases = [
+    "ls"
+];

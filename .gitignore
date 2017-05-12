@@ -1,4 +1,5 @@
 node_modules
 images
 config.json
+src/commands/loog.js
 *.log

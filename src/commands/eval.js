@@ -9,7 +9,7 @@ async function update(message, promise, embed) {
 
     const end = nano(process.hrtime(start));
 
-    done = inspect(done);
+    if (typeof done !== "string") done = inspect(done);
 
     console.log(done);
 
@@ -31,8 +31,10 @@ exports.run = (bot, message, args) => {
 
         const runTime = nano(process.hrtime(start));
 
-        if (evaled instanceof Promise) promise = evaled;
-        evaled = inspect(evaled);
+        if (typeof evaled !== "string") {
+            if (evaled instanceof Promise) promise = evaled;
+            evaled = inspect(evaled);
+        }
 
         console.log(code);
         console.log(evaled);

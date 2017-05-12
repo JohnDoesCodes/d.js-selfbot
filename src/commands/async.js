@@ -14,7 +14,7 @@ exports.run = async (bot, message, args) => {
 		
         const runTime = nano(process.hrtime(start));
 
-        evaled = inspect(evaled);
+        if (typeof evaled !== "string") evaled = inspect(evaled);
 
         console.log(code);
         console.log(evaled);
