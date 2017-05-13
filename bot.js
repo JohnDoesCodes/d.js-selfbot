@@ -10,9 +10,9 @@ const Logger = require("./src/util/logger.js");
  * warn: whether to log warnings
  */
 const loggerOpts = {
-    time: true,
-    info: true,
-    warn: true,
+    time:    true,
+    useInfo: true,
+    useWarn: true,
 };
 
 global.logger = new Logger(loggerOpts);
