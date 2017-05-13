@@ -1,4 +1,4 @@
-module.exports = async (bot, message, [match, flags, time]) => {
+module.exports = async (bot, message, [match, flags, time] = []) => {
     await message.edit(message.content.replace(match, ""));
 
     if (flags.includes("a") && message.content) message = await message.edit(message.content.split("").join(" "));

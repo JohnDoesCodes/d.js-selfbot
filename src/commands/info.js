@@ -3,7 +3,7 @@ exports.run = (bot, message, args) => {
 
     if (!cmdFile) {
         cmdFile = bot.commands.get(bot.aliases.get(args[0]));
-        if (!cmdFile) return logger.log(`${args[0]} is not a valid command name or alias.`);
+        if (!cmdFile) return logger.warn(`${args[0]} is not a valid command name or alias.`);
     }
 	
     message.channel.send({embed: {

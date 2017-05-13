@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
 
         for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
 
-        logger.log("New command set!");
+        logger.info("New command set!");
     } catch (err) {
         if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
         logger.error(err);

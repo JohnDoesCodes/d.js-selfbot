@@ -5,9 +5,8 @@ const request = require("snekfetch");
 const {exec}  = require("child_process");
 
 class Client extends Discord.Client {
-    constructor(options = {info:true}) {
+    constructor(options) {
         super(options);
-        this.info = !!options.info;
     }
 
     login() {
@@ -36,7 +35,7 @@ class Client extends Discord.Client {
                 for (let i = data.aliases.length; i--;) this.aliases.set(data.aliases[i], data.name);
             }
             logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-            if (this.info) logger.info(`Loaded ${this.commands.size} commands!`);
+            logger.info(`Loaded ${this.commands.size} commands!`);
         });
     }
 
@@ -52,7 +51,7 @@ class Client extends Discord.Client {
                 this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
                 logger.info(`Loaded ${listener.event} listener!`);
             }
-            if (this.info) logger.info("Listeners loaded!");
+            logger.info("Listeners loaded!");
         });
     }
 }

@@ -1,4 +1,4 @@
-exports.run = bot => {
+exports.run = () => {
     logger.info("Restarting...");
     process.exit();
 };

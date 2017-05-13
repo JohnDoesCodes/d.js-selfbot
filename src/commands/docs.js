@@ -9,8 +9,7 @@ function findClass(obj, name, type) {
             };
         }
     }
-    console.log("No class found");
-
+    
     return null;
 }
 

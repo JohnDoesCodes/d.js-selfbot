@@ -5,7 +5,7 @@ exports.run = (bot, message, args) => {
         try {
             fs.mkdirSync("./images/rand");
 
-            return logger.log("The directory images/rand did not exist, so it was created.\nPut images in there to be able to send them.");
+            return logger.info("The directory images/rand did not exist, so it was created.\nPut images in there to be able to send them.");
         } catch (err) {
             logger.error(err);
         }
@@ -15,7 +15,7 @@ exports.run = (bot, message, args) => {
 
         if (args.length) files = files.filter(a => a.startsWith(args.join("")));
 
-        if (!files.length) return logger.log("Specified tag not found.");
+        if (!files.length) return logger.warn("Specified tag not found.");
 		
         const file = `./images/rand/${files[~~(Math.random() * files.length)]}`;
 

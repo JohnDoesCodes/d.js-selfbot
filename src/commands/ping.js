@@ -1,11 +1,10 @@
-exports.run = (bot, message) => {
-    message.edit("Pinging...").then(msg => {
-        msg.edit("Calculated Ping```\n" +
-			"Websocket:       " + Math.round(bot.ping) + "ms\n" +
-			"Response Time:   " + (msg.editedTimestamp - msg.createdTimestamp) + "ms\n" +
-			"HTTP Round Trip: " + (Date.now() - msg.createdTimestamp) + "ms\n```")
-		.catch(logger.error);
-    });
+exports.run = async (bot, message) => {
+    message = await message.edit("Pinging...");
+    await message.edit("Calculated Ping```\n" +
+		"Websocket:       " + Math.round(bot.ping) + "ms\n" +
+		"Response Time:   " + (message.editedTimestamp - message.createdTimestamp) + "ms\n" +
+		"HTTP Round Trip: " + (Date.now() - message.createdTimestamp) + "ms\n```")
+    .catch(logger.error);
 };
 
 exports.name = "ping";

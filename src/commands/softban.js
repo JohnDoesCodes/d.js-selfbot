@@ -6,12 +6,12 @@ exports.run = (bot, message, args) => {
 
     if (args.length >= 2) options.reason = args.slice(num ? 2 : 1).join(" ");
 
-    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return logger.log("You can't ban in this server!");
+    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return logger.warn("You can't ban in this server!");
 	
     const member = message.mentions.members.first() || message.guild.member(args[0]);
 
-    if (!member) return logger.log("User to ban not specified or member not found.");
-    if (!member.bannable) return logger.log(`${member.user.tag} is not bannable.`);
+    if (!member) return logger.warn("User to ban not specified or member not found.");
+    if (!member.bannable) return logger.warn(`${member.user.tag} is not bannable.`);
 
     member.ban(options)
 		.then(user => message.guild.unban(user))

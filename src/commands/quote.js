@@ -9,16 +9,16 @@ exports.run = (bot, message, args) => {
             channel = bot.channels.get(args[0]);
         } else if (message.mentions.users.size && args[0] === message.mentions.users.first().toString()) {
             channel = message.mentions.users.first().dmChannel;
-            if (!channel) return logger.log("No dm channel exists!");
+            if (!channel) return logger.warn("No dm channel exists!");
         } else {
             pos = 0;
             channel = message.channel;
         }
     }
 
-    if (!channel) return logger.log("No valid channel provided!");
+    if (!channel) return logger.warn("No valid channel provided!");
 
-    if (!args[pos]) return logger.log("No message ID provided!");
+    if (!args[pos]) return logger.warn("No message ID provided!");
 	
     const id = args[pos];
 

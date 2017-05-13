@@ -49,12 +49,12 @@ exports.run = (bot, message, args) => {
             if (promise) update(bot, msg, promise, embed);
         }).catch(logger.error);
     } catch (err) {
+        logger.error(err);
         message.edit("**INPUT:** `" + code + "`", {embed: {
             title:       "<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>",
             description: `\`\`\`xl\n${err}\n\`\`\``,
             color:       13379110
         }});
-        logger.error(err);
     }
 };
 

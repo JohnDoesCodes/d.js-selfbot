@@ -2,7 +2,7 @@ exports.run = (bot, message, args) => {
     const game = args.length ? args.join(" ") : null;
 
     bot.user.setGame(game)
-		.then(() => logger.log(game ? `New game set to '${game}'` : "Game cleared!"))
+		.then(() => logger.info(game ? `New game set to '${game}'` : "Game cleared!"))
 		.catch(logger.error);
 };
 

@@ -9,7 +9,7 @@ function reload(bot, name) {
 	
         for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], name);
 
-        logger.log(`Reloaded ${name} successfully!`);
+        logger.info(`Reloaded ${name} successfully!`);
         success++;
     } catch (err) {
         logger.error(`File failed to load: ${name}.`);

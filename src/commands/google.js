@@ -13,7 +13,7 @@ exports.run = (bot, message, args) => {
             message.edit(`${message.content}: <${response.items[0].link}>`);
             logger.log(`~~~~~~~~SEARCH:"${response.queries.request[0].searchTerms}"~~~~~~~~\n` + response.items.map(a => `${a.title}: ${a.link}`).join("\n"));
         } else {
-            logger.log(JSON.stringify(response, null, 4));
+            logger.info(JSON.stringify(response, null, 4));
         }
     });
 };

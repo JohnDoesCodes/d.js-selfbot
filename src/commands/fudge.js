@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
         return logger.log("Not a valid roll!");
     } else {
         bot.fudge.set(dice, args[1]);
-        logger.log("Fudge set.");
+        logger.info("Fudge set.");
     }
 };
 

@@ -5,7 +5,7 @@ exports.run = (bot, message, args) => {
         try {
             fs.mkdirSync("./images/");
 			
-            return logger.log("The directory images/ did not exist, so it was created.\nPut images in there to be able to send them.");
+            return logger.info("The directory images/ did not exist, so it was created.\nPut images in there to be able to send them.");
         } catch (err) {
             logger.error(err);
         }
@@ -15,7 +15,7 @@ exports.run = (bot, message, args) => {
 
         const toUse = files.find(a => a.startsWith(args.join(" "))), file = `./images/${toUse}`;
 
-        if (!toUse) return logger.log("File not found.");
+        if (!toUse) return logger.warn("File not found.");
 
         message.channel.send({files:[file]})
 			.then(() => message.delete())
