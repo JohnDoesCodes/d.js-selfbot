@@ -28,4 +28,4 @@ class Logger {
     }
 }
 
-module.exports = Logger;
+global.logger = new Logger();

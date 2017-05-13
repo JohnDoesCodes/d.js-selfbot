@@ -5,21 +5,21 @@ exports.run = (bot, message, args) => {
         try {
             fs.mkdirSync("./images/");
 			
-            return bot.logger.log("The directory images/ did not exist, so it was created.\nPut images in there to be able to send them.");
+            return logger.log("The directory images/ did not exist, so it was created.\nPut images in there to be able to send them.");
         } catch (err) {
-            bot.logger.error(err);
+            logger.error(err);
         }
     }
     fs.readdir("./images", (err, files) => {
-        if (err) return bot.logger.error(err);
+        if (err) return logger.error(err);
 
         const toUse = files.find(a => a.startsWith(args.join(" "))), file = `./images/${toUse}`;
 
-        if (!toUse) return bot.logger.log("File not found.");
+        if (!toUse) return logger.log("File not found.");
 
         message.channel.send({files:[file]})
 			.then(() => message.delete())
-			.catch(bot.logger.error);
+			.catch(logger.error);
     });
 };
 

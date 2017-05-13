@@ -90,7 +90,7 @@ function getProps(obj) {
 exports.run = (bot, message, args) => {
     const embed = new RichEmbed();
 
-    if (!args.length) return bot.logger.warn("Missing arguments!");
+    if (!args.length) return logger.warn("Missing arguments!");
 
     const split = args[0].split(".");
     const [toFind] = split;
@@ -98,7 +98,7 @@ exports.run = (bot, message, args) => {
 
     const {cls, url} = getClass(bot.docs, toFind);
 
-    if (!cls) return bot.logger.warn(`Class ${toFind} was not found!`);
+    if (!cls) return logger.warn(`Class ${toFind} was not found!`);
 
     embed.setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
@@ -116,32 +116,33 @@ exports.run = (bot, message, args) => {
 
         if (prop) ({prop, type} = getProperty(cls, prop));
         
-        if (!prop) return bot.logger.warn(`Unable to find property ${prop}!`);
+        if (!prop) return logger.warn(`Unable to find property ${prop}!`);
 
         let c = cls.name;
 
         if (prop.scope !== "static") c = `<${c}>`;
         c = c += `.${prop.name}`;
-        embed.setTitle(c)
-            .setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
-            .setDescription(fixLines(prop.descriptions));
 
         if (prop.params) {
             const params = [];
             
             for (const param of prop.params) {
-                if (param.name.includes(",")) continue;
                 let p = param.name;
 
                 if (param.optional) p = `[${p}]`;
-
-                p += `<${getType(param.type)}> - ${fixLines(param.description)}`;
-
                 params.push(p);
             }
+            embed.setTitle(c + `(${params.join(", ")})`);
+        }
+        embed.setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
+            .setDescription(fixLines(prop.description));
+
+        if (prop.params) {
+            const params = [];
+            
+            for (const param of prop.params) params.push(`${param.name}<${getType(param.type)}> - ${fixLines(param.description)}`);
             embed.addField("Parameters", params.join("\n"));
         }
-
         embed.addField("Type", type);
         
         if (prop.returns) embed.addField("Returns", replaceMsg(getType(prop.returns)));

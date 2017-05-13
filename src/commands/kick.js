@@ -1,14 +1,14 @@
 exports.run = (bot, message) => {
-    if (!message.mentions.members.size) return bot.logger.log("User to kick not defined.");
+    if (!message.mentions.members.size) return logger.log("User to kick not defined.");
 	
     const member = message.mentions.members.first();
 	
-    if (!member || !member.kickable || !message.guild.me.hasPermission("KICK_MEMBERS")) return bot.logger.log(`User ${member.user.username}#${member.user.discriminator} is not kickable.`);
+    if (!member || !member.kickable || !message.guild.me.hasPermission("KICK_MEMBERS")) return logger.log(`User ${member.user.username}#${member.user.discriminator} is not kickable.`);
 	
     member.kick().then(user => {
-        bot.logger.log(`${user.tag} was kicked.`);
+        logger.log(`${user.tag} was kicked.`);
         message.channel.send(`${user.tag} was kicked.`, {code:true});
-    }).catch(bot.logger.error);
+    }).catch(logger.error);
 };
 
 exports.name = "kick";

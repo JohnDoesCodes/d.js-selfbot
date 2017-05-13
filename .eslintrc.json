@@ -8,6 +8,9 @@
         "sourceType": "module",
         "ecmaVersion": 8
     },
+    "globals": {
+        "logger": true
+    },
     "rules": {
         "indent": [
             "error",

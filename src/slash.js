@@ -41,7 +41,7 @@ const slash = {
         message.edit(content
         .replace(/[a-z]/gi, l => letters[l.toString()])
         .replace(/~/g, "Dancing"))
-        .catch(bot.logger.error);
+        .catch(logger.error);
     },
     "docs": (bot, message) => {
         message.edit("Read the Docs\u2122");

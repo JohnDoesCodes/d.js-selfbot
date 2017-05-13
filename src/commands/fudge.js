@@ -4,10 +4,10 @@ exports.run = (bot, message, args) => {
     const [dice] = regex.exec(args[0]);
 
     if (!dice) {
-        return bot.logger.log("Not a valid roll!");
+        return logger.log("Not a valid roll!");
     } else {
         bot.fudge.set(dice, args[1]);
-        bot.logger.log("Fudge set.");
+        logger.log("Fudge set.");
     }
 };
 
