@@ -13,7 +13,7 @@ async function update(bot, message, promise, embed) {
 
     bot.logger.log(done);
 
-    embed.addField("Promise", (done.length < 1000 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to bot.logger\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
+    embed.addField("Promise", (done.length < 900 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to bot.logger\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
 
     message.edit(message.content, {embed});
 }

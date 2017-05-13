@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const fs      = require("fs");
 const nano    = require("nanoseconds");
+const request = require("snekfetch");
 const logger  = require("./util/logger.js");
 const {exec}  = require("child_process");
 
@@ -67,5 +68,9 @@ Client.prototype.deleted  = new Discord.Collection();
 Client.prototype.fudge    = new Map();
 
 /* eslint-enable no-multi-spaces */
+
+request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => {
+    Client.prototype.docs = JSON.parse(res.text);
+});
 
 module.exports = Client;
