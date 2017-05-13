@@ -1,6 +1,7 @@
 const Client  = require("./src/client.js");
 const bot     = new Client();
-const Logger  = require("./src/util/logger.js");
+
+require("./src/util/logger.js");
 
 /**
  * Adjust these to change how much logging is done.
@@ -14,7 +15,7 @@ const loggerOpts = {
     warn: true,
 };
 
-global.logger = new Logger(loggerOpts);
+logger.setOptions(loggerOpts);
 
 bot.loadListeners();
 bot.loadCommands();
