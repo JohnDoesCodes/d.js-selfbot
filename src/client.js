@@ -35,7 +35,7 @@ class Client extends Discord.Client {
                 for (let i = data.aliases.length; i--;) this.aliases.set(data.aliases[i], data.name);
             }
             logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-            logger.info(`Loaded ${this.commands.size} commands!`);
+            logger.log(`Loaded ${this.commands.size} commands!`);
         });
     }
 
@@ -51,7 +51,7 @@ class Client extends Discord.Client {
                 this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
                 logger.info(`Loaded ${listener.event} listener!`);
             }
-            logger.info("Listeners loaded!");
+            logger.log("Listeners loaded!");
         });
     }
 }
