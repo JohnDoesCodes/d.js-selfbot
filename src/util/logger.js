@@ -8,13 +8,7 @@ class Logger {
         this.useInfo = info;
         this.useWarn = warn;
     }
-
-    setOptions({time = true, info = true, warn = true} = {}) {
-        this.time = time;
-        this.useInfo = info;
-        this.useWarn = warn;
-    }
-
+    
     log(...args) {
         if (this.time) console.log((moment(Date.now()).format("h").length == 2 ? "" : " ") + ctx.green(moment(Date.now()).format("LTS") + " |"), ...args);
         else console.log(...args);
@@ -38,4 +32,4 @@ class Logger {
     }
 }
 
-global.logger = new Logger();
+module.exports = Logger;
