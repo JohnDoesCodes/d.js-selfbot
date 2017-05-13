@@ -6,8 +6,8 @@ const Logger = require("./src/util/logger.js");
 /**
  * Adjust these to change how much logging is done.
  * time: whether to log the time with each log
- * info: whether to log extra info
- * warn: whether to log warnings
+ * useInfo: whether to log extra info
+ * useWarn: whether to log warnings
  */
 const loggerOpts = {
     time:    true,
