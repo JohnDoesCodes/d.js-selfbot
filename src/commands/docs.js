@@ -33,7 +33,7 @@ function findProperty(obj, name, type) {
 }
 
 function getProperty(cls, name) {
-    return findProperty(cls.props, name, "property") || findProperty(cls.methods, name, "method") || findProperty(cls.events, name, "events");
+    return findProperty(cls.props, name, "property") || findProperty(cls.methods, name, "method") || findProperty(cls.events, name, "events") || {};
 }
 
 function fixLines(msg) {
@@ -91,9 +91,7 @@ exports.run = (bot, message, args) => {
 
     if (!args.length) return logger.warn("Missing arguments!");
 
-    const split = args[0].split(".");
-    const [toFind] = split;
-    let [, prop] = split;
+    const [toFind, propToFind] = args[0].split(".");
 
     const {cls, url} = getClass(bot.docs, toFind);
 
@@ -102,7 +100,7 @@ exports.run = (bot, message, args) => {
     embed.setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
     
-    if (!prop) {
+    if (!propToFind) {
         embed.setTitle(cls.name)
             .setURL(url)
             .setDescription(fixLines(cls.description));
@@ -111,11 +109,11 @@ exports.run = (bot, message, args) => {
         if (cls.methods && getProps(cls.methods).length) embed.addField("Methods", getProps(cls.methods).map(a => a.name).join(", "));
         if (cls.events && getProps(cls.events)) embed.addField("Events", getProps(cls.methods).map(a => a.name).join(", "));
     } else {
-        let type;
+        let prop;
 
-        if (prop) ({prop, type} = getProperty(cls, prop));
+        if (propToFind) ({prop} = getProperty(cls, propToFind));
         
-        if (!prop) return logger.warn(`Unable to find property ${prop}!`);
+        if (!prop) return logger.warn(`Unable to find property ${propToFind}!`);
 
         let c = cls.name;
 
@@ -136,7 +134,7 @@ exports.run = (bot, message, args) => {
         }
         embed.setTitle(c + additional);
         embed.setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
-            .setDescription(fixLines(prop.description));
+            .setDescription((prop.deprecated ? "(**deprecated**)\n" : "") + fixLines(prop.description));
 
         if (prop.params) {
             const params = [];
@@ -144,7 +142,8 @@ exports.run = (bot, message, args) => {
             for (const param of prop.params) params.push(`${param.name}<${getType(param.type)}> - ${fixLines(param.description)}`);
             embed.addField("Parameters", params.join("\n"));
         }
-        embed.addField("Type", type);
+        
+        if (prop.type) embed.addField("Type", getType(prop.type));
         
         if (prop.returns) embed.addField("Returns", replaceMsg(getType(prop.returns)));
         if (prop.examples) embed.addField("Examples", "```js\n" + prop.examples.join("```\n```js\n") + "```");

@@ -12,10 +12,10 @@ function format(time, color, type) {
 }
 
 class Logger {
-    constructor({time = true, useInfo = true, userWarn = true} = {}) {
+    constructor({time = true, useInfo = true, useWarn = true} = {}) {
         this._time = time;
         this._useInfo = useInfo;
-        this._useWarn = userWarn;
+        this._useWarn = useWarn;
     }
 
     log(...args) {
