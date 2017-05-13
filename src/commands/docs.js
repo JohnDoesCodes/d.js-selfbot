@@ -121,6 +121,7 @@ exports.run = (bot, message, args) => {
 
         if (prop.scope !== "static") c = `<${c}>`;
         c = c += `.${prop.name}`;
+        let additional = "";
 
         if (prop.params) {
             const params = [];
@@ -131,8 +132,9 @@ exports.run = (bot, message, args) => {
                 if (param.optional) p = `[${p}]`;
                 params.push(p);
             }
-            embed.setTitle(c + `(${params.join(", ")})`);
+            additional = `(${params.join(", ")})`;
         }
+        embed.setTitle(c + additional);
         embed.setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
             .setDescription(fixLines(prop.description));
 
