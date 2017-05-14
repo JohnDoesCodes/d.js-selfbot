@@ -109,9 +109,7 @@ exports.run = (bot, message, args) => {
         if (cls.methods && getProps(cls.methods).length) embed.addField("Methods", getProps(cls.methods).map(a => a.name).join(", "));
         if (cls.events && getProps(cls.events)) embed.addField("Events", getProps(cls.methods).map(a => a.name).join(", "));
     } else {
-        let prop;
-
-        if (propToFind) ({prop} = getProperty(cls, propToFind));
+        const {prop} = getProperty(cls, propToFind);
         
         if (!prop) return logger.warn(`Unable to find property ${propToFind}!`);
 
@@ -119,7 +117,6 @@ exports.run = (bot, message, args) => {
 
         if (prop.scope !== "static") c = `<${c}>`;
         c = c += `.${prop.name}`;
-        let additional = "";
 
         if (prop.params) {
             const params = [];
@@ -130,9 +127,9 @@ exports.run = (bot, message, args) => {
                 if (param.optional) p = `[${p}]`;
                 params.push(p);
             }
-            additional = `(${params.join(", ")})`;
+            c += `(${params.join(", ")})`;
         }
-        embed.setTitle(c + additional);
+        embed.setTitle(c);
         embed.setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
             .setDescription((prop.deprecated ? "(**deprecated**)\n" : "") + fixLines(prop.description));
 
