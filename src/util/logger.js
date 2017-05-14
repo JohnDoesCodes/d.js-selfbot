@@ -29,7 +29,7 @@ class Logger {
 
     warn(...args) {
         if (!this._useWarn) return;
-        console.log(format(this._time, "yellow", "[WARN]").join(" | "), ...args);
+        console.error(format(this._time, "yellow", "[WARN]").join(" | "), ...args);
     }
 
     error(...args) {
