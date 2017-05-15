@@ -1,9 +1,9 @@
 exports.run = async (bot, message) => {
     message = await message.edit("Pinging...");
-    await message.edit("Calculated Ping```\n" +
+    message.edit("Calculated Ping```\n" +
 		"Websocket:       " + Math.round(bot.ping) + "ms\n" +
 		"Response Time:   " + (message.editedTimestamp - message.createdTimestamp) + "ms\n" +
-		"HTTP Round Trip: " + (Date.now() - message.createdTimestamp) + "ms\n```")
+		"HTTP Round Trip: " + (message.createdTimestamp - Date.now()) + "ms\n```")
     .catch(logger.error);
 };
 
