@@ -10,13 +10,14 @@ class Client extends Discord.Client {
     }
 
     login() {
-        return super.login(this.config.token).catch(err => {
+        super.login(this.config.token).catch(err => {
             logger.error(err);
             logger.warn("Error on login.\nCheck that your token is correct.");
             exec(`pm2 stop ${this.shard ? this.shard.id : "selfthis"}`, null, () => {
                 process.exit(1);
             });
         });
+        this.getDocs();
     }
 
     loadCommands() {
@@ -54,6 +55,12 @@ class Client extends Discord.Client {
             logger.log("Listeners loaded!");
         });
     }
+
+    getDocs() {
+        request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => {
+            this.docs = JSON.parse(res.text);
+        });
+    }
 }
 
 /* eslint-disable no-multi-spaces */
@@ -65,9 +72,5 @@ Client.prototype.deleted  = new Discord.Collection();
 Client.prototype.fudge    = new Map();
 
 /* eslint-enable no-multi-spaces */
-
-request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => {
-    Client.prototype.docs = JSON.parse(res.text);
-});
 
 module.exports = Client;

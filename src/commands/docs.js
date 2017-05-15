@@ -1,52 +1,13 @@
 const {RichEmbed} = require("discord.js");
 
-function findClass(obj, name, type) {
-    for (const c of obj) {
-        if (c.name.toLowerCase() === name.toLowerCase()) {
-            return {
-                cls: c,
-                url:   `https://discord.js.org/#/docs/main/stable/${type}/${c.name}`
-            };
-        }
-    }
-    
-    return null;
-}
-
-function getClass(docs, toFind) {
-    return findClass(docs.classes, toFind, "class") || findClass(docs.typedefs, toFind, "typedef") || {};
-}
-
-function findProperty(obj, name, type) {
-    if (obj) {
-        for (const prop of obj) {
-            if (prop.name.toLowerCase() === name.toLowerCase()) {
-                return {
-                    prop,
-                    type
-                };
-            }
-        }
-    }
-
-    return null;
-}
-
-function getProperty(cls, name) {
-    return findProperty(cls.props, name, "property") || findProperty(cls.methods, name, "method") || findProperty(cls.events, name, "events") || {};
-}
-
-function fixLines(msg) {
-    return msg ? msg.replace(/([^.]\b)(\n(.*?\.))/g, "$1 $3") : msg;
-}
-
-function getType(obj) {
+const getType = obj => {
     let desc;
     
     if (!obj[Symbol.iterator]) {
         desc = fixLines(obj.description);
         obj = obj.types;
     }
+    
     const res = [];
 
     for (const o of obj) {
@@ -58,93 +19,132 @@ function getType(obj) {
     let ret = res.join("|");
 
     if (desc) ret += " - " + desc;
-
+    
     return ret;
-}
+};
 
-function replaceMsg(msg) {
-    return msg
-    .replace(/<info>([^]*)<\/info>/g, "*$1*")
-    .replace(/<warn>([^]*)<\/warn>/g, "**Warning: $1**")
-    .replace(/\*\*\*/g, "...\\*")
-    .replace(/{@link (.*?)}/g, (match, p1) => {
-        const [c, p] = p1.split("#");
-        const ret = getClass(c);
-        const {cls} = ret;
-        let {url} = ret;
-
-        if (p) {
-            url += `?scrollTo=${p}`;
-            cls.name += `#${p}`;
+const findClass = (obj, str, type) => {
+    for (const c of obj) {
+        if (c.name.toLowerCase() === str.toLowerCase()) {
+            return {
+                cls: c,
+                url: `https://discord.js.org/#/docs/main/stable/${type}/${c.name}`
+            };
         }
+    }
+};
 
-        return `[${cls.name}](${url})`;
-    });
-}
+const getClass = (docs, str) => findClass(docs.classes, str, "class") || findClass(docs.typedefs, str, "typedef") || {};
 
-function getProps(obj) {
-    return obj.filter(x => x.name[0] !== "_");
-}
+const findProperty = (obj, arg, type) => {
+    if (obj) {
+        for (const prop of obj) {
+            if (prop.name.toLowerCase() === arg.toLowerCase()) {
+                return {
+                    prop,
+                    type
+                };
+            }
+        }
+    }
+};
+
+const getProperty = (cls, arg) => findProperty(cls.props, arg, "property") || findProperty(cls.methods, arg, "method") || findProperty(cls.events, arg, "event") || {};
+
+const listProps = obj => obj.filter(x => x.name[0] !== "_").map(x => x.name).join(", ");
+const propCount = obj => obj.filter(x => x.name[0] !== "_").length;
+
+const replaceMsg = (docs, msg) => {
+    return msg
+        .replace(/<info>([^]*)<\/info>/g, "*$1*")
+        .replace(/<warn>([^]*)<\/warn>/g, "**Warning: $1**")
+        .replace(/\*\*\*/g, "...\\*")
+        .replace(/{@link (.*?)}/g, (match, p1) => {
+            const [c, p] = p1.split("#");
+            const ret = getClass(docs, c);
+            const {cls} = ret;
+            let {url} = ret;
+
+            if (p) {
+                url += `?scrollTo=${p}`;
+                cls.name += `#${p}`;
+            }
+
+            return `[${cls.name}](${url})`;
+        });
+};
+
+const fixLines = msg => msg ? msg.replace(/([^.]\b)(\n(.*?\.))/g, "$1 $3") : msg;
 
 exports.run = (bot, message, args) => {
-    const embed = new RichEmbed();
+    args = args[0].split(".");
 
-    if (!args.length) return logger.warn("Missing arguments!");
-
-    const [toFind, propToFind] = args[0].split(".");
-
-    const {cls, url} = getClass(bot.docs, toFind);
-
-    if (!cls) return logger.warn(`Class ${toFind} was not found!`);
-
-    embed.setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
+    const embed = new RichEmbed()
+        .setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
-    
-    if (!propToFind) {
-        embed.setTitle(cls.name)
-            .setURL(url)
-            .setDescription(fixLines(cls.description));
-        if (cls.type) embed.addField("Type", replaceMsg(getType(cls.type)));
-        if (cls.props && getProps(cls.props).length) embed.addField("Properties", getProps(cls.props).map(a => a.name).join(", "));
-        if (cls.methods && getProps(cls.methods).length) embed.addField("Methods", getProps(cls.methods).map(a => a.name).join(", "));
-        if (cls.events && getProps(cls.events)) embed.addField("Events", getProps(cls.methods).map(a => a.name).join(", "));
+    const ret = getClass(bot.docs, args[0]);
+    const {cls} = ret;
+    let {url} = ret;
+
+    if (!cls) return message.edit(`Couldn't find docs for ${args[0]}`);
+
+    let msg;
+
+    if (!args[1]) {
+        msg = `[${cls.name}](${url}) ${cls.extends ? `*extends ${cls.extends.join(", ")}*` : ""}\n\n${fixLines(cls.description)}`;
+        if (cls.type) msg += `\n\n**Types:** ${getType(cls.type)}`;
+        if (cls.props && propCount(cls.props)) msg += `\n\n**Properties:** \`${listProps(cls.props)}\``;
+        if (cls.methods && propCount(cls.methods)) msg += `\n\n**Methods:** \`${listProps(cls.methods)}\``;
+        if (cls.events && propCount(cls.events)) msg += `\n\n**Events:** \`${listProps(cls.events)}\``;
+        msg = replaceMsg(bot.docs, msg);
     } else {
-        const {prop} = getProperty(cls, propToFind);
-        
-        if (!prop) return logger.warn(`Unable to find property ${propToFind}!`);
+        const {prop, type} = getProperty(cls, args[1]);
+
+        if (!prop) return message.edit(`Couldn't find docs for ${args[0]}.${args[1]}`);
+
+        if (!url.includes("typedef")) url += `?scrollTo=${prop.name}`;
 
         let c = cls.name;
 
         if (prop.scope !== "static") c = `<${c}>`;
-        c = c += `.${prop.name}`;
 
-        if (prop.params) {
-            const params = [];
+        msg = `[${c}.${prop.name}`;
+
+        if (type === "method") {
+            const paramArray = [];
             
-            for (const param of prop.params) {
-                let p = param.name;
+            if (prop.params) {
+                for (const param of prop.params) {
+                    if (param.name.includes(".")) continue;
+                    let p = param.name;
 
-                if (param.optional) p = `[${p}]`;
-                params.push(p);
+                    if (param.optional) p = `[${p}]`;
+                    paramArray.push(p);
+                }
             }
-            c += `(${params.join(", ")})`;
+            msg += `(${paramArray.join(", ")})`;
         }
-        embed.setTitle(c);
-        embed.setURL(url + (!url.includes("typedef") ? `?scrollTo=${prop.name}` : ""))
-            .setDescription((prop.deprecated ? "(**deprecated**)\n" : "") + fixLines(prop.description));
 
+        msg += `](${url}) - `;
+
+        if (prop.scope === "static") msg += "static ";
+
+        msg += type;
+
+        if (prop.deprecated) msg += " **(deprecated)**";
+
+        msg += `\n\n${fixLines(prop.description)}`;
+        if (prop.type) msg += `\n**Type:** ${getType(prop.type)}`;
         if (prop.params) {
-            const params = [];
-            
-            for (const param of prop.params) params.push(`${param.name}<${getType(param.type)}> - ${fixLines(param.description)}`);
-            embed.addField("Parameters", params.join("\n"));
+            msg += "\n\n**Parameters:**";
+            for (const param of prop.params) msg += `\n • ${param.name}<${getType(param.type)}> - ${fixLines(param.description)}`;
         }
-        
-        if (prop.type) embed.addField("Type", getType(prop.type));
-        
-        if (prop.returns) embed.addField("Returns", replaceMsg(getType(prop.returns)));
-        if (prop.examples) embed.addField("Examples", "```js\n" + prop.examples.join("```\n```js\n") + "```");
+        if (prop.returns) msg += `\n\n**Returns:** ${getType(prop.returns)}`;
+        msg = replaceMsg(bot.docs, msg);
+        if (prop.examples) msg += `\`\`\`js\n${prop.examples.join("```\n```")}\`\`\``;
     }
+
+    embed.setDescription(msg);
 
     message.edit({embed});
 };

@@ -15,10 +15,10 @@ exports.run = (bot, message) => {
     if (flags) return flag(bot, message, flags);
 
     if (!message.content.startsWith(bot.config.prefix)) return;
-	
+
     const [command = "", ...args] = message.content.slice(bot.config.prefix.length).split(/ +/);
     let cmdFile = bot.commands.get(command.toLowerCase());
-	
+
     if (!cmdFile) cmdFile = bot.commands.get(bot.aliases.get(command.toLowerCase()));
 
     if (cmdFile) cmdFile.run(bot, message, args);
