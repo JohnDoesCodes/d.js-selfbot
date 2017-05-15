@@ -8,10 +8,12 @@ exports.run = (bot, message, args) => {
         if (err) {
             logger.error(err);
             embed.setTitle("ERROR")
+                .setColor("RED")
                 .setDescription(`\`\`\`xl${err}\`\`\``);
         } else {
             logger.log(stdin);
             embed.setTitle("STDIN")
+                .setColor("GREEN")
                 .setDescription(`\`\`\`\n${stdin}\`\`\``);
         }
         message.edit(`**EXEC**: \`${args.join(" ")}\``, {embed});
