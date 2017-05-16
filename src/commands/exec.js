@@ -18,11 +18,11 @@ exports.run = (bot, message, args) => {
             
             if (stdin) {
                 logger.log("[STDIN]", stdin);
-                embed.addField("STDIN", `\`\`\`\n${stdin}\`\`\``);
+                embed.addField("STDIN", `\`\`\`\n${stdin.length < 1024 ? stdin : "Logged"}\n\`\`\``);
             }
             if (stdout) {
                 logger.log("[STDOUT]", stdout);
-                embed.addField("STDOUT", `\`\`\`\n${stdout}\`\`\``);
+                embed.addField("STDOUT", `\`\`\`\n${stdout.length < 1024 ? stdout : "Logged"}\n\`\`\``);
             }
             if (!stdout && !stdin) {
                 logger.log("No command line output");
