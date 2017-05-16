@@ -12,7 +12,7 @@ exports.run = (bot, message, args) => {
             logger.error(err);
             embed.setTitle("ERROR")
                 .setColor("RED")
-                .setDescription(`\`\`\`xl${err}\`\`\``);
+                .setDescription(`\`\`\`xl\n${err}\`\`\``);
         } else {
             embed.setColor("GREEN");
             
