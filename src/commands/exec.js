@@ -24,6 +24,10 @@ exports.run = (bot, message, args) => {
                 logger.log("[STDOUT]", stdout);
                 embed.addField("STDOUT", `\`\`\`\n${stdout}\`\`\``);
             }
+            if (!stdout && !stdin) {
+                logger.log("No command line output");
+                embed.setTitle("Success");
+            }
         }
         message.edit(`**EXEC**: \`${toExec}\``, {embed});
     });
