@@ -4,10 +4,9 @@ exports.run = (bot, message) => {
     if (message.author.bot || (message.guild && bot.config.ignoreList.includes(message.guild.id)) || message.channel.id === bot.config.logChannel) return;
 
     const channel = bot.channels.get(bot.config.logChannel);
-	
-    if (message.content.length > 1900) return logger.warn("Message too long. Will not be logged.");
 
     if (channel) {
+        if (message.content.length > 1900) return logger.warn("Message too long. Will not be logged.");
         channel.send({embed: new RichEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL)
 			.setDescription(message.content)

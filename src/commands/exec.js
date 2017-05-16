@@ -11,10 +11,17 @@ exports.run = (bot, message, args) => {
                 .setColor("RED")
                 .setDescription(`\`\`\`xl${err}\`\`\``);
         } else {
-            logger.log(stdin);
-            embed.setTitle("STDIN")
-                .setColor("GREEN")
-                .setDescription(`\`\`\`\n${stdin}\`\`\``);
+            embed.setTitle("OUTPUT")
+                .setColor("GREEN");
+            
+            if (stdin) {
+                logger.log(stdin);
+                embed.addField("STDIN", `\`\`\`\n${stdin || "Success"}\`\`\``);
+            }
+            if (stdout) {
+                logger.log(stdout);
+                embed.addField("STDOUT", `\`\`\`\n${stdout || "Success"}\`\`\``);
+            }
         }
         message.edit(`**EXEC**: \`${args.join(" ")}\``, {embed});
     });
