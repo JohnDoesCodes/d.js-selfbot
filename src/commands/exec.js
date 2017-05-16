@@ -17,11 +17,11 @@ exports.run = (bot, message, args) => {
             embed.setColor("GREEN");
             
             if (stdin) {
-                logger.log(stdin);
+                logger.log("[STDIN]", stdin);
                 embed.addField("STDIN", `\`\`\`\n${stdin}\`\`\``);
             }
             if (stdout) {
-                logger.log(stdout);
+                logger.log("[STDOUT]", stdout);
                 embed.addField("STDOUT", `\`\`\`\n${stdout}\`\`\``);
             }
         }
