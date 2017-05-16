@@ -14,8 +14,7 @@ exports.run = (bot, message, args) => {
                 .setColor("RED")
                 .setDescription(`\`\`\`xl${err}\`\`\``);
         } else {
-            embed.setTitle("OUTPUT")
-                .setColor("GREEN");
+            embed.setColor("GREEN");
             
             if (stdin) {
                 logger.log(stdin);
