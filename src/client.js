@@ -9,7 +9,7 @@ class Client extends Discord.Client {
         super(options);
     }
 
-    async login() {
+    login() {
         super.login(this.config.token).catch(err => {
             logger.error(err);
             logger.warn("Error on login.\nCheck that your token is correct.");
@@ -17,7 +17,8 @@ class Client extends Discord.Client {
                 process.exit(1);
             });
         });
-        this.docs = await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text));
+
+        this.loadDocs();
 
         return this;
     }
@@ -62,6 +63,10 @@ class Client extends Discord.Client {
         });
 
         return this;
+    }
+
+    async loadDocs() {
+        this.docs = await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text));
     }
 }
 

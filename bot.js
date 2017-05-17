@@ -17,8 +17,8 @@ const loggerOpts = {
 
 global.logger = new Logger(loggerOpts);
 
-bot.loadListeners()
-    .loadCommands()
-    .login();
+bot.login()
+    .loadListeners()
+    .loadCommands();
 
 process.on('unhandledRejection', (err, p) => logger.error("Unhandled Rejection at:", p));
