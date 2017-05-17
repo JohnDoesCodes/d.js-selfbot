@@ -18,6 +18,8 @@ class Client extends Discord.Client {
             });
         });
         this.docs = await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text));
+
+        return this;
     }
 
     loadCommands() {
@@ -40,6 +42,8 @@ class Client extends Discord.Client {
             logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
             logger.log(`Loaded ${this.commands.size} commands!`);
         });
+
+        return this;
     }
 
     loadListeners() {
@@ -56,6 +60,8 @@ class Client extends Discord.Client {
             }
             logger.log("Listeners loaded!");
         });
+
+        return this;
     }
 }
 

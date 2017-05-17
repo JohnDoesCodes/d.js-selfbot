@@ -1,5 +1,5 @@
 const Client  = require("./src/client.js");
-const bot     = new Client();
+const self    = new Client();
 
 const Logger = require("./src/util/logger.js");
 
@@ -17,9 +17,8 @@ const loggerOpts = {
 
 global.logger = new Logger(loggerOpts);
 
-bot.loadListeners();
-bot.loadCommands();
-
-bot.login();
+self.loadListeners()
+    .loadCommands()
+    .login();
 
 process.on('unhandledRejection', (err, p) => logger.error("Unhandled Rejection at:", p));
