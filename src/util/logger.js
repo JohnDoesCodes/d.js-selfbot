@@ -23,12 +23,12 @@ class Logger {
     }
 
     info(...args) {
-        if (!this._useInfo) return;
+        if (!this._info) return;
         console.log(...format(this._time, "[INFO]", "white"), ...args);
     }
 
     warn(...args) {
-        if (!this._useWarn) return;
+        if (!this._warn) return;
         console.error(...format(this._time, "[WARN]", "yellow"), ...args);
     }
 
