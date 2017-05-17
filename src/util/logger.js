@@ -2,10 +2,10 @@ const moment = require("moment");
 const chalk  = require("chalk");
 const ctx    = new chalk.constructor({enabled:true});
 
-function format(time, color, type) {
+function format(time, type, color = "gray") {
     const ret = [];
     
-    if (time) ret.push(ctx.magenta((moment(Date.now()).format("h").length == 1 ? " " : "") + moment(Date.now()).format("LTS")));
+    if (time) ret.push(ctx.magenta((moment(Date.now()).format("h").length == 1 ? " " : "") + moment(Date.now()).format("LTS")), "|");
     if (type) ret.push(ctx[color](type));
 
     return ret;
@@ -19,21 +19,21 @@ class Logger {
     }
 
     log(...args) {
-        console.log(format(this._time, "gray", "[LOG]").join(" | "), ...args);
+        console.log(...format(this._time, "[LOG]"), ...args);
     }
 
     info(...args) {
         if (!this._useInfo) return;
-        console.log(format(this._time, "white", "[INFO]").join(" | "), ...args);
+        console.log(...format(this._time, "[INFO]", "white"), ...args);
     }
 
     warn(...args) {
         if (!this._useWarn) return;
-        console.error(format(this._time, "yellow", "[WARN]").join(" | "), ...args);
+        console.error(...format(this._time, "[WARN]", "yellow"), ...args);
     }
 
     error(...args) {
-        console.error(format(this._time, "red", "[ERROR]").join(" | "), ...args);
+        console.error(...format(this._time, "[ERROR]", "red"), ...args);
     }
 }
 
