@@ -36,7 +36,7 @@ class Client extends Discord.Client {
                 
                 this.commands.set(data.name, data);
 
-                logger.info(`Loaded command ${data.name} with ${data.aliases.length} alias${data.aliases.length ? "es" : ""}.`);
+                logger.info(`Loaded command ${data.name} with ${data.aliases.length} alias${data.aliases.length == 1 ? "" : "es"}.`);
             }
             logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
             logger.log(`Loaded ${this.commands.size} commands!`);
