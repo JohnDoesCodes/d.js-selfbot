@@ -3,9 +3,7 @@ exports.run = (bot, message, args) => {
     try {
         const cmdFile = require(`./${args[0]}.js`);
 
-        bot.commands.set(args[0], cmdFile);
-
-        for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], args[0]);
+        bot.commands.set(cmdFile.name, cmdFile);
 
         logger.info("New command set!");
     } catch (err) {

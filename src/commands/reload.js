@@ -6,8 +6,6 @@ function reload(bot, name) {
         const cmdFile = require(`./${name}.js`);
 
         bot.commands.set(name, cmdFile);
-	
-        for (let i = cmdFile.aliases.length; i--;) bot.aliases.set(cmdFile.aliases[i], name);
 
         logger.info(`Reloaded ${name} successfully!`);
         success++;
@@ -25,9 +23,8 @@ exports.run = (bot, message, args) => {
         });
     } else {
         for (let i = args.length; i--;) {
-            let cmdFile = bot.commands.get(args[i].toLowerCase());
+            const cmdFile = bot.commands.get(args[i].toLowerCase()) || bot.commands.find(file => file.aliases.includes(args[i].toLowerCase()));
 			
-            if (!cmdFile) cmdFile = bot.commands.get(bot.aliases.get(args[i].toLowerCase()));
             if (!cmdFile) continue;
 
             reload(bot, cmdFile.name.toLowerCase());

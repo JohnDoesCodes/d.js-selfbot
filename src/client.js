@@ -36,8 +36,6 @@ class Client extends Discord.Client {
                 
                 this.commands.set(data.name, data);
 
-                for (let i = data.aliases.length; i--;) this.aliases.set(data.aliases[i], data.name);
-
                 logger.info(`Loaded command ${data.name} with ${data.aliases.length} alias${data.aliases.length ? "es" : ""}.`);
             }
             logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
@@ -74,7 +72,6 @@ class Client extends Discord.Client {
 
 Client.prototype.config   = require("../config.json");
 Client.prototype.commands = new Discord.Collection();
-Client.prototype.aliases  = new Discord.Collection();
 Client.prototype.deleted  = new Discord.Collection();
 Client.prototype.fudge    = new Map();
 
