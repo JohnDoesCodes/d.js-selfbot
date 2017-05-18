@@ -9,10 +9,10 @@ exports.run = (bot, message) => {
     const uptime = process.uptime() * 1000;
 
     const embed = new Discord.RichEmbed()
-		.setTitle("Selfbot Info")
+		.setAuthor("Selfbot Info", bot.user.displayAvatarURL)
 		.addField("Node Version", process.version, true)
 		.addField("Discord.js Version", Discord.version, true)
-		.addField("Owner", bot.user.tag, true)
+		.addField("Author", bot.user.tag, true)
 		.addField("Process Uptime", moment.duration(uptime).format("D [days], H [hrs], m [mins], s [secs]"), true)
 		.addField("Memory Use", `${memUsed.toFixed(2)}/${memTotal.toFixed(2)}MB`, true)
 		.addField("Heartbeat Ping", `${Math.floor(bot.ping)}ms`, true)
