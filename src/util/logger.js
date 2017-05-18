@@ -4,8 +4,9 @@ const ctx    = new chalk.constructor({enabled:true});
 
 function format(time, type, color = "gray") {
     const ret = [];
+    const curTime = moment();
     
-    if (time) ret.push(ctx.magenta((moment(Date.now()).format("h").length == 1 ? " " : "") + moment(Date.now()).format("LTS")), "|");
+    if (time) ret.push(ctx.magenta((curTime.format("h").length == 1 ? " " : "") + curTime.format("LTS")), "|");
     if (type) ret.push(ctx[color](type));
 
     return ret;
