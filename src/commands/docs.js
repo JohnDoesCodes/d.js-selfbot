@@ -61,9 +61,8 @@ const replaceMsg = (docs, msg) => {
         .replace(/\*\*\*/g, "...\\*")
         .replace(/{@link (.*?)}/g, (match, p1) => {
             const [c, p] = p1.split("#");
-            const ret = getClass(docs, c);
-            const {cls} = ret;
-            let {url} = ret;
+            // eslint-disable-next-line prefer-const
+            let {cls, url} = getClass(docs, c);
 
             if (p) {
                 url += `?scrollTo=${p}`;
@@ -82,9 +81,8 @@ exports.run = (bot, message, args) => {
     const embed = new RichEmbed()
         .setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
-    const ret = getClass(bot.docs, args[0]);
-    const {cls} = ret;
-    let {url} = ret;
+    // eslint-disable-next-line prefer-const
+    let {cls, url} = getClass(bot.docs, args[0]);
 
     if (!cls) return message.edit(`Couldn't find docs for ${args[0]}`);
 
