@@ -1,31 +1,31 @@
 {
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": ">=1.1.3",
     "discord.js": "github:hydrabolt/discord.js",
-    "googleapis": "^16.1.0",
-    "js-beautify": "^1.6.11",
-    "moment": "^2.18.1",
-    "moment-duration-format": "^1.3.0",
-    "nanoseconds": "^0.1.0"
+    "googleapis": ">=19.0.0",
+    "js-beautify": ">=1.6.11",
+    "moment": ">=2.18.1",
+    "moment-duration-format": ">=1.3.0",
+    "nanoseconds": ">=0.1.0"
   },
   "engines": {
     "node": ">=7.6.0"
   },
-  "name": "discordselfbot",
-  "version": "3.0.0",
+  "name": "d.js-selfbot",
+  "version": "3.0.1",
   "description": "Personal selfbot",
   "main": "bot.js",
   "devDependencies": {},
   "scripts": {
-    "start": "bot",
-    "test": "bot"
+    "start": "pm2 start . --name selfbot && pm2 logs selfbot",
+    "test": "npm i && node ."
   },
   "author": "EPICZEUS",
   "license": "MIT",
   "repository": "github:EPICZEUS1/d.js-selfbot",
   "optionalDependencies": {
-    "bufferutil": "^3.0.0",
+    "bufferutil": ">=3.0.0",
     "erlpack": "github:hammerandchisel/erlpack",
-    "uws": "^0.14.5"
+    "uws": ">=0.14.5"
   }
 }
