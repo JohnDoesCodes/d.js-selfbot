@@ -1,3 +1,5 @@
+const {GuildMember, User} = require("discord.js");
+
 exports.run = (bot, message, args) => {
     const num = parseInt(args[1]);
     const options = {
@@ -13,9 +15,19 @@ exports.run = (bot, message, args) => {
     if (!member) return logger.warn("User to ban not specified or member not found.");
     if (!member.bannable) return logger.warn(`${member.user.tag} is not bannable.`);
 
-    member.ban(options)
-		.then(user => message.guild.unban(user))
-		.catch(logger.error);
+    member.ban(options).then(user => {
+        let banMSG;
+    
+        if (user instanceof GuildMember) banMSG = user.user.tag;
+        else if (user instanceof User) banMSG = user.tag;
+        else banMSG = `User ID ${user}`;
+        banMSG += " was softbanned.";
+    
+        logger.info(banMSG);
+        message.channel.send(banMSG, {code:true});
+        message.guild.unban(user, "Ban removal for softban.");
+    })
+	.catch(logger.error);
 };
 
 exports.name = "softban";
