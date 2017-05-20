@@ -4,13 +4,21 @@ const nano    = require("nanoseconds");
 const request = require("snekfetch");
 const {exec}  = require("child_process");
 
+require("moment-duration-format");
+
 class Client extends Discord.Client {
     constructor(options) {
         super(options);
     }
 
     login() {
-        super.login(this.config.token).catch(err => {
+        const start = process.hrtime();
+
+        super.login(this.config.token).then(() => {
+            const end = nano(process.hrtime(start)) / 1000000;
+
+            logger.info(`Login took ${end.toFixed(3)}ms`);
+        }).catch(err => {
             logger.error(err);
             logger.warn("Error on login.\nCheck that your token is correct.");
             exec(`pm2 stop ${this.shard ? this.shard.id : "selfthis"}`, null, () => {
