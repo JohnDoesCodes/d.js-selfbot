@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
-const fs      = require("fs");
-const nano    = require("nanoseconds");
 const request = require("snekfetch");
+const nano    = require("nanoseconds");
+const fs      = require("fs");
 const {exec}  = require("child_process");
 
 require("moment-duration-format");
