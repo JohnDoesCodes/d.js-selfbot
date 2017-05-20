@@ -76,13 +76,20 @@ const replaceMsg = (docs, msg) => {
 const fixLines = msg => msg ? msg.replace(/([^.]\b)(\n(.*?\.))/g, "$1 $3") : msg;
 
 exports.run = (bot, message, args) => {
-    args = args[0].split(".");
+    let pos = 1, docs = bot.docs[args[0]];
+
+    if (!docs) {
+        docs = bot.docs.stable;
+        pos = 0;
+    }
+
+    args = args[pos].split(".");
 
     const embed = new RichEmbed()
         .setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
     // eslint-disable-next-line prefer-const
-    let {cls, url} = getClass(bot.docs, args[0]);
+    let {cls, url} = getClass(docs, args[0]);
 
     if (!cls) return message.edit(`Couldn't find docs for ${args[0]}`);
 
