@@ -146,7 +146,7 @@ exports.run = (bot, message, args) => {
         }
         if (prop.returns) msg += `\n\n**Returns:** ${getType(prop.returns)}`;
         msg = replaceMsg(bot.docs, msg);
-        if (prop.examples) msg += `\`\`\`js\n${prop.examples.join("```\n```")}\`\`\``;
+        if (prop.examples) msg += ` \`\`\`js\n${prop.examples.join("```\n```js")}\`\`\``;
     }
 
     embed.setDescription(msg);
