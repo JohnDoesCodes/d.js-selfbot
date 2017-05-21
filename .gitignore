@@ -1,7 +1,7 @@
 node_modules
 images
 config.json
-version.js
+eval.js
 src/commands/loog.js
 src/commands/ohh.js
 *.log
