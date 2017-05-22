@@ -1,7 +1,7 @@
 const slash = require("../slash.js");
 const flag = require("../flags.js");
 const slashReg = /^\/([^ ]+) ?/;
-const flagReg = / -([aed]+) ?(\d+)?$/;
+const flagReg = / -([aedl]+) ?(\d+)?$/;
 
 exports.run = (bot, message) => {
     if (message.author.id !== bot.user.id) return;
