@@ -14,10 +14,10 @@ module.exports = async (bot, message, [match, flags, time] = []) => {
     }
 
     if (flags.includes("d")) {
-        time = time ? parseInt(time) * 1000 : 5000;
+        let timeout = time ? parseInt(time) * 1000 : 5000;
 
-        if (isNaN(time)) time = 5000;
+        if (isNaN(time)) timeout = 5000;
 
-        message.delete(time);
+        message.delete({timeout});
     }
 };
