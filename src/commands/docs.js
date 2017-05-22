@@ -76,36 +76,37 @@ const replaceMsg = (docs, msg) => {
 const fixLines = msg => msg ? msg.replace(/([^.]\b)(\n(.*?\.))/g, "$1 $3") : msg;
 
 exports.run = (bot, message, args) => {
-    let pos = 1, docs = bot.docs[args[0]];
+    let docs = bot.docs[args[0]];
+    let pos = 1;
 
     if (!docs) {
         docs = bot.docs.stable;
         pos = 0;
     }
 
-    args = args[pos].split(".");
+    const values = args[pos].split(".");
 
     const embed = new RichEmbed()
         .setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
     // eslint-disable-next-line prefer-const
-    let {cls, url} = getClass(docs, args[0]);
+    let {cls, url} = getClass(docs, values[0]);
 
-    if (!cls) return message.edit(`Couldn't find docs for ${args[0]}`);
+    if (!cls) return message.edit(`Couldn't find docs for ${values[0]}`);
 
     let msg;
 
-    if (!args[1]) {
+    if (!values[1]) {
         msg = `[${cls.name}](${url}) ${cls.extends ? `*extends ${cls.extends.join(", ")}*` : ""}\n\n${fixLines(cls.description)}`;
         if (cls.type) msg += `\n\n**Types:** ${getType(cls.type)}`;
         if (cls.props && propCount(cls.props)) msg += `\n\n**Properties:** \`${listProps(cls.props)}\``;
         if (cls.methods && propCount(cls.methods)) msg += `\n\n**Methods:** \`${listProps(cls.methods)}\``;
         if (cls.events && propCount(cls.events)) msg += `\n\n**Events:** \`${listProps(cls.events)}\``;
-        msg = replaceMsg(bot.docs, msg);
+        msg = replaceMsg(docs, msg);
     } else {
-        const {prop, type} = getProperty(cls, args[1]);
+        const {prop, type} = getProperty(cls, values[1]);
 
-        if (!prop) return message.edit(`Couldn't find docs for ${args[0]}.${args[1]}`);
+        if (!prop) return message.edit(`Couldn't find docs for ${values[0]}.${values[1]}`);
 
         if (!url.includes("typedef")) url += `?scrollTo=${prop.name}`;
 
@@ -145,7 +146,7 @@ exports.run = (bot, message, args) => {
             for (const param of prop.params) msg += `\n • ${param.name}<${getType(param.type)}> - ${fixLines(param.description)}`;
         }
         if (prop.returns) msg += `\n\n**Returns:** ${getType(prop.returns)}`;
-        msg = replaceMsg(bot.docs, msg);
+        msg = replaceMsg(docs, msg);
         if (prop.examples) msg += ` \`\`\`js\n${prop.examples.join("```\n```js")}\`\`\``;
     }
 
