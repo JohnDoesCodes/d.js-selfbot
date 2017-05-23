@@ -87,7 +87,7 @@ exports.run = (bot, message, args) => {
     const values = args[pos].split(".");
 
     const embed = new RichEmbed()
-        .setAuthor("discord.js", "https://discord.js.org/static/favicon.ico")
+        .setAuthor(`Discord.js v${args[0] === "stable" ? "11.1.0" : "12.0.0"}`, "https://discord.js.org/static/favicon.ico")
         .setColor("BLURPLE");
     // eslint-disable-next-line prefer-const
     let {cls, url} = getClass(docs, values[0]);
