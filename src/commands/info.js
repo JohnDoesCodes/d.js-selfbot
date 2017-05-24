@@ -1,10 +1,7 @@
 exports.run = (bot, message, args) => {
-    let cmdFile = bot.commands.get(args[0]);
+    const cmdFile = bot.commands.get(args[0]) || bot.commands.find(file => file.aliases.includes(args[0]));
 
-    if (!cmdFile) {
-        cmdFile = bot.commands.get(bot.aliases.get(args[0]));
-        if (!cmdFile) return logger.warn(`${args[0]} is not a valid command name or alias.`);
-    }
+    if (!cmdFile) return logger.warn(`${args[0]} is not a valid command name or alias.`);
 	
     message.channel.send({embed: {
         title:       cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),

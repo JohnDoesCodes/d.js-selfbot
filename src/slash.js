@@ -50,11 +50,11 @@ const slash = {
         message.edit(message.content.split(/ +/).slice(1).join(" "), {
             embed: {
                 title: "So you want to be spoonfed?",
-                image: {
-                    url: "https://img.fireden.net/vg/image/1429/90/1429905490901.gif"
-                },
-                color: message.guild ? (message.member.displayColor || 0x229364) : 0x229364
-            }
+                color: message.guild && message.member.displayColor ? message.member.displayColor : 0x229364
+            },
+            files: [
+                "https://img.fireden.net/vg/image/1429/90/1429905490901.gif"
+            ]
         });
     }
 };
