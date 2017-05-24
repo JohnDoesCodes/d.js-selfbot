@@ -1,5 +1,5 @@
-exports.run = (bot, message, args) => {
-    const cmdFile = bot.commands.get(args[0]) || bot.commands.find(file => file.aliases.includes(args[0]));
+exports.run = (bot, message, args = [""]) => {
+    const cmdFile = bot.commands.get(args[0].toLowerCase()) || bot.commands.get(bot.aliases.get(args[0].toLowerCase()));
 
     if (!cmdFile) return logger.warn(`${args[0]} is not a valid command name or alias.`);
 	

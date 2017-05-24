@@ -17,7 +17,7 @@ exports.run = (bot, message) => {
     if (!message.content.startsWith(bot.config.prefix)) return;
 
     const [command = "", ...args] = message.content.slice(bot.config.prefix.length).split(/ +/);
-    const cmdFile = bot.commands.get(command.toLowerCase()) || bot.commands.find(file => file.aliases.includes(command.toLowerCase()));
+    const cmdFile = bot.commands.get(command.toLowerCase()) || bot.commands.get(bot.aliases.get(command.toLowerCase()));
 
     if (cmdFile) cmdFile.run(bot, message, args);
 };
