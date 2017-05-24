@@ -11,7 +11,7 @@ const Logger  = require("./src/util/logger.js");
  */
 const loggerOpts = {
     time: true,
-    info: false,
+    info: true,
     warn: true,
 };
 

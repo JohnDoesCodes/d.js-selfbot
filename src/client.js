@@ -4,8 +4,6 @@ const nano    = require("nanoseconds");
 const fs      = require("fs");
 const {exec}  = require("child_process");
 
-require("moment-duration-format");
-
 class Client extends Discord.Client {
     constructor(options) {
         super(options);
