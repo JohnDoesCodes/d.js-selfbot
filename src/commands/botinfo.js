@@ -13,7 +13,7 @@ exports.run = (bot, message) => {
 
     const embed = new Discord.RichEmbed()
 		.setAuthor("Selfbot Info", bot.user.displayAvatarURL)
-        .setDescription(`**Selfbot Version**: ${version}\n**Github Repo**: [d.js-selfbot](https://github.com/EPICZEUS1/d.js-selfbot)`)
+        .setDescription(`**Selfbot Version**: v${version}\n**Github Repo**: [d.js-selfbot](https://github.com/EPICZEUS1/d.js-selfbot)`)
 		.addField("Node Version", process.version, true)
 		.addField("Discord.js Version", Discord.version, true)
 		.addField("Author", bot.user.tag, true)
