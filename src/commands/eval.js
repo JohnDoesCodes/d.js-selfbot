@@ -2,7 +2,8 @@ const Discord = require("discord.js");
 const {inspect} = require("util");
 const nano = require("nanoseconds");
 
-async function update(bot, message, promise, embed) {
+async function update(bot, promise, embed, message) {
+    if (!promise) return;
     const start = process.hrtime();
 
     let done = await promise;
@@ -19,7 +20,7 @@ async function update(bot, message, promise, embed) {
 }
 
 exports.run = (bot, message, args) => {
-    const code = args.join(" ");
+    const code = args.join(" ").replace(/\u037e/g, ";");
     let promise;
 
     try {
@@ -45,12 +46,10 @@ exports.run = (bot, message, args) => {
 			.setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
 			.setColor(24120);
 
-        message.edit(`**INPUT:** \`${code}\``, {embed}).then(async msg => {
-            if (promise) update(bot, msg, promise, embed);
-        }).catch(logger.error);
+        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).then(update.bind(null, bot, promise, embed)).catch(logger.error);
     } catch (err) {
         logger.error(err);
-        message.edit("**INPUT:** `" + code + "`", {embed: {
+        message.edit("**INPUT:** `" + code.replace(/;/g, "\u037e") + "`", {embed: {
             title:       "<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>",
             description: `\`\`\`xl\n${err}\n\`\`\``,
             color:       13379110
