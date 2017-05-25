@@ -1,6 +1,6 @@
 const Discord   = require("discord.js");
 const moment    = require("moment");
-const {version} = require("../../package.json");
+const fs        = require("fs");
 
 require("moment-duration-format");
 
@@ -8,6 +8,8 @@ exports.run = (bot, message) => {
     const memory = process.memoryUsage();
     const memTotal = memory.heapTotal / 1024 / 1024, memUsed = memory.heapUsed / 1024 / 1024;
     const uptime = process.uptime() * 1000;
+
+    const {version} = JSON.parse(fs.readFileSync("./package.json"));
 
     const embed = new Discord.RichEmbed()
 		.setAuthor("Selfbot Info", bot.user.displayAvatarURL)
