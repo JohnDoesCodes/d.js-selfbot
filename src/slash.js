@@ -51,11 +51,9 @@ const slash = {
             embed: {
                 title: "So you want to be spoonfed?",
                 color: message.guild && message.member.displayColor ? message.member.displayColor : 0x229364
-            },
-            files: [
-                "https://img.fireden.net/vg/image/1429/90/1429905490901.gif"
-            ]
-        });
+            }
+        }).catch(logger.error);
+        message.channel.send({files:["./images/spoonfeed.gif"]}).catch(logger.error);
     }
 };
 
