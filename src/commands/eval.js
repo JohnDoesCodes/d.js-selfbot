@@ -4,6 +4,7 @@ const nano = require("nanoseconds");
 
 async function update(bot, promise, embed, message) {
     if (!promise) return;
+    
     const start = process.hrtime();
 
     let done = await promise;

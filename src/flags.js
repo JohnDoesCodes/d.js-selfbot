@@ -30,7 +30,7 @@ const letters = {
 module.exports = async (bot, message, [match, flags, time] = []) => {
     await message.edit(message.content.replace(match, ""));
 
-    if (flags.includes("l") && message.content) message = await message.edit(message.content.replace(/[a-z]/g, l => letters[l.toString()]).replace(/ /g, "   "));
+    if (flags.includes("l") && message.content) message = await message.edit(message.content.replace(/[a-z]/gi, l => letters[l.toString().toLowerCase()]).replace(/ /g, "   "));
     else if (flags.includes("a") && message.content) message = await message.edit(message.content.split("").join(" "));
 
     if (flags.includes("e") && message.content) {
