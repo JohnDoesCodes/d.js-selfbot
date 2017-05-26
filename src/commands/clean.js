@@ -13,7 +13,7 @@ exports.run = (bot, message, args) => {
 exports.name = "clean";
 exports.type = "utility";
 exports.description = "Clears previously sent messages quickly.";
-exports.use = "clean <delete count>";
+exports.use = "<delete count>";
 exports.aliases = [
     "purge",
     "prune",

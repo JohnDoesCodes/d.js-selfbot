@@ -61,7 +61,7 @@ exports.run = (bot, message, args) => {
 exports.name = "eval";
 exports.type = "utility";
 exports.description = "Evaluates code from a provided string.";
-exports.use = "eval [code]";
+exports.use = "[code]";
 exports.aliases = [
     "run"
 ];

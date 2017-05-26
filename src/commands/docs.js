@@ -158,5 +158,5 @@ exports.run = (bot, message, args) => {
 exports.name = "docs";
 exports.description = "Finds documentation for discord.js";
 exports.type = "utility";
-exports.use = "docs <`master` or `stable`> [doc search]";
+exports.use = "<`master` or `stable`> [doc search]";
 exports.aliases = [];

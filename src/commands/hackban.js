@@ -20,7 +20,7 @@ exports.run = (bot, message, args) => {
 exports.name = "hackban";
 exports.type = "admin";
 exports.description = "Bans a user from a guild by ID.";
-exports.use = "hackban [user id]";
+exports.use = "[user id]";
 exports.aliases = [
     "idban",
     "hackbanne",

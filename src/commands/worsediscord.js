@@ -5,5 +5,5 @@ exports.run = (bot, message) => {
 exports.name = "worsediscord";
 exports.type = "meme";
 exports.description = "Shows something about BetterDiscord users.";
-exports.use = "worsediscord";
+exports.use = "";
 exports.aliases = [];

@@ -21,7 +21,7 @@ exports.run = (bot, message, args) => {
 exports.name = "google";
 exports.type = "utility";
 exports.description = "Googles using the Google API.";
-exports.use = "google [search query]";
+exports.use = "[search query]";
 exports.aliases = [
     "search",
     "lmgtfy",

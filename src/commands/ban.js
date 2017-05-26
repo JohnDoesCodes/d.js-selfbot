@@ -31,7 +31,7 @@ exports.run = (bot, message, args) => {
 exports.name = "ban";
 exports.type = "admin";
 exports.description = "Bans a member from a guild";
-exports.use = "ban [mention] <delete days> <reason>";
+exports.use = "[mention] <delete days> <reason>";
 exports.aliases = [
     "banne",
     "delet",

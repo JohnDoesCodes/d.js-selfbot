@@ -20,5 +20,5 @@ exports.run = (bot, message, args) => {
 exports.name = "undelete";
 exports.description = "Resends a deleted message";
 exports.type = "general";
-exports.use = "undelete [user mention or id]";
+exports.use = "[user mention or id]";
 exports.aliases = [];

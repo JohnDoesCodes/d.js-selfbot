@@ -26,7 +26,7 @@ exports.run = (bot, message, args) => {
 exports.name = "unban";
 exports.type = "admin";
 exports.description = "Unbans a user from a guild.";
-exports.use = "unban [user id]";
+exports.use = "[user id]";
 exports.aliases = [
     "unbanne",
     "unbend"

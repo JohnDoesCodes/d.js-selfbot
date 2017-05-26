@@ -10,7 +10,7 @@ exports.run = (bot, message, args = [""]) => {
         fields: [
             {
                 name:  "Usage",
-                value: bot.config.prefix + cmdFile.use
+                value: `${bot.config.prefix}${cmdFile.name} ${cmdFile.use}`
             },
             {
                 name:  "Aliases",
@@ -27,7 +27,7 @@ exports.run = (bot, message, args = [""]) => {
 exports.name = "info";
 exports.type = "general";
 exports.description = "Displays info about the specified command.";
-exports.use = "info [command or alias]";
+exports.use = "[command or alias]";
 exports.aliases = [
     "help"
 ];

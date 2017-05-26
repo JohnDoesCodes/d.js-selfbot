@@ -12,6 +12,6 @@ exports.run = (bot, message) => {
 
 exports.name = "beautify";
 exports.type = "utility";
-exports.use = "beautify";
+exports.use = "";
 exports.description = "Beautifies poorly formatted JavaScript.";
 exports.aliases = [];

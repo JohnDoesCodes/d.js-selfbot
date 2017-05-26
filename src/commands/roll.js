@@ -34,5 +34,5 @@ exports.run = (bot, message, args) => {
 exports.name = "roll";
 exports.type = "general";
 exports.description = "Rolls dice.";
-exports.use = "roll [dice {format: <#>[d#]<+|-#>}]";
+exports.use = "[dice {format: <#>[d#]<+|-#>}]";
 exports.aliases = [];

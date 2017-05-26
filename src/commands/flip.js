@@ -7,5 +7,5 @@ exports.run = (bot, message) => {
 exports.name = "flip";
 exports.type = "general";
 exports.description = "Flips a coin.";
-exports.use = "flip";
+exports.use = "";
 exports.aliases = [];

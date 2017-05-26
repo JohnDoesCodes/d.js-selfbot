@@ -4,7 +4,7 @@ const moment = require("moment");
 exports.run = (bot, message, args) => {
     let channel = message.mentions.channels.first(), pos = 1;
 
-    if (!channel) {
+    if (!channel || args[0] !== message.mentions.channels.first().toString()) {
         if (bot.channels.has(args[0])) {
             channel = bot.channels.get(args[0]);
         } else if (message.mentions.users.size && args[0] === message.mentions.users.first().toString()) {
@@ -36,5 +36,5 @@ exports.run = (bot, message, args) => {
 exports.name = "quote";
 exports.type = "general";
 exports.description = "Quotes a specified message.";
-exports.use = "quote <channel id or channel mention or user mention> [message id]";
+exports.use = "<channel id or channel mention or user mention> [message id]";
 exports.aliases = [];

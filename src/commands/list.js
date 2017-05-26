@@ -28,7 +28,7 @@ exports.run = (bot, message, args) => {
 exports.name = "list",
 exports.type = "utility";
 exports.description = "Lists all commands of a specified type";
-exports.use = "list [type or 'types']";
+exports.use = "[type or 'types']";
 exports.aliases = [
     "ls"
 ];

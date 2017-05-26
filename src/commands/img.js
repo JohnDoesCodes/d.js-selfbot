@@ -26,7 +26,7 @@ exports.run = (bot, message, args) => {
 exports.name = "img";
 exports.description = "Sends a specified image.";
 exports.type = "meme";
-exports.use = "img [image name]";
+exports.use = "[image name]";
 exports.aliases = [
     "image"
 ];

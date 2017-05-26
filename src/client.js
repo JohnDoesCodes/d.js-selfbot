@@ -37,14 +37,14 @@ class Client extends Discord.Client {
         fs.readdir("./src/commands", (err, files) => {
             if (err) return logger.error(err);
 
-            for (let i = files.length; i--;) {
-                const data = require(`./commands/${files[i]}`);
+            for (const file of files) {
+                const data = require(`./commands/${file}`);
                 
                 this.commands.set(data.name, data);
 
-                for (let i = data.aliases.length; i--;) {
-                    if (this.aliases.has(data.aliases[i])) logger.warn(`Command ${data.name} has duplicate alias ${data.aliases[i]}!`);
-                    else this.aliases.set(data.aliases[i], data.name);
+                for (const alias of data.aliases) {
+                    if (this.aliases.has(alias)) logger.warn(`Command ${data.name} has duplicate alias ${alias}!`);
+                    else this.aliases.set(alias, data.name);
                 }
 
                 logger.info(`Loaded command ${data.name} with ${data.aliases.length} alias${data.aliases.length == 1 ? "" : "es"}.`);

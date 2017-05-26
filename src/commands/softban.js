@@ -33,7 +33,7 @@ exports.run = (bot, message, args) => {
 exports.name = "softban";
 exports.type = "admin";
 exports.description = "Softly bans a member from a guild.";
-exports.use = "softban [mention] <delete days> <reason>";
+exports.use = "[mention] <delete days> <reason>";
 exports.aliases = [
     "softbanne",
     "softbend"

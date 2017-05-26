@@ -17,7 +17,7 @@ exports.run = (bot, message) => {
 exports.name = "kick";
 exports.type = "admin";
 exports.description = "Kicks a member from a guild.";
-exports.use = "kick [mention]";
+exports.use = "[mention]";
 exports.aliases = [
     "boot"
 ];

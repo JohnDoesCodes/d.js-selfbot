@@ -12,7 +12,7 @@ exports.run = (bot, message, args) => {
 exports.name = "codeblocks";
 exports.type = "utility";
 exports.description = "Displays how to properly use code block markdown.";
-exports.use = "codeblocks <language>";
+exports.use = "<language>";
 exports.aliases = [
     "blocks"
 ];

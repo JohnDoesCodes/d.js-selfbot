@@ -8,7 +8,7 @@ exports.run = bot => {
 exports.name = "exit";
 exports.type = "utility";
 exports.description = "Entirely shuts down the bot using pm2.";
-exports.use = "exit";
+exports.use = "";
 exports.aliases = [
     "quit"
 ];

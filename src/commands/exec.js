@@ -36,5 +36,5 @@ exports.run = (bot, message, args) => {
 exports.name = "exec";
 exports.type = "utility";
 exports.description = "Executes shell commands.";
-exports.use = "exec [command]";
+exports.use = "[command]";
 exports.aliases = [];

@@ -38,7 +38,7 @@ exports.run = async (bot, message, args) => {
 exports.name = "async";
 exports.type = "utility";
 exports.description = "Evaluates code from a provided string.\nAllows use of the `await` keyword.";
-exports.use = "async [code]";
+exports.use = "[code]";
 exports.aliases = [
     "aeval",
     "aval",

@@ -9,5 +9,5 @@ exports.run = (bot, message) => {
 exports.name = "cat";
 exports.description = "Sends a random cat image.";
 exports.type = "general";
-exports.use = "cat";
+exports.use = "";
 exports.aliases = [];

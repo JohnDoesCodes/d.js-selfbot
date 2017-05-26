@@ -15,7 +15,7 @@ exports.run = (bot, message, args) => {
 exports.name = "prefix";
 exports.type = "utility";
 exports.description = "Sets the prefix if a new one is provided or displays the current.";
-exports.use = "prefix <new prefix>";
+exports.use = "<new prefix>";
 exports.aliases = [
     "trigger"
 ];

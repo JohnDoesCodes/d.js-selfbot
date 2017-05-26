@@ -28,7 +28,7 @@ exports.run = (bot, message) => {
 exports.name = "botinfo";
 exports.description = "Displays info about the bot";
 exports.type = "general";
-exports.use = "botinfo";
+exports.use = "";
 exports.aliases = [
     "selfinfo",
     "details"
