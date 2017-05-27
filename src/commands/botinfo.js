@@ -16,7 +16,7 @@ exports.run = (bot, message) => {
         .setDescription(`**Selfbot Version**: v${version}\n**Github Repo**: [d.js-selfbot](https://github.com/EPICZEUS1/d.js-selfbot)`)
 		.addField("Node Version", process.version, true)
 		.addField("Discord.js Version", Discord.version, true)
-		.addField("Author", bot.user.tag, true)
+		.addField("Author", "**TAG:** `EPICZEUS#2700`\n**ID:** `153214789160534016`", true)
 		.addField("Process Uptime", moment.duration(uptime).format("D [days], H [hrs], m [mins], s [secs]"), true)
 		.addField("Memory Use", `${memUsed.toFixed(2)}/${memTotal.toFixed(2)}MB`, true)
 		.addField("Heartbeat Ping", `${Math.floor(bot.ping)}ms`, true)
