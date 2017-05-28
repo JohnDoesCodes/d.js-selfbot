@@ -11,7 +11,7 @@ exports.run = (bot, message) => {
     member.kick().then(user => {
         logger.log(`${user.tag} was kicked.`);
         message.channel.send(`${user.tag} was kicked.`, {code:true});
-    }).catch(logger.error);
+    }).catch(logger.error.bind(logger));
 };
 
 exports.name = "kick";

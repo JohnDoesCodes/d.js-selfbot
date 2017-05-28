@@ -4,7 +4,7 @@ exports.run = (bot, message, args) => {
     bot.user.setGame(game).then(() => {
         logger.info(game ? `New game set to '${game}'` : "Game cleared!");
         message.edit(game ? `New game set to '${game}'` : "Game cleared!");
-    }).catch(logger.error);
+    }).catch(logger.error.bind(logger));
 };
 
 exports.name = "setgame";

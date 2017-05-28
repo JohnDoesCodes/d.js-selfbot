@@ -14,7 +14,7 @@ exports.run = (bot, message, args) => {
 			.setDescription(types.sort().join("\n"))
 			.setColor(24120);
 
-        return message.edit({embed}).catch(logger.error);
+        return message.edit({embed}).catch(logger.error.bind(logger));
     }
     const list = bot.commands.filter(a => a.type === type);
 
@@ -22,7 +22,7 @@ exports.run = (bot, message, args) => {
     embed.setTitle(type.replace(/^(.)/, l => l.toString().toUpperCase()))
 		.setDescription(list.map(a => a.name).sort().join("\n"))
 		.setColor(24120);
-    message.edit({embed}).catch(logger.error);
+    message.edit({embed}).catch(logger.error.bind(logger));
 };
 
 exports.name = "list",

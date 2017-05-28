@@ -4,7 +4,7 @@ exports.run = async (bot, message) => {
 		"Websocket:       " + Math.round(bot.ping) + "ms\n" +
 		"Response Time:   " + (message.editedTimestamp - message.createdTimestamp) + "ms\n" +
 		"HTTP Round Trip: " + (message.createdTimestamp - Date.now()) + "ms\n```")
-    .catch(logger.error);
+    .catch(logger.error.bind(logger));
 };
 
 exports.name = "ping";

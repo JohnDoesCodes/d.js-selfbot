@@ -21,7 +21,7 @@ exports.run = (bot, message, args) => {
 
         message.channel.send({files:[file]})
 			.then(() => message.delete())
-			.catch(logger.error);
+			.catch(logger.error.bind(logger));
     });
 };
 

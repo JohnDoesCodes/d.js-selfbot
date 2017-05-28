@@ -21,7 +21,7 @@ exports.run = (bot, message, args = [""]) => {
             text: "[] - required, <> - optional"
         },
         color: 0x4d68cc
-    }}).catch(logger.error);
+    }}).catch(logger.error.bind(logger));
 };
 
 exports.name = "info";

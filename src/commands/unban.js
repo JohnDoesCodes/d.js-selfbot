@@ -19,8 +19,8 @@ exports.run = (bot, message, args) => {
 			
             logger.log(banMSG);
             message.channel.send(banMSG, {code:true});
-        }).catch(logger.error);
-    }).catch(logger.error);
+        }).catch(logger.error.bind(logger));
+    }).catch(logger.error.bind(logger));
 };
 
 exports.name = "unban";

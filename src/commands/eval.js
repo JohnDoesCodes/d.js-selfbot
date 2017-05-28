@@ -47,7 +47,7 @@ exports.run = (bot, message, args) => {
 			.setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
 			.setColor(24120);
 
-        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).then(update.bind(null, bot, promise, embed)).catch(logger.error);
+        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).then(update.bind(null, bot, promise, embed)).catch(logger.error.bind(logger));
     } catch (err) {
         logger.error(err);
         message.edit("**INPUT:** `" + code.replace(/;/g, "\u037e") + "`", {embed: {

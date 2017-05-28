@@ -27,7 +27,7 @@ exports.run = (bot, message, args) => {
         message.channel.send(banMSG, {code:true});
         message.guild.unban(user, "Ban removal for softban.");
     })
-	.catch(logger.error);
+	.catch(logger.error.bind(logger));
 };
 
 exports.name = "softban";

@@ -1,3 +1,5 @@
+const {RichEmbed} = require("discord.js");
+
 const letters = {
     a: "<:~A:273287445162885120>",
     b: "<:~B:273287445519532033>",
@@ -41,19 +43,17 @@ const slash = {
         message.edit(content
         .replace(/[a-z]/gi, l => letters[l.toString()])
         .replace(/~/g, "Dancing"))
-        .catch(logger.error);
+        .catch(logger.error.bind(logger));
     },
     "docs": (bot, message) => {
         message.edit("Read the Docs\u2122");
     },
     "spoonfeed": (bot, message) => {
-        message.edit(message.content.split(/ +/).slice(1).join(" "), {
-            embed: {
-                title: "So you want to be spoonfed?",
-                color: message.guild && message.member.displayColor ? message.member.displayColor : 0x229364
-            }
-        }).catch(logger.error);
-        message.channel.send({files:["./images/spoonfeed.gif"]}).catch(logger.error);
+        message.edit(message.content.split(/ +/).slice(1).join(" "), {embed: new RichEmbed()
+            .setTitle("So you want to be spoonfed?")
+            .setColor(message.guild && message.member.displayColor ? message.member.displayColor : 0x229364)
+            .setImage("https://img.fireden.net/vg/image/1429/90/1429905490901.gif")
+        }).catch(logger.error.bind(logger));
     }
 };
 
