@@ -4,6 +4,8 @@ const slashReg = /^\/([^ ]+) ?/;
 const flagReg = / -([aedl]+) ?(\d+)?$/;
 
 exports.run = (bot, message) => {
+    if (bot.user.blocked.has(message.author.id)) message.channel.acknowledge();
+
     if (message.author.id !== bot.user.id) return;
 
     const [, slashCMD] = slashReg.exec(message.content) || [];

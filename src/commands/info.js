@@ -6,6 +6,7 @@ exports.run = (bot, message, args = [""]) => {
     message.channel.send({embed: {
         title:       cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
         description: cmdFile.description,
+        url:         `https://github.com/EPICZEUS1/d.js-selfbot/blob/master/src/commands/${cmdFile.name}.js`,
 
         fields: [
             {
