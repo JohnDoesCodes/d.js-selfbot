@@ -19,7 +19,7 @@ class Client extends Discord.Client {
         }).catch(err => {
             logger.error(err);
             logger.warn("Error on login.\nCheck that your token is correct.");
-            exec(`pm2 stop ${this.shard ? this.shard.id : "selfthis"}`, null, () => {
+            exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, null, () => {
                 process.exit(1);
             });
         });
