@@ -3,6 +3,8 @@ const bot     = new Client();
 
 const Logger  = require("./src/util/logger.js");
 
+let unhandledCount = 0;
+
 /**
  * Adjust these to change how much logging is done.
  * time: whether to log the time with each log
@@ -21,4 +23,13 @@ bot.login()
     .loadListeners()
     .loadCommands();
 
-process.on('unhandledRejection', (err, p) => logger.error("Unhandled Rejection at:", p));
+process.on("rejectionHandled", () => {
+    unhandledCount--;
+});
+
+process.on("unhandledRejection", err => {
+    unhandledCount++;
+    setTimeout(() => {
+        if (unhandledCount) logger.error("Unhandled rejection:", err);
+    }, 5000);
+});

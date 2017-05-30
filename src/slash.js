@@ -54,6 +54,13 @@ const slash = {
             .setColor(message.guild && message.member.displayColor ? message.member.displayColor : 0x229364)
             .setImage("https://img.fireden.net/vg/image/1429/90/1429905490901.gif")
         }).catch(logger.error.bind(logger));
+    },
+    "gethelp": (bot, message) => {
+        message.edit({embed: new RichEmbed()
+            .setDescription(message.content.split(/ +/).slice(1).join(" "))
+            .setColor("ORANGE")
+            .setImage("https://media.giphy.com/media/l4Ki2obCyAQS5WhFe/giphy.gif")
+        });
     }
 };
 
