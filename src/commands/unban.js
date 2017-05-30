@@ -5,21 +5,27 @@ exports.run = (bot, message, args) => {
     if (!args[0]) return logger.warn("User ID to unban not provided.");
 
     message.guild.fetchBans().then(users => {
-        const userToUnban = users.get(args[0]);
+        const {user} = users.get(args[0]) || {};
+        
+        return user;
+    }).then(user => user ? message.guild.unban(user) : null).then(unbanned => {
+        if (!unbanned) {
+            logger.warn(`${args[0]} is not a valid unban target!`);
+            
+            return message.edit(`${args[0]} is not a valid unban target!`);
+        }
 
-        if (!userToUnban) return logger.warn("The user ID is either invalid or not banned.");
-        message.guild.unban(userToUnban).then(user => {
-            let banMSG;
+        let banMSG;
 
-            if (user instanceof GuildMember) banMSG = user.user.tag ;
-            else if (user instanceof User) banMSG = user.tag;
-            else `User ID ${user}`;
-				
-            banMSG += " was unbanned.";
-			
-            logger.log(banMSG);
-            message.channel.send(banMSG, {code:true});
-        }).catch(logger.error.bind(logger));
+        if (unbanned instanceof GuildMember) banMSG = unbanned.user.tag ;
+        else if (unbanned instanceof User) banMSG = unbanned.tag;
+        else `User ID ${unbanned}`;
+            
+        banMSG += " was unbanned.";
+        
+        logger.log(banMSG);
+
+        return message.channel.send(banMSG, {code:true});
     }).catch(logger.error.bind(logger));
 };
 

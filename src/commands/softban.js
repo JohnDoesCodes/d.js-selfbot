@@ -3,13 +3,13 @@ const {GuildMember, User} = require("discord.js");
 exports.run = (bot, message, args) => {
     const num = parseInt(args[1]);
     const options = {
-        days: num < 8 && num > 0 ? num : 1
+        days: !isNaN(num) && num < 8 && num > 0 ? num : 1
     };
 
     if (args.length >= 2) options.reason = args.slice(num ? 2 : 1).join(" ");
 
     if (!message.guild.me.hasPermission("BAN_MEMBERS")) return logger.warn("You can't ban in this server!");
-	
+
     const member = message.mentions.members.first() || message.guild.member(args[0]);
 
     if (!member) return logger.warn("User to ban not specified or member not found.");
@@ -26,8 +26,7 @@ exports.run = (bot, message, args) => {
         logger.info(banMSG);
         message.channel.send(banMSG, {code:true});
         message.guild.unban(user, "Ban removal for softban.");
-    })
-	.catch(logger.error.bind(logger));
+    }).catch(logger.error.bind(logger));
 };
 
 exports.name = "softban";
