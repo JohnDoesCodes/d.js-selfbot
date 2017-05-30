@@ -2,40 +2,40 @@ const Discord = require("discord.js");
 const {inspect} = require("util");
 const nano = require("nanoseconds");
 
-async function update(bot, promise, embed, message) {
+function update(bot, promise, embed, message) {
     if (!promise) return;
-    try {
-        const start = process.hrtime();
+    const start = process.hrtime();
 
-        let done = await promise;
-
+    promise.then(done => {
         const end = nano(process.hrtime(start));
 
         if (typeof done !== "string") done = inspect(done);
 
         logger.log(done);
 
-        embed.addField("Promise", (done.length < 900 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
+        embed.addField("PROMISE", (done.length < 900 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
 
-        message.edit(message.content, {embed});
-    } catch (err) {
+        return message.edit(message.content, {embed});
+    }).catch(err => {
+        const end = nano(process.hrtime(start));
+
         logger.error(err);
-        embed.addField("Promise Error", `\`\`\`${err}\`\`\``)
+        embed.addField("<:panicbasket:267397363956580352>PROMISE ERROR<:panicbasket:267397363956580352>", `\`\`\`${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
             .setColor(13379110);
 
-        message.edit(message.content, {embed});
-    }
+        message.edit(message.content, {embed}).catch(logger.error.bind(logger));
+    });
 }
 
 exports.run = (bot, message, args) => {
     const code = args.join(" ").replace(/\u037e/g, ";");
     let promise;
 
-    try {
-        if (!code) return logger.log("No code provided!");
+    if (!code) return logger.log("No code provided!");
 
-        const start = process.hrtime();
-        
+    const start = process.hrtime();
+
+    try {
         let evaled = eval(code);
 
         const runTime = nano(process.hrtime(start));
@@ -56,12 +56,15 @@ exports.run = (bot, message, args) => {
 
         message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).then(update.bind(null, bot, promise, embed)).catch(logger.error.bind(logger));
     } catch (err) {
+        const runTime = nano(process.hrtime(start));
+
         logger.error(err);
-        message.edit("**INPUT:** `" + code.replace(/;/g, "\u037e") + "`", {embed: {
-            title:       "<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>",
-            description: `\`\`\`xl\n${err}\n\`\`\``,
-            color:       13379110
-        }});
+        message.edit("**INPUT:** `" + code.replace(/;/g, "\u037e") + "`", {embed: new Discord.RichEmbed()
+            .setTitle("<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>")
+            .setDescription(`\`\`\`xl\n${err}\n\`\`\``)
+            .setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
+            .setColor(13379110)
+        });
     }
 };
 
