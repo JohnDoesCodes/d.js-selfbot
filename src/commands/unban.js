@@ -11,13 +11,13 @@ exports.run = (bot, message, args) => {
     }).then(user => user ? message.guild.unban(user) : null).then(unbanned => {
         if (!unbanned) {
             logger.warn(`${args[0]} is not a valid unban target!`);
-            
+
             return message.edit(`${args[0]} is not a valid unban target!`);
         }
 
         let banMSG;
 
-        if (unbanned instanceof GuildMember) banMSG = unbanned.user.tag ;
+        if (unbanned instanceof GuildMember) banMSG = unbanned.user.tag;
         else if (unbanned instanceof User) banMSG = unbanned.tag;
         else `User ID ${unbanned}`;
             
