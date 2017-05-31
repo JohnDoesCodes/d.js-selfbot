@@ -55,12 +55,15 @@ class Client extends Discord.Client {
     loadListeners() {
         logger.log("Loading event listeners...");
 
+        const loadStart = process.hrtime();
+
         for (const file in listeners) {
             const listener = listeners[file];
 
             this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
             logger.info(`Loaded ${listener.event} listener!`);
         }
+        logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load listeners.`);
         logger.log("Listeners loaded!");
 
         return this;

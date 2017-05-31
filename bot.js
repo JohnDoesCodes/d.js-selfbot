@@ -1,7 +1,6 @@
-const Client  = require("./src/client.js");
-const bot     = new Client();
+const {Client, util} = require("./src");
 
-const {Logger} = require("./src/util");
+const bot = new Client();
 
 let unhandledCount = 0;
 
@@ -17,7 +16,7 @@ const loggerOpts = {
     warn: true,
 };
 
-global.logger = new Logger(loggerOpts);
+global.logger = new util.Logger(loggerOpts);
 
 bot.login()
     .loadListeners()
