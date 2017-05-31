@@ -12,10 +12,10 @@ exports.run = async (bot, message, args) => {
     eval(`(async () => {${code}})()`).then(evaled => {
         const runTime = nano(process.hrtime(start));
 
-        if (typeof evaled !== "string") evaled = inspect(evaled);
-
         logger.log(code);
         logger.log(evaled);
+
+        if (typeof evaled !== "string") evaled = inspect(evaled);
 
         return message.edit(`**INPUT:** \`${code}\``, {embed: new Discord.RichEmbed()
             .setTitle("**OUTPUT**")

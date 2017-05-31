@@ -9,9 +9,9 @@ function update(bot, promise, embed, message) {
     promise.then(done => {
         const end = nano(process.hrtime(start));
 
-        if (typeof done !== "string") done = inspect(done);
-
         logger.log(done);
+
+        if (typeof done !== "string") done = inspect(done);
 
         embed.addField("PROMISE", (done.length < 900 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
 
@@ -40,13 +40,13 @@ exports.run = (bot, message, args) => {
 
         const runTime = nano(process.hrtime(start));
 
+        logger.log(code);
+        logger.log(evaled);
+
         if (typeof evaled !== "string") {
             if (evaled instanceof Promise) promise = evaled;
             evaled = inspect(evaled);
         }
-
-        logger.log(code);
-        logger.log(evaled);
 
         const embed = new Discord.RichEmbed()
             .setTitle("**OUTPUT**")
