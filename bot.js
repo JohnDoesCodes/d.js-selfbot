@@ -1,7 +1,7 @@
 const Client  = require("./src/client.js");
 const bot     = new Client();
 
-const Logger  = require("./src/util/logger.js");
+const {Logger} = require("./src/util");
 
 let unhandledCount = 0;
 

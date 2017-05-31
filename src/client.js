@@ -1,8 +1,10 @@
 const Discord = require("discord.js");
 const request = require("snekfetch");
 const nano    = require("nanoseconds");
-const fs      = require("fs");
 const {exec}  = require("child_process");
+
+const commands  = require("./commands");
+const listeners = require("./events");
 
 class Client extends Discord.Client {
     constructor(options) {
@@ -34,24 +36,18 @@ class Client extends Discord.Client {
 
         const loadStart = process.hrtime();
 
-        fs.readdir("./src/commands", (err, files) => {
-            if (err) return logger.error(err);
+        for (const file in commands) {
+            this.commands.set(commands[file].name, commands[file]);
 
-            for (const file of files) {
-                const data = require(`./commands/${file}`);
-                
-                this.commands.set(data.name, data);
-
-                for (const alias of data.aliases) {
-                    if (this.aliases.has(alias)) logger.warn(`Command ${data.name} has duplicate alias ${alias}!`);
-                    else this.aliases.set(alias, data.name);
-                }
-
-                logger.info(`Loaded command ${data.name} with ${data.aliases.length} alias${data.aliases.length == 1 ? "" : "es"}.`);
+            for (const alias of commands[file].aliases) {
+                if (this.aliases.has(alias)) logger.warn(`Command ${commands[file].name} has duplicate alias ${alias}!`);
+                else this.aliases.set(alias, commands[file].name);
             }
-            logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-            logger.log(`Loaded ${this.commands.size} commands!`);
-        });
+
+            logger.info(`Loaded command ${commands[file].name} with ${commands[file].aliases.length} alias${commands[file].aliases.length == 1 ? "" : "es"}.`);
+        }
+        logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
+        logger.log(`Loaded ${this.commands.size} commands!`);
 
         return this;
     }
@@ -59,17 +55,13 @@ class Client extends Discord.Client {
     loadListeners() {
         logger.log("Loading event listeners...");
 
-        fs.readdir("./src/events", (err, files) => {
-            if (err) return logger.error(err);
+        for (const file in listeners) {
+            const listener = listeners[file];
 
-            for (let i = files.length; i--;) {
-                const listener = require(`./events/${files[i]}`);
-
-                this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
-                logger.info(`Loaded ${listener.event} listener!`);
-            }
-            logger.log("Listeners loaded!");
-        });
+            this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
+            logger.info(`Loaded ${listener.event} listener!`);
+        }
+        logger.log("Listeners loaded!");
 
         return this;
     }
