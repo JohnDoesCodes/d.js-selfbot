@@ -6,7 +6,7 @@ function update(bot, promise, embed, message) {
     if (!promise) return;
     const start = process.hrtime();
 
-    promise.then(done => {
+    return promise.then(done => {
         const end = nano(process.hrtime(start));
 
         logger.log(done);
