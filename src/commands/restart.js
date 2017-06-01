@@ -1,6 +1,14 @@
-exports.run = () => {
+const path = require("path");
+const fs = require("fs");
+
+exports.run = (bot, message) => {
     logger.info("Restarting...");
-    process.exit();
+    message.edit("Restarting...").then(msg => {
+        fs.writeFile(path.join(__dirname, "..", "restart.json"), JSON.stringify({channel:msg.channel.id, message:message.id}, null, 4), err => {
+            if (err) logger.error(err);
+            process.exit();
+        });
+    });
 };
 
 exports.name = "restart";
