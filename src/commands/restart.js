@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.run = (bot, message) => {
     logger.info("Restarting...");
     message.edit("Restarting...").then(msg => {
-        fs.writeFile(path.join(__dirname, "..", "restart.json"), JSON.stringify({channel:msg.channel.id, message:message.id}, null, 4), err => {
+        fs.writeFile(path.join(__dirname, "..", "restart.json"), JSON.stringify({channel:msg.channel.id, message:message.id, time:Date.now()}, null, 4), err => {
             if (err) logger.error(err);
             process.exit();
         });

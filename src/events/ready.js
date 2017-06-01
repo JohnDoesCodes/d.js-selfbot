@@ -9,8 +9,8 @@ exports.run = bot => {
         const data = JSON.parse(fs.readFileSync("./src/restart.json"));
 
         bot.channels.get(data.channel).fetchMessage(data.message).then(msg => {
-            msg.edit("Bot has restarted!");
-            exec("cd src && del restart.json", err => err ? logger.error(err) : logger.info("Removed file successfully!"));
+            msg.edit(`Bot has restarted! Took \`${Date.now() - data.time}\`ms`);
+            exec("cd src && del restart.json", null, err => err ? logger.error(err) : logger.info("Removed file successfully!"));
         });
     }
 };
