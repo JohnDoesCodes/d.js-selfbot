@@ -1,4 +1,4 @@
 const Client = require("./client");
-const util = require("./url");
+const util = require("./util");
 
 module.exports = {Client, util};
