@@ -13,14 +13,16 @@ function update(bot, promise, embed, message) {
 
         if (typeof done !== "string") done = inspect(done);
 
-        embed.addField("PROMISE", (done.length < 900 ? `\`\`\`${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
+        embed.setTitle("PROMISE")
+            .setDescription((done.length < 900 ? `\`\`\`js\n${done}\`\`\`` : "```\nPromise return too long.\nLogged to console\n```") + `\nResolved in ${(end / 1000).toFixed(3)}\u03bcs`);
 
         return message.edit(message.content, {embed});
     }).catch(err => {
         const end = nano(process.hrtime(start));
 
         logger.error(err);
-        embed.addField("<:panicbasket:267397363956580352>PROMISE ERROR<:panicbasket:267397363956580352>", `\`\`\`${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
+        embed.setTitle("<:panicbasket:267397363956580352>PROMISE ERROR<:panicbasket:267397363956580352>")
+            .setDescription(`\`\`\`${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
             .setColor(13379110);
 
         message.edit(message.content, {embed}).catch(logger.error.bind(logger));
@@ -50,7 +52,7 @@ exports.run = (bot, message, args) => {
 
         const embed = new Discord.RichEmbed()
             .setTitle("**OUTPUT**")
-            .setDescription(evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "Output too long.\nSaved to console.")
+            .setDescription(promise ? "Resolving..." : evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "```Output too long.\nSaved to console.```")
             .setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
             .setColor(24120);
 
