@@ -26,7 +26,7 @@
   "license": "MIT",
   "repository": "github:EPICZEUS1/d.js-selfbot",
   "optionalDependencies": {
-    "bufferutil": ">=3.0.0",
+    "bufferutil": "^3.0.1",
     "erlpack": "github:hammerandchisel/erlpack",
     "uws": ">=0.14.5"
   }

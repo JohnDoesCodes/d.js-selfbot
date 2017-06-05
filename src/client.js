@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const request = require("snekfetch");
 const nano    = require("nanoseconds");
 const {exec}  = require("child_process");
+const {inspect} = require("util");
 
 const commands  = require("./commands");
 const listeners = require("./events");
@@ -74,6 +75,19 @@ class Client extends Discord.Client {
             stable: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text)),
             master: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/master.json").then(res => JSON.parse(res.text))
         };
+    }
+
+    [inspect.custom]() {
+        const user = this.user ? `${this.user.tag} (${this.user.id})` : null;
+        
+        return `Client {
+  User: ${user},
+  Guilds: Collection { ${this.guilds.size} },
+  Channels: Collection { ${this.channels.size} },
+  Users: Collection { ${this.users.size} },
+  Commands: Collection { ${this.commands.size} },
+  Deleted: Collection { ${this.deleted.size} }
+}`;
     }
 }
 
