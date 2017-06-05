@@ -3,9 +3,9 @@ const moment = require("moment");
 
 exports.run = (bot, message, args) => {
     const embed = new RichEmbed();
-    let id = message.mentions.users.size ? message.mentions.users.first().id : args[0];
+    let id = message.channel.type === "text" && message.mentions.users.size ? message.mentions.users.first().id : args[0];
 
-    if (args[0] !== message.mentions.users.first().toString()) id = args[0];
+    if (message.channel.type === "text" && message.mentions.users.size && args[0] !== message.mentions.users.first().toString()) id = args[0];
 
     const msg = bot.deleted.get(id);
     

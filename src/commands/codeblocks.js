@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
 		`${lang}\n${code}\n` +
 		"\\`\\`\\`\nbecomes\n```" +
 		`${lang}\n${code}\n` +
-		"```\n\nThe character is called a grave and is on the same key as the tilde (`~`)");
+		"```\n\nThe character is called a grave or backtick.");
 };
 
 exports.name = "codeblocks";

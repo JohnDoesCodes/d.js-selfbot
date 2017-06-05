@@ -1,8 +1,8 @@
 const slash = require("../slash.js");
 const flag  = require("../flags.js");
 
-const slashReg = /^\/(\S)/;
-const flagReg  = / -([aedl]+)(?: (\d+))?$/;
+const slashReg = /^\/(\S+)/;
+const flagReg  = / -([aedl]+)(?: (\d?(?:\.(?:\d{1,3}))?))?$/;
 
 exports.run = (bot, message) => {
     if (bot.user.blocked.has(message.author.id)) message.channel.acknowledge();
