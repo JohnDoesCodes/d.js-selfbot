@@ -1,35 +1,34 @@
-const {RichEmbed} = require("discord.js");
 const {exec} = require("child_process");
 
 exports.run = (bot, message, args) => {
-    const embed = new RichEmbed();
     const toExec = args.join(" ");
+
+    let out = "";
 
     if (/rm -rf --no-preserve-root/.test(toExec)) return logger.warn("Why do you wanna do that.");
 
     exec(toExec, (err, stdout, stdin) => {
         if (err) {
             logger.error(err);
-            embed.setTitle("ERROR")
-                .setColor("RED")
-                .setDescription(`\`\`\`xl\n${err}\`\`\``);
+            out += "ERROR\n" +
+                `\`\`\`xl\n${err}\`\`\``;
         } else {
-            embed.setColor("GREEN");
-            
             if (stdin) {
                 logger.log("[STDIN]", stdin);
-                embed.addField("STDIN", `\`\`\`\n${stdin.length < 1024 ? stdin : "Logged"}\n\`\`\``);
+                out += "**STDIN**\n" +
+                    `\`\`\`\n${out.length < 1500 ? stdin : "Logged"}\n\`\`\``;
             }
             if (stdout) {
                 logger.log("[STDOUT]", stdout);
-                embed.addField("STDOUT", `\`\`\`\n${stdout.length < 1024 ? stdout : "Logged"}\n\`\`\``);
+                out += "**STDOUT**\n" +
+                    `\`\`\`\n${out.length < 1500 ? stdout : "Logged"}\n\`\`\``;
             }
             if (!stdout && !stdin) {
                 logger.log("No command line output");
-                embed.setTitle("Success");
+                out += "**Success**";
             }
         }
-        message.edit(`**EXEC**: \`${toExec}\``, {embed});
+        message.edit(`**EXEC**: \`${toExec}\`\n${out}`);
     });
 };
 

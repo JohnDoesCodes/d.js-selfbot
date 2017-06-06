@@ -15,11 +15,11 @@ exports.run = (bot, message, args) => {
         embed.setFooter("Runtime: " + (nano(process.hrtime(start)) / 1000).toFixed(3) + "\u03bcs", "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png");
 
         logger.log(code);
-        logger.log(evaled);
 
         if (evaled instanceof Promise) {
             start = process.hrtime();
-            evaled.then(done => {
+
+            return evaled.then(done => {
                 const end = nano(process.hrtime(start));
 
                 logger.log(done);
@@ -36,19 +36,19 @@ exports.run = (bot, message, args) => {
 
                 logger.error(err);
                 embed.setTitle("<:panicbasket:267397363956580352>PROMISE ERROR<:panicbasket:267397363956580352>")
-                    .setDescription(`\`\`\`${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
+                    .setDescription(`\`\`\`xl\n${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
                     .setColor(13379110);
 
                 message.edit(message.content, {embed}).catch(logger.error.bind(logger));
             });
-        } else {
-            if (typeof evaled !== "string") evaled = inspect(evaled);
-            embed.setTitle("**OUTPUT**")
-                .setDescription(evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "```Output too long.\nSaved to console.```")
-                .setColor(24120);
-
-            message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).catch(logger.error.bind(logger));
         }
+        if (typeof evaled !== "string") evaled = inspect(evaled);
+        logger.log(evaled);
+        embed.setTitle("**OUTPUT**")
+            .setDescription(evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "```Output too long.\nSaved to console.```")
+            .setColor(24120);
+
+        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).catch(logger.error.bind(logger));
     } catch (err) {
         const runTime = nano(process.hrtime(start));
 

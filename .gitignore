@@ -1,7 +1,0 @@
-node_modules
-images
-config.json
-eval.js
-src/commands/loog.js
-src/commands/ohh.js
-*.log
