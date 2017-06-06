@@ -16,8 +16,6 @@ const loggerOpts = {
 
 global.logger = new util.Logger(loggerOpts);
 
-for (const key in logger) if (logger.hasOwnProperty(key) && logger[key] instanceof Function) logger[key] = logger[key].bind(logger);
-
 bot.login()
     .loadListeners()
     .loadCommands();
