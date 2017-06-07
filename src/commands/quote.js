@@ -29,7 +29,9 @@ exports.run = (bot, message, args) => {
 			.setFooter(`In ${channel.type === "text" ? `#${channel.name}` : `DM with ${channel.recipient.tag}`} | ${moment(msg.createdAt).format("dddd l [at] LTS")}`)
 			.setColor(msg.member && msg.member.displayColor ? msg.member.displayColor : 0x50a0ce);
 
-        message.edit(message.content.split(" ").slice(2 + pos).join(" "), {embed}).catch(logger.error.bind(logger));
+        const content = bot.config.prefix ? message.content.split(" ").slice(2 + pos).join(" ") : message.content.split(" ").slice(1 + pos).join(" ").replace(new RegExp(`${bot.config.suffix}quote$`), "");
+
+        message.edit(content, {embed}).catch(logger.error.bind(logger));
     }).catch(() => logger.error(`${id} is an invalid message id!`));
 };
 

@@ -16,6 +16,4 @@ const loggerOpts = {
 
 global.logger = new util.Logger(loggerOpts);
 
-bot.login()
-    .loadListeners()
-    .loadCommands();
+bot.login();

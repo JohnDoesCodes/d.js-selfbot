@@ -2,7 +2,12 @@ exports.run = (bot, message, args = [""]) => {
     const cmdFile = bot.commands.get(args[0].toLowerCase()) || bot.commands.get(bot.aliases.get(args[0].toLowerCase()));
 
     if (!cmdFile) return logger.warn(`${args[0]} is not a valid command name or alias.`);
+
+    let use;
 	
+    if (bot.config.prefix) use = `${bot.config.prefix}${cmdFile.name} ${cmdFile.use}`;
+    else use = `${cmdFile.use ? `${cmdFile.use} ` : ""}${bot.config.suffix}${cmdFile.name}`;
+
     message.channel.send({embed: {
         title:       cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
         description: cmdFile.description,
@@ -11,7 +16,7 @@ exports.run = (bot, message, args = [""]) => {
         fields: [
             {
                 name:  "Usage",
-                value: `${bot.config.prefix}${cmdFile.name} ${cmdFile.use}`
+                value: use
             },
             {
                 name:  "Aliases",

@@ -27,9 +27,9 @@ class Client extends Discord.Client {
             });
         });
 
-        this.loadDocs();
-
-        return this;
+        this.loadListeners()
+            .loadCommands()
+            .loadDocs();
     }
 
     loadCommands() {
