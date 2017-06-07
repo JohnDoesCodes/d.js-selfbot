@@ -107,7 +107,7 @@ if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
             "token": null,
             "id":    null
         },
-        
+
         "startGame":  null,
         "logChannel": null,
         "ignoreList": []
@@ -115,7 +115,11 @@ if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
 
     fs.writeFile(path.join(__dirname, "..", "config.json"), JSON.stringify(config, null, 4), err => err ? logger.error(err) : logger.info("Config intialized successfully!"));
 
-    Client.prototype.config = config;
+    logger.warn("Please enter your token in the config!");
+
+    exec("pm2 stop selfbot", () => {
+        process.exit();
+    });
 }
 
 /* eslint-disable no-multi-spaces */
