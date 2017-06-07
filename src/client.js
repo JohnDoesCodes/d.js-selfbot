@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const request = require("snekfetch");
 const nano    = require("nanoseconds");
+const path    = require("path");
+const fs      = require("fs");
 const {exec}  = require("child_process");
 const {inspect} = require("util");
 
@@ -10,6 +12,8 @@ const listeners = require("./events");
 class Client extends Discord.Client {
     constructor(options) {
         super(options);
+
+        if (!this.config.prefix && !this.config.suffix) throw new Error("No prefix or suffix defined.");
     }
 
     login() {
@@ -91,9 +95,31 @@ class Client extends Discord.Client {
     }
 }
 
+if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
+    Client.prototype.config = require("../config.json");
+} else {
+    const config = {
+        "prefix": ">>",
+        "suffix": null,
+        "token":  "",
+
+        "customsearch": {
+            "token": null,
+            "id":    null
+        },
+        
+        "startGame":  null,
+        "logChannel": null,
+        "ignoreList": []
+    };
+
+    fs.writeFile(path.join(__dirname, "..", "config.json"), JSON.stringify(config, null, 4), err => err ? logger.error(err) : logger.info("Config intialized successfully!"));
+
+    Client.prototype.config = config;
+}
+
 /* eslint-disable no-multi-spaces */
 
-Client.prototype.config   = require("../config.json");
 Client.prototype.commands = new Discord.Collection();
 Client.prototype.aliases  = new Discord.Collection();
 Client.prototype.deleted  = new Discord.Collection();

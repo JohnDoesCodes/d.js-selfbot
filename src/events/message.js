@@ -25,7 +25,7 @@ exports.run = (bot, message) => {
 
         if (cmdFile) cmdFile.run(bot, message, args);
     } else if (bot.config.suffix) {
-        const suffix = new RegExp(` ?${bot.config.suffix}.+$`);
+        const suffix = new RegExp(`(?:[^]+ )?${bot.config.suffix}.+$`);
 
         if (!suffix.test(message.content)) return;
 
