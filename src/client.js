@@ -14,6 +14,8 @@ class Client extends Discord.Client {
         super(options);
 
         if (!this.config.prefix && !this.config.suffix) throw new Error("No prefix or suffix defined.");
+
+        if (this.config.debug) this.on('debug', logger.info.bind(logger));
     }
 
     login() {
