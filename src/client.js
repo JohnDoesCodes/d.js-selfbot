@@ -9,13 +9,22 @@ const {inspect} = require("util");
 const commands  = require("./commands");
 const listeners = require("./events");
 
+const {Logger} = require("./util");
+
 class Client extends Discord.Client {
     constructor(options) {
         super(options);
 
+        this.logger = new Logger(options.logger);
+
+        this.loadConfig();
+
         if (!this.config.prefix && !this.config.suffix) throw new Error("No prefix or suffix defined.");
 
-        if (this.config.debug) this.on('debug', logger.info.bind(logger));
+        if (this.config.debug) this.on('debug', this.logger.info.bind(logger));
+
+        this.loadCommands()
+            .loadListeners();
     }
 
     login() {
@@ -24,22 +33,20 @@ class Client extends Discord.Client {
         super.login(this.config.token).then(() => {
             const end = nano(process.hrtime(start)) / 1000000;
 
-            logger.info(`Login took ${end.toFixed(3)}ms`);
+            this.logger.info(`Login took ${end.toFixed(3)}ms`);
         }).catch(err => {
-            logger.error(err);
-            logger.warn("Error on login.\nCheck that your token is correct.");
+            this.logger.error(err);
+            this.logger.warn("Error on login.\nCheck that your token is correct.");
             exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, null, () => {
                 process.exit(1);
             });
         });
 
-        this.loadListeners()
-            .loadCommands()
-            .loadDocs();
+        this.loadDocs();
     }
 
     loadCommands() {
-        logger.log("Loading commands...");
+        this.logger.log("Loading commands...");
 
         const loadStart = process.hrtime();
 
@@ -47,20 +54,20 @@ class Client extends Discord.Client {
             this.commands.set(commands[file].name, commands[file]);
 
             for (const alias of commands[file].aliases) {
-                if (this.aliases.has(alias)) logger.warn(`Command ${commands[file].name} has duplicate alias ${alias}!`);
+                if (this.aliases.has(alias)) this.logger.warn(`Command ${commands[file].name} has duplicate alias ${alias}!`);
                 else this.aliases.set(alias, commands[file].name);
             }
 
-            logger.info(`Loaded command ${commands[file].name} with ${commands[file].aliases.length} alias${commands[file].aliases.length == 1 ? "" : "es"}.`);
+            this.logger.info(`Loaded command ${commands[file].name} with ${commands[file].aliases.length} alias${commands[file].aliases.length == 1 ? "" : "es"}.`);
         }
-        logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
-        logger.log(`Loaded ${this.commands.size} commands!`);
+        this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
+        this.logger.log(`Loaded ${this.commands.size} commands!`);
 
         return this;
     }
 
     loadListeners() {
-        logger.log("Loading event listeners...");
+        this.logger.log("Loading event listeners...");
 
         const loadStart = process.hrtime();
 
@@ -68,10 +75,43 @@ class Client extends Discord.Client {
             const listener = listeners[file];
 
             this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
-            logger.info(`Loaded ${listener.event} listener!`);
+            this.logger.info(`Loaded ${listener.event} listener!`);
         }
-        logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load listeners.`);
-        logger.log("Listeners loaded!");
+        this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load listeners.`);
+        this.logger.log("Listeners loaded!");
+
+        return this;
+    }
+
+    loadConfig() {
+        if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
+            this.config = require(path.join(__dirname, "..", "config.json"));
+        } else {
+            const config = {
+                "debug": false,
+                
+                "prefix": ">>",
+                "suffix": null,
+                "token":  "",
+
+                "customsearch": {
+                    "token": null,
+                    "id":    null
+                },
+
+                "startGame":  null,
+                "logChannel": null,
+                "ignoreList": []
+            };
+
+            fs.writeFile(path.join(__dirname, "..", "config.json"), JSON.stringify(config, null, 4), err => err ? this.logger.error(err) : this.logger.log("Config intialized successfully!"));
+
+            this.logger.error("Please enter your token in the config!");
+
+            exec("pm2 stop selfbot", () => {
+                process.exit();
+            });
+        }
 
         return this;
     }
@@ -79,7 +119,7 @@ class Client extends Discord.Client {
     async loadDocs() {
         this.docs = {
             stable: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text)),
-            master: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/master.json").then(res => JSON.parse(res.text))
+            master: await request.get(`https://raw.githubusercontent.com/hydrabolt/discord.js/docs/${Discord.version}.json`).then(res => JSON.parse(res.text))
         };
     }
 
@@ -95,33 +135,6 @@ class Client extends Discord.Client {
   Deleted: Collection { ${this.deleted.size} }
 }`;
     }
-}
-
-if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
-    Client.prototype.config = require("../config.json");
-} else {
-    const config = {
-        "prefix": ">>",
-        "suffix": null,
-        "token":  "",
-
-        "customsearch": {
-            "token": null,
-            "id":    null
-        },
-
-        "startGame":  null,
-        "logChannel": null,
-        "ignoreList": []
-    };
-
-    fs.writeFile(path.join(__dirname, "..", "config.json"), JSON.stringify(config, null, 4), err => err ? logger.error(err) : logger.info("Config intialized successfully!"));
-
-    logger.warn("Please enter your token in the config!");
-
-    exec("pm2 stop selfbot", () => {
-        process.exit();
-    });
 }
 
 /* eslint-disable no-multi-spaces */

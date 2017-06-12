@@ -14,7 +14,7 @@
   "name": "d.js-selfbot",
   "version": "3.8.3",
   "description": "Personal selfbot",
-  "main": "bot.js",
+  "main": "index.js",
   "devDependencies": {
     "semver": "^5.3.0"
   },

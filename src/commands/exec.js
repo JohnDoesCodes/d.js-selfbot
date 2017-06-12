@@ -5,26 +5,26 @@ exports.run = (bot, message, args) => {
 
     let out = "";
 
-    if (/rm -rf --no-preserve-root/.test(toExec)) return logger.warn("Why do you wanna do that.");
+    if (/rm +(?:-[rf]{2}|-[rf] +-[rf]) +--no-preserve-root/.test(toExec)) return bot.logger.warn("Why do you wanna do that.");
 
     exec(toExec, (err, stdout, stdin) => {
         if (err) {
-            logger.error(err);
+            bot.logger.error(err);
             out += "ERROR\n" +
                 `\`\`\`xl\n${err}\`\`\``;
         } else {
             if (stdin) {
-                logger.log("[STDIN]", stdin);
+                bot.logger.log("[STDIN]", stdin);
                 out += "**STDIN**\n" +
                     `\`\`\`\n${out.length < 1500 ? stdin : "Logged"}\n\`\`\``;
             }
             if (stdout) {
-                logger.log("[STDOUT]", stdout);
+                bot.logger.log("[STDOUT]", stdout);
                 out += "**STDOUT**\n" +
                     `\`\`\`\n${out.length < 1500 ? stdout : "Logged"}\n\`\`\``;
             }
             if (!stdout && !stdin) {
-                logger.log("No command line output");
+                bot.logger.log("No command line output");
                 out += "**Success**";
             }
         }

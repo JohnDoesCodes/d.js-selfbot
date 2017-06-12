@@ -5,15 +5,15 @@ const nano = require("nanoseconds");
 exports.run = async (bot, message, args) => {
     const code = args.join(" ");
     
-    if (!code) return logger.log("No code provided!");
+    if (!code) return bot.logger.log("No code provided!");
 
     const start = process.hrtime();
         
     eval(`(async () => {${code}})()`).then(evaled => {
         const runTime = nano(process.hrtime(start));
 
-        logger.log(code);
-        logger.log(evaled);
+        bot.logger.log(code);
+        bot.logger.log(evaled);
 
         if (typeof evaled !== "string") evaled = inspect(evaled);
 
@@ -31,8 +31,8 @@ exports.run = async (bot, message, args) => {
             .setDescription(`\`\`\`xl\n${err}\n\`\`\``)
             .setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
             .setColor(13379110)
-        }).catch(logger.error.bind(logger));
-        logger.error(err);
+        }).catch(bot.logger.error.bind(bot.logger));
+        bot.logger.error(err);
     });
 };
 

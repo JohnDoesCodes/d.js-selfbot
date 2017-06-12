@@ -6,7 +6,7 @@ exports.run = (bot, message) => {
     const channel = bot.channels.get(bot.config.logChannel);
 
     if (channel) {
-        if (message.content.length > 1900) return logger.warn("Message too long. Will not be logged.");
+        if (message.content.length > 1900) return bot.logger.warn("Message too long. Will not be logged.");
         channel.send({embed: new RichEmbed()
 			.setAuthor(message.author.tag, message.author.displayAvatarURL)
 			.setDescription(message.content)
@@ -15,10 +15,10 @@ exports.run = (bot, message) => {
 			.setTimestamp(message.createdAt)
         });
     } else {
-        logger.log("Message from:", message.author.tag);
-        message.guild ? logger.log("Guild:", message.guild.name) : logger.log("In DM");
-        if (message.channel.name) logger.log("Channel:", message.channel.name);
-        logger.log("Content:", message.content);
+        bot.logger.log("Message from:", message.author.tag);
+        message.guild ? bot.logger.log("Guild:", message.guild.name) : bot.logger.log("In DM");
+        if (message.channel.name) bot.logger.log("Channel:", message.channel.name);
+        bot.logger.log("Content:", message.content);
     }
     bot.deleted.set(message.author.id, message);
 };

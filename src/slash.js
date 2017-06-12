@@ -43,7 +43,7 @@ const slash = {
         message.edit(content
         .replace(/[a-z]/gi, l => letters[l.toString()])
         .replace(/~/g, "Dancing"))
-        .catch(logger.error.bind(logger));
+        .catch(bot.logger.error.bind(bot.logger));
     },
     "docs": (bot, message) => {
         message.edit("Read the Docs\u2122");
@@ -53,7 +53,7 @@ const slash = {
             .setTitle("So you want to be spoonfed?")
             .setColor(message.guild && message.member.displayColor ? message.member.displayColor : 0x229364)
             .setImage("https://img.fireden.net/vg/image/1429/90/1429905490901.gif")
-        }).catch(logger.error.bind(logger));
+        }).catch(bot.logger.error.bind(bot.logger));
     },
     "gethelp": (bot, message) => {
         message.edit({embed: new RichEmbed()

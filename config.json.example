@@ -1,4 +1,5 @@
 {
+    "debug": false,
     "prefix": "Your desired prefix or null if you have a suffix",
     "suffix": "Your desired suffix or null if you have a prefix",
     "token": "Your user token",

@@ -21,7 +21,7 @@ exports.run = (bot, message) => {
 		.addField("Heartbeat Ping", `${Math.floor(bot.ping)}ms`, true)
 		.setColor(0x2d8244);
 
-    message.edit({embed}).catch(logger.error.bind(logger));
+    message.edit({embed}).catch(bot.logger.error.bind(bot.logger));
 };
 
 exports.name = "botinfo";

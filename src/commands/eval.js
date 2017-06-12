@@ -5,7 +5,7 @@ const nano = require("nanoseconds");
 exports.run = (bot, message, args) => {
     const code = args.join(" ").replace(/\u037e/g, ";"), embed = new Discord.RichEmbed();
 
-    if (!code) return logger.log("No code provided!");
+    if (!code) return bot.logger.log("No code provided!");
 
     let start = process.hrtime();
 
@@ -14,7 +14,7 @@ exports.run = (bot, message, args) => {
 
         embed.setFooter("Runtime: " + (nano(process.hrtime(start)) / 1000).toFixed(3) + "\u03bcs", "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png");
 
-        logger.log(code);
+        bot.logger.log(code);
 
         if (evaled instanceof Promise) {
             start = process.hrtime();
@@ -22,7 +22,7 @@ exports.run = (bot, message, args) => {
             return evaled.then(done => {
                 const end = nano(process.hrtime(start));
 
-                logger.log(done);
+                bot.logger.log(done);
 
                 if (typeof done !== "string") done = inspect(done);
 
@@ -34,31 +34,31 @@ exports.run = (bot, message, args) => {
             }).catch(err => {
                 const end = nano(process.hrtime(start));
 
-                logger.error(err);
+                bot.logger.error(err);
                 embed.setTitle("<:panicbasket:267397363956580352>PROMISE ERROR<:panicbasket:267397363956580352>")
                     .setDescription(`\`\`\`xl\n${err}\`\`\`\nRejected in ${(end / 1000).toFixed(3)}\u03bcs`)
                     .setColor(13379110);
 
-                message.edit(message.content, {embed}).catch(logger.error.bind(logger));
+                message.edit(message.content, {embed}).catch(bot.logger.error.bind(bot.logger));
             });
         }
         if (typeof evaled !== "string") evaled = inspect(evaled);
-        logger.log(evaled);
+        bot.logger.log(evaled);
         embed.setTitle("**OUTPUT**")
             .setDescription(evaled.length < 2036 ? "```js\n" + evaled.replace(/`/g, "`\u200b").replace(new RegExp(`${bot.token}${bot.config.customsearch ? `|${bot.config.customsearch.token}|${bot.config.customsearch.id}` : ""}`, "g"), "[SECRET]") + "\n```" : "```Output too long.\nSaved to console.```")
             .setColor(24120);
 
-        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).catch(logger.error.bind(logger));
+        message.edit(`**INPUT:** \`${code.replace(/;/g, "\u037e")}\``, {embed}).catch(bot.logger.error.bind(bot.logger));
     } catch (err) {
         const runTime = nano(process.hrtime(start));
 
-        logger.error(err);
+        bot.logger.error(err);
         message.edit("**INPUT:** `" + code.replace(/;/g, "\u037e") + "`", {embed: new Discord.RichEmbed()
             .setTitle("<:panicbasket:267397363956580352>ERROR<:panicbasket:267397363956580352>")
             .setDescription(`\`\`\`xl\n${err}\n\`\`\``)
             .setFooter(`Runtime: ${(runTime / 1000).toFixed(3)}\u03bcs`, "https://cdn.discordapp.com/attachments/286943000159059968/298622278097305600/233782775726080012.png")
             .setColor(13379110)
-        }).catch(logger.error.bind(logger));
+        }).catch(bot.logger.error.bind(bot.logger));
     }
 };
 

@@ -1,15 +1,15 @@
 exports.run = (bot, message, args) => {
-    if (!args.length) return logger.log("No command file specified!");
+    if (!args.length) return bot.logger.log("No command file specified!");
     try {
         const cmdFile = require(`./${args[0]}.js`);
 
         bot.commands.set(cmdFile.name, cmdFile);
 
-        logger.info("New command set!");
+        bot.logger.info("New command set!");
         message.edit("New command set!");
     } catch (err) {
         if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
-        logger.error(err);
+        bot.logger.error(err);
         message.edit("Failed to add new command: " + args[0]);
     }
 };

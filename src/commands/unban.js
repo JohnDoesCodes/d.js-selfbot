@@ -1,8 +1,8 @@
 const {User, GuildMember} = require("discord.js");
 
 exports.run = (bot, message, args) => {
-    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return logger.warn("You don't have ban permission.");
-    if (!args[0]) return logger.warn("User ID to unban not provided.");
+    if (!message.guild.me.hasPermission("BAN_MEMBERS")) return bot.logger.warn("You don't have ban permission.");
+    if (!args[0]) return bot.logger.warn("User ID to unban not provided.");
 
     message.guild.fetchBans().then(users => {
         const {user} = users.get(args[0]) || {};
@@ -10,7 +10,7 @@ exports.run = (bot, message, args) => {
         return user;
     }).then(user => user ? message.guild.unban(user) : null).then(unbanned => {
         if (!unbanned) {
-            logger.warn(`${args[0]} is not a valid unban target!`);
+            bot.logger.warn(`${args[0]} is not a valid unban target!`);
 
             return message.edit(`${args[0]} is not a valid unban target!`);
         }
@@ -23,10 +23,10 @@ exports.run = (bot, message, args) => {
             
         banMSG += " was unbanned.";
         
-        logger.log(banMSG);
+        bot.logger.log(banMSG);
 
         return message.channel.send(banMSG, {code:true});
-    }).catch(logger.error.bind(logger));
+    }).catch(bot.logger.error.bind(bot.logger));
 };
 
 exports.name = "unban";

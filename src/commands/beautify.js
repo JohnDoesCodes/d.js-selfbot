@@ -6,8 +6,8 @@ exports.run = (bot, message, args) => {
 		
         code = code.replace(/^`([^]+?)`$/, "$1").replace(/^(?:js|javascript)\n?/i, "");
 		
-        message.edit(beautify(code, {indent_size:4}), {code:"js"}).catch(logger.error.bind(logger));
-    }).catch(logger.error.bind(logger));
+        message.edit(beautify(code, {indent_size:4}), {code:"js"}).catch(bot.logger.error.bind(bot.logger));
+    }).catch(bot.logger.error.bind(bot.logger));
 };
 
 exports.name = "beautify";

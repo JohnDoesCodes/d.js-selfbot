@@ -5,8 +5,8 @@ exports.run = (bot, message, args) => {
 	
     if (!game) game = null;
     bot.config.startGame = game;
-    bot.user.setGame(game).catch(logger.error.bind(logger));
-    fs.writeFile("./config.json", JSON.stringify(bot.config, null, "\t"), err => err ? (logger.error(err), message.edit("Failed to update config.")) : (logger.info("Updated config successfully!"), message.edit("Config updated!")));
+    bot.user.setGame(game).catch(bot.logger.error.bind(bot.logger));
+    fs.writeFile("./config.json", JSON.stringify(bot.config, null, "\t"), err => err ? (bot.logger.error(err), message.edit("Failed to update config.")) : (bot.logger.info("Updated config successfully!"), message.edit("Config updated!")));
 };
 
 exports.name = "setstartgame";

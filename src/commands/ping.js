@@ -3,8 +3,8 @@ exports.run = async (bot, message) => {
     message.edit("Calculated Ping```\n" +
 		"Websocket:       " + Math.round(bot.ping) + "ms\n" +
 		"Response Time:   " + (message.editedTimestamp - message.createdTimestamp) + "ms\n" +
-		"HTTP Round Trip: " + (message.createdTimestamp - Date.now()) + "ms\n```")
-    .catch(logger.error.bind(logger));
+		"HTTP Round Trip: " + (message.createdTimestamp - Date.now()) + "ms\n```"
+    ).catch(bot.logger.error.bind(bot.logger));
 };
 
 exports.name = "ping";

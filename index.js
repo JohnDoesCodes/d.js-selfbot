@@ -1,6 +1,4 @@
-const {Client, util} = require("./src");
-
-const bot = new Client();
+const {Client} = require("./src");
 
 /**
  * Adjust these to change how much logging is done.
@@ -8,12 +6,11 @@ const bot = new Client();
  * info: whether to log extra info
  * warn: whether to log warnings
  */
-const loggerOpts = {
+
+const bot = new Client({logger: {
     time: true,
     info: true,
     warn: true,
-};
-
-global.logger = new util.Logger(loggerOpts);
+}});
 
 bot.login();

@@ -4,7 +4,7 @@ exports.run = (bot, message, args) => {
     const embed = new RichEmbed();
     const type  = args[0].toLowerCase();
 
-    if (!type) return logger.log("Must provide a type!");
+    if (!type) return bot.logger.log("Must provide a type!");
     if (type === "types") {
         const types = [];
 
@@ -14,15 +14,15 @@ exports.run = (bot, message, args) => {
 			.setDescription(types.sort().join("\n"))
 			.setColor(24120);
 
-        return message.edit({embed}).catch(logger.error.bind(logger));
+        return message.edit({embed}).catch(bot.logger.error.bind(bot.logger));
     }
     const list = bot.commands.filter(a => a.type === type);
 
-    if (!list) return logger.warn(`${type} is not a valid type!`);
+    if (!list) return bot.logger.warn(`${type} is not a valid type!`);
     embed.setTitle(type.replace(/^(.)/, l => l.toString().toUpperCase()))
 		.setDescription(list.map(a => a.name).sort().join("\n"))
 		.setColor(24120);
-    message.edit({embed}).catch(logger.error.bind(logger));
+    message.edit({embed}).catch(bot.logger.error.bind(bot.logger));
 };
 
 exports.name = "list",

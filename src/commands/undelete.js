@@ -9,7 +9,7 @@ exports.run = (bot, message, args) => {
 
     const msg = bot.deleted.get(id);
     
-    if (!msg) return logger.warn("No recently deleted message!");
+    if (!msg) return bot.logger.warn("No recently deleted message!");
 
     bot.deleted.delete(id);
 

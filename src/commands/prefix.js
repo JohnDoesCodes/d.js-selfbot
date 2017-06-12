@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
     } else {
         bot.config.prefix = args[0];
         bot.config.suffix = null;
-        fs.writeFile('./config.json', JSON.stringify(bot.config, null, "\t"), err => err ? logger.error(err) : logger.log("Updated config successfully!"));
+        fs.writeFile('./config.json', JSON.stringify(bot.config, null, 4), err => err ? bot.logger.error(err) : bot.logger.log("Updated config successfully!"));
         message.reply("New prefix set to " + bot.config.prefix);
     }
 };

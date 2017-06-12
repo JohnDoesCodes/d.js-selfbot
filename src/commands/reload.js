@@ -7,11 +7,11 @@ function reload(bot, name) {
 
         bot.commands.set(name, cmdFile);
 
-        logger.info(`Reloaded ${name} successfully!`);
+        bot.logger.info(`Reloaded ${name} successfully!`);
         success++;
     } catch (err) {
-        logger.error(`File failed to load: ${name}.`);
-        logger.error(err);
+        bot.logger.error(`File failed to load: ${name}.`);
+        bot.logger.error(err);
         failure++;
     }
 }

@@ -4,7 +4,7 @@ exports.run = (bot, message, args = [""]) => {
     if (!cmdFile) {
         message.edit(`${args[0]} is not a valid command name or alias`);
 
-        return logger.info(`${args[0]} is not a valid command name or alias`);
+        return bot.logger.info(`${args[0]} is not a valid command name or alias`);
     }
 
     delete require.cache[require.resolve(`./${cmdFile.name}.js`)];
@@ -13,7 +13,7 @@ exports.run = (bot, message, args = [""]) => {
     
     bot.commands.delete(cmdFile.name);
     
-    logger.info(`Command ${cmdFile.name} removed successfully.`);
+    bot.logger.info(`Command ${cmdFile.name} removed successfully.`);
     message.edit(`Command ${cmdFile.name} removed successfully.`);
 };
 
