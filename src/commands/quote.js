@@ -2,12 +2,12 @@ const {RichEmbed} = require("discord.js");
 const moment = require("moment");
 
 exports.run = (bot, message, args) => {
-    let channel = message.mentions.channels.first(), pos = 1;
+    let channel = message.guild ? message.mentions.channels.first() : null, pos = 1;
 
     if (!channel || args[0] !== message.mentions.channels.first().toString()) {
         if (bot.channels.has(args[0])) {
             channel = bot.channels.get(args[0]);
-        } else if (message.mentions.users.size && args[0] === message.mentions.users.first().toString()) {
+        } else if (message.mentions.users.size && args[0].replace(/!/g, "") === message.mentions.users.first().toString()) {
             channel = message.mentions.users.first().dmChannel;
             if (!channel) return bot.logger.warn("No dm channel exists!");
         } else {

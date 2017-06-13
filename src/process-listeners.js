@@ -9,6 +9,6 @@ process.on("rejectionHandled", () => {
 process.on("unhandledRejection", err => {
     unhandledCount++;
     setTimeout(() => {
-        if (unhandledCount) bot.logger.error("Rejection remained unhandled for 500ms:", err);
+        if (unhandledCount) console.error("Rejection remained unhandled for 500ms:", err);
     }, 500);
 });

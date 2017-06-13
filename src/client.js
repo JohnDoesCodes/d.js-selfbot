@@ -119,7 +119,7 @@ class Client extends Discord.Client {
     async loadDocs() {
         this.docs = {
             stable: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/11.1.0.json").then(res => JSON.parse(res.text)),
-            master: await request.get(`https://raw.githubusercontent.com/hydrabolt/discord.js/docs/${Discord.version}.json`).then(res => JSON.parse(res.text))
+            master: await request.get("https://raw.githubusercontent.com/hydrabolt/discord.js/docs/master.json").then(res => JSON.parse(res.text))
         };
     }
 

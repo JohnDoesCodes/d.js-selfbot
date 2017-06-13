@@ -8,7 +8,7 @@ exports.run = (bot, message, args = [""]) => {
     if (bot.config.prefix) use = `${bot.config.prefix}${cmdFile.name} ${cmdFile.use}`;
     else use = `${cmdFile.use ? `${cmdFile.use} ` : ""}${bot.config.suffix}${cmdFile.name}`;
 
-    message.channel.send({embed: {
+    message.edit(message.content, {embed: {
         title:       cmdFile.name.replace(/^(.)/, l => l.toString().toUpperCase()),
         description: cmdFile.description,
         url:         `https://github.com/EPICZEUS1/d.js-selfbot/blob/master/src/commands/${cmdFile.name}.js`,
