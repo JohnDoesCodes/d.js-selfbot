@@ -1,4 +1,7 @@
+const {util:{Logger}} = require("./util");
 let unhandledCount = 0;
+
+const logger = new Logger();
 
 process.removeAllListeners("unhandledRejection");
 
@@ -9,6 +12,6 @@ process.on("rejectionHandled", () => {
 process.on("unhandledRejection", err => {
     unhandledCount++;
     setTimeout(() => {
-        if (unhandledCount) console.error("Rejection remained unhandled for 500ms:", err);
+        if (unhandledCount) logger.error("Rejection remained unhandled for 500ms:", err);
     }, 500);
 });

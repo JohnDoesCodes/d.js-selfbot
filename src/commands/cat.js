@@ -1,7 +1,7 @@
-const request = require("snekfetch");
+const {get} = require("snekfetch");
 
 exports.run = (bot, message) => {
-    request.get("https://random.cat/meow").then(response => {
+    get("https://random.cat/meow").then(response => {
         message.edit(response.body.file);
     });
 };
