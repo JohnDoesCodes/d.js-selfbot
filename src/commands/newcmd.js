@@ -1,5 +1,8 @@
-exports.run = (bot, message, args) => {
+exports.run = (bot, message, args = []) => {
     if (!args.length) return bot.logger.log("No command file specified!");
+
+    args = args.map(a => a.toLowerCase());
+
     try {
         const cmdFile = require(`./${args[0]}.js`);
 
@@ -11,6 +14,8 @@ exports.run = (bot, message, args) => {
         if (bot.commands.has(args[0])) bot.commands.delete(args[0]);
         bot.logger.error(err);
         message.edit("Failed to add new command: " + args[0]);
+    } finally {
+        delete require.cache[require.resolve(`./${args[0]}`)];
     }
 };
 

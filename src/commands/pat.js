@@ -1,13 +1,19 @@
+const ura = require("unique-random-array");
 const {get} = require("snekfetch");
 
-exports.run = (bot, message) => {
+let images;
+
+exports.run = async (bot, message) => {
     if (!message.mentions.users.size) return bot.logger.warn("You must mention someone!");
 
-    get("https://imgur.com/r/headpats/hot.json").then(res => {
-        const imageData = res.body.data[~~(Math.random() * res.body.data.length)];
+    if (!images) {
+        const data = await get("https://imgur.com/r/headpats/hot.json");
 
-        message.channel.send(`*pats ${message.mentions.users.first()}*`, {files:[`http://imgur.com/${imageData.hash}${imageData.ext.replace(/\?.*/, '')}`]}).then(() => message.delete());
-    });
+        images = ura(data.body.data);
+    }
+    const imageData = images();
+
+    message.edit(`*pats ${message.mentions.users.first()}* http://imgur.com/${imageData.hash}${imageData.ext.replace(/\?.*/, '')}`);
 };
 
 exports.name = "pat";

@@ -37,7 +37,7 @@ class Client extends Discord.Client {
         }).catch(err => {
             this.logger.error(err);
             this.logger.warn("Error on login.\nCheck that your token is correct.");
-            exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, null, () => {
+            exec(`pm2 stop ${this.shard ? this.shard.id : "selfbot"}`, () => {
                 process.exit(1);
             });
         });
@@ -57,9 +57,12 @@ class Client extends Discord.Client {
                 if (this.aliases.has(alias)) this.logger.warn(`Command ${commands[file].name} has duplicate alias ${alias}!`);
                 else this.aliases.set(alias, commands[file].name);
             }
-
             this.logger.info(`Loaded command ${commands[file].name} with ${commands[file].aliases.length} alias${commands[file].aliases.length == 1 ? "" : "es"}.`);
+
+            delete require.cache[require.resolve(`./commands/${commands[file].name}`)];
         }
+        delete require.cache[require.resolve("./commands")];
+
         this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load commands.`);
         this.logger.log(`Loaded ${this.commands.size} commands!`);
 
@@ -76,7 +79,11 @@ class Client extends Discord.Client {
 
             this[listener.event === "ready" ? "once" : "on"](listener.event, listener.run.bind(null, this));
             this.logger.info(`Loaded ${listener.event} listener!`);
+
+            delete require.cache[require.resolve(`./events/${listener.event}`)];
         }
+        delete require.cache[require.resolve("./events")];
+
         this.logger.info(`Took ${(nano(process.hrtime(loadStart)) / 1000000).toFixed(3)}ms to load listeners.`);
         this.logger.log("Listeners loaded!");
 
@@ -84,9 +91,9 @@ class Client extends Discord.Client {
     }
 
     loadConfig() {
-        if (fs.existsSync(path.join(__dirname, "..", "config.json"))) {
+        try {
             this.config = require(path.join(__dirname, "..", "config.json"));
-        } else {
+        } catch (err) {
             const config = {
                 "debug": false,
                 

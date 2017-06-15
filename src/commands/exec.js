@@ -10,7 +10,7 @@ exports.run = (bot, message, args) => {
     exec(toExec, (err, stdout, stdin) => {
         if (err) {
             bot.logger.error(err);
-            out += "ERROR\n" +
+            out += "**ERROR**\n" +
                 `\`\`\`xl\n${err}\`\`\``;
         } else {
             if (stdin) {

@@ -13,6 +13,8 @@ function reload(bot, name) {
         bot.logger.error(`File failed to load: ${name}.`);
         bot.logger.error(err);
         failure++;
+    } finally {
+        delete require.cache[require.resolve(`./${name}`)];
     }
 }
 
